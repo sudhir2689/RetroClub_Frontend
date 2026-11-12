@@ -4,10 +4,10 @@ import {
   LayoutDashboard,
   Package,
   Settings2,
-  Store,
   type LucideIcon,
 } from "lucide-react";
 import { NavLink } from "react-router-dom";
+import { BrandLogo } from "./BrandLogo.tsx";
 
 type AdminNavItem = {
   label: string;
@@ -68,12 +68,7 @@ export function AdminSidebar() {
   return (
     <aside className={sidebarRoot}>
       <div className={brandRow}>
-        <div className="flex items-center gap-3">
-          <Store className="w-10 h-10" />
-          <span className="text-[25px] font-semibold text-foreground">
-            E-Shopify
-          </span>
-        </div>
+        <BrandLogo className="h-10 w-auto text-foreground" />
       </div>
 
       <div className="flex-1 overflow-y-auto">

@@ -102,29 +102,31 @@ export function StoreHome() {
     <div className={pageWrapClass}>
       <div className={contentContainerClass}>
         <div className={sectionStackClass}>
-          <section>
-            <div className={bannerGridClass}>
-              <Card className={bannerMainCardClass}>
-                <img
-                  src={mainBanner.imageUrl}
-                  alt="Feature Image"
-                  className={bannerMainImageClass}
-                />
-              </Card>
+          {mainBanner ? (
+            <section>
+              <div className={bannerGridClass}>
+                <Card className={bannerMainCardClass}>
+                  <img
+                    src={mainBanner.imageUrl}
+                    alt="Feature Image"
+                    className={bannerMainImageClass}
+                  />
+                </Card>
 
-              <div className={bannerSideGridClass}>
-                {sideBanners.map((item) => (
-                  <Card key={item._id} className={bannerSideCardClass}>
-                    <img
-                      src={item.imageUrl}
-                      alt="Feature Image"
-                      className={bannerSideImageClass}
-                    />
-                  </Card>
-                ))}
+                <div className={bannerSideGridClass}>
+                  {sideBanners.map((item) => (
+                    <Card key={item._id} className={bannerSideCardClass}>
+                      <img
+                        src={item.imageUrl}
+                        alt="Feature Image"
+                        className={bannerSideImageClass}
+                      />
+                    </Card>
+                  ))}
+                </div>
               </div>
-            </div>
-          </section>
+            </section>
+          ) : null}
 
           {!!data.categories.length ? (
             <section>
@@ -135,7 +137,10 @@ export function StoreHome() {
 
               <div className={categoryGridClass}>
                 {data.categories.slice(0, 4).map((categoryItem) => (
-                  <Link to={`/collections?category=${categoryItem._id}`}>
+                  <Link
+                    key={categoryItem._id}
+                    to={`/collections?category=${categoryItem._id}`}
+                  >
                     <Card className={categoryCardClass}>
                       <CardContent className={categoryContentClass}>
                         <div className={categoryIconWrapClass}>
@@ -168,14 +173,16 @@ export function StoreHome() {
 
               <div className={couponGridClass}>
                 {data.coupons.slice(0, 4).map((coupon) => (
-                  <Card className={couponCardClass}>
+                  <Card key={coupon.code} className={couponCardClass}>
                     <CardContent className={couponContentClass}>
-                      <div className={couponIconWrapClass}>
-                        <TicketPercent className={couponIconClass} />
+                      <div className={couponHeadClass}>
+                        <div className={couponIconWrapClass}>
+                          <TicketPercent className={couponIconClass} />
+                        </div>
+                        <Badge className={couponBadgeClass}>
+                          {coupon.percentage}% OFF
+                        </Badge>
                       </div>
-                      <Badge className={couponBadgeClass}>
-                        {coupon.percentage}% OFF
-                      </Badge>
 
                       <div className={couponCodeWrapClass}>
                         <p className={couponCodeLabelClass}>Coupon Code</p>

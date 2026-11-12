@@ -13,7 +13,6 @@ import {
   ShoppingBag,
   ShoppingBasket,
   ShoppingCart,
-  Store,
   User,
   type LucideIcon,
 } from "lucide-react";
@@ -29,6 +28,7 @@ import { useCustomerCartAndCheckoutStore } from "@/features/customer/cart-and-ch
 import CustomerCartAndCheckoutDrawer from "../cart-and-checkout/customer-cart-and-checkout-drawer";
 import { useCustomerOrdersStore } from "@/features/customer/orders/store";
 import CustomerOrdersDialog from "../orders/customer-orders-dialog";
+import { BrandLogo } from "@/components/admin/common/BrandLogo";
 
 type NavItem = {
   label: string;
@@ -147,8 +147,7 @@ export function CustomerNavbar() {
     <header className={headerClass}>
       <div className={shell}>
         <Link to={"/"} className={brandWrap}>
-          <Store className="h-10 w-10" />
-          <span className={brandTitle}>E-Shopify</span>
+          <BrandLogo className="h-10 w-auto text-foreground" />
         </Link>
 
         <div className={desktopCollectionsWrap}>

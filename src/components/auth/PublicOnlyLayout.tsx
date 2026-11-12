@@ -8,7 +8,9 @@ export function PublicOnlyLayout() {
   const { isBootstrapped, status } = useAuthStore();
   const location = useLocation();
 
-  if (!isLoaded) null;
+  if (!isLoaded) {
+    return null;
+  }
 
   if (isSignedIn && (!isBootstrapped || status === "loading")) {
     return <Commonloader />;
@@ -16,7 +18,7 @@ export function PublicOnlyLayout() {
 
   if (
     isSignedIn &&
-    (location.pathname === "/sign-in" || location.pathname === "sign-up")
+    (location.pathname === "/sign-in" || location.pathname === "/sign-up")
   ) {
     return <Navigate to={"/"} replace />;
   }
