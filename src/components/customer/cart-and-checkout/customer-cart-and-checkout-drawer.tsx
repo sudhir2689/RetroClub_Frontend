@@ -164,7 +164,7 @@ function CustomerCartAndCheckoutDrawer() {
                               />
                               <Button
                                 size="sm"
-                                onClick={() => void applyPromo(subTotal)}
+                                onClick={() => void applyPromo()}
                                 disabled={promoLoading || !promoInput.trim()}
                                 className="rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] text-xs"
                               >
