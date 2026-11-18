@@ -10,24 +10,26 @@ type CustomerProductDetailsGalleryProps = {
 
 const galleryWrapClass = "space-y-4";
 
-const mainImageCardClass = "overflow-hidden border-border/60 bg-card/80";
+const mainImageCardClass =
+  "overflow-hidden rounded-2xl border border-[#D4AF37]/50 bg-black shadow-xl shadow-black/60";
 
-const mainImageWrapClass = "aspect-[4/5] bg-muted";
+const mainImageWrapClass = "aspect-[4/5] bg-black";
 
-const imageClass = "h-full w-full object-cover";
+const imageClass = "h-full w-full object-cover transition-all duration-500";
 
 const noImageClass =
   "flex h-full items-center justify-center text-sm text-muted-foreground";
 
 const thumbnailsGridClass = "grid grid-cols-4 gap-3 sm:grid-cols-5";
 
-const thumbnailButtonBaseClass = "overflow-hidden border bg-card";
+const thumbnailButtonBaseClass =
+  "overflow-hidden rounded-xl border bg-black transition-all duration-300";
 
-const thumbnailButtonActiveClass = "border-primary ring-2 ring-primary/30";
+const thumbnailButtonActiveClass =
+  "border-[#D4AF37] ring-2 ring-[#D4AF37]/40 scale-105";
 
-const thumbnailButtonInactiveClass = "border-border/60";
-
-const thumbnailImageWrapClass = "aspect-square bg-muted";
+const thumbnailButtonInactiveClass =
+  "border-[#D4AF37]/30 hover:border-[#D4AF37]/70 opacity-70 hover:opacity-100";
 
 function CustomerProductDetailsGallery({
   product,
@@ -69,11 +71,11 @@ function CustomerProductDetailsGallery({
                 }`}
                 onClick={() => setSelectedImage(item.url)}
               >
-                <div className={thumbnailButtonBaseClass}>
+                <div className="aspect-square bg-black">
                   <img
                     src={item.url}
                     alt={product.title}
-                    className={imageClass}
+                    className="h-full w-full object-cover"
                   />
                 </div>
               </button>

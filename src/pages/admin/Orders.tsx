@@ -25,28 +25,27 @@ import type {
 import { formatPrice } from "@/lib/utils";
 import { useEffect } from "react";
 
-const pageWrapClass = "min-h-screen bg-background";
-const contentWrapClass = "mx-auto max-w-7xl px-4 py-8";
-const cardClass = "border-border bg-card";
-const wrapClass = "space-y-4";
+const pageWrapClass = "min-h-screen bg-black text-foreground";
+const contentWrapClass = "mx-auto max-w-7xl space-y-6";
+const cardClass = "rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] shadow-xl shadow-black/50 overflow-hidden";
+const wrapClass = "space-y-4 border-b border-[#D4AF37]/20 p-6";
 const topRowClass =
   "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between";
-const titleClass = "flex items-center gap-2 text-2xl font-semibold";
-const metaClass = "text-sm text-muted-foreground";
-const buttonClass = "rounded-none";
+const titleClass = "text-2xl font-bold tracking-tight text-white flex items-center gap-2";
+const metaClass = "text-xs text-muted-foreground";
 const emptyClass =
-  "rounded-lg border border-border bg-background p-6 text-sm text-muted-foreground";
-const tableWrapClass = "overflow-x-auto";
+  "rounded-xl border border-dashed border-[#D4AF37]/30 bg-black/40 p-8 text-center text-sm text-muted-foreground";
+const tableWrapClass = "overflow-x-auto rounded-xl border border-[#D4AF37]/30 bg-card";
 const cellStackClass = "space-y-1";
-const primaryTextClass = "font-medium text-foreground";
+const primaryTextClass = "font-medium text-white";
 const subTextClass = "text-xs text-muted-foreground";
-const selectTriggerClass = "h-9 w-[160px] rounded-none";
+const selectTriggerClass = "h-9 w-[160px] rounded-xl border border-[#D4AF37]/40 bg-black text-white";
 const successBadgeClass =
-  "border-primary/30 bg-primary/10 text-primary hover:bg-primary/10";
+  "border border-green-500/40 bg-green-500/10 text-green-400 rounded-lg";
 const dangerBadgeClass =
-  "border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/10";
+  "border border-red-500/40 bg-red-500/10 text-red-400 rounded-lg";
 const neutralBadgeClass =
-  "border-border bg-secondary/60 text-foreground hover:bg-secondary/60";
+  "border border-zinc-700 bg-zinc-800 text-zinc-300 rounded-lg";
 
 const orderStatusOptions: AdminOrderStatus[] = [
   "placed",
@@ -100,38 +99,66 @@ function AdminOrders() {
       <div className={contentWrapClass}>
         <Card className={cardClass}>
           <CardHeader className={wrapClass}>
-            <CardTitle className={titleClass}>Orders</CardTitle>
+            <div className={topRowClass}>
+              <div>
+                <CardTitle className={titleClass}>Orders Management</CardTitle>
+                <p className={metaClass}>
+                  Track customer orders, manage shipping states, and handle returns.
+                </p>
+              </div>
+            </div>
           </CardHeader>
 
-          <CardContent>
+          <CardContent className="p-6">
             {!orders.length ? (
-              <div className={emptyClass}>No Orders found</div>
+              <div className={emptyClass}>No orders placed yet</div>
             ) : (
               <div className={tableWrapClass}>
                 <Table>
-                  <TableHeader>
-                    <TableHead>Order</TableHead>
-                    <TableHead>Customer</TableHead>
-                    <TableHead>Items</TableHead>
-                    <TableHead>Amount</TableHead>
-                    <TableHead>Payment</TableHead>
-                    <TableHead>Paid at</TableHead>
-                    <TableHead className="text-right">Update</TableHead>
+                  <TableHeader className="bg-black/60 border-b border-[#D4AF37]/30">
+                    <TableRow className="border-[#D4AF37]/30 hover:bg-transparent">
+                      <TableHead className="text-[#D4AF37]">Order Code</TableHead>
+                      <TableHead className="text-[#D4AF37]">Customer</TableHead>
+                      <TableHead className="text-[#D4AF37]">Items</TableHead>
+                      <TableHead className="text-[#D4AF37]">Amount</TableHead>
+                      <TableHead className="text-[#D4AF37]">Payment</TableHead>
+                      <TableHead className="text-[#D4AF37]">Order Status</TableHead>
+                      <TableHead className="text-[#D4AF37]">Dates</TableHead>
+                      <TableHead className="text-right text-[#D4AF37]">Actions</TableHead>
+                    </TableRow>
                   </TableHeader>
 
                   <TableBody>
                     {orders.map((order) => {
-                      const canUpdate = canUpdateStatus(order);
+                      const isUpdating = updatingOrderId === order._id;
+                      const isModifiable = canUpdateStatus(order);
+
                       return (
-                        <TableRow key={order._id}>
-                          <TableCell className="font-medium">
-                            {order._id}
+                        <TableRow
+                          key={order._id}
+                          className="border-b border-[#D4AF37]/20 hover:bg-white/[0.02] transition-colors"
+                        >
+                          <TableCell className="font-mono text-xs text-[#D4AF37]">
+                            #{order.code}
                           </TableCell>
-                          <TableCell>{order.customerName}</TableCell>
-                          <TableCell>{order.totalItems}</TableCell>
+
                           <TableCell>
+                            <div className={cellStackClass}>
+                              <p className={primaryTextClass}>
+                                {order.customerName}
+                              </p>
+                              <p className={subTextClass}>
+                                {order.customerEmail}
+                              </p>
+                            </div>
+                          </TableCell>
+
+                          <TableCell className="text-white">{order.totalItems}</TableCell>
+
+                          <TableCell className="font-semibold text-white">
                             {formatPrice(order.totalAmount)}
                           </TableCell>
+
                           <TableCell>
                             <AdminPaymentStatusBadge
                               status={order.paymentStatus}
@@ -139,47 +166,67 @@ function AdminOrders() {
                           </TableCell>
 
                           <TableCell>
-                            {formatDate(order.paidAt || order.createdAt)}
-                          </TableCell>
-                          <TableCell className="text-right">
-                            {canUpdate ? (
-                              <Select
-                                value={getNextStatusValue(order)}
-                                onValueChange={(value) =>
-                                  void changeStatus(
-                                    order._id,
-                                    value as AdminOrderStatus,
-                                  )
-                                }
-                                disabled={updatingOrderId === order._id}
-                              >
-                                <SelectTrigger className={selectTriggerClass}>
-                                  <SelectValue placeholder="Update Status" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {orderStatusOptions.map((status) => (
-                                    <SelectItem
-                                      key={status}
-                                      value={status}
-                                      disabled={
-                                        status === "placed" ||
-                                        status === order.orderStatus
-                                      }
-                                    >
-                                      {status}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            ) : (
-                              <span className={subTextClass}>
-                                {order.paymentStatus !== "paid"
-                                  ? "Payment not paid"
+                            <Badge
+                              className={`rounded-lg px-2.5 py-0.5 text-xs font-semibold ${
+                                order.orderStatus === "delivered"
+                                  ? "border border-green-500/40 bg-green-500/10 text-green-400"
                                   : order.orderStatus === "returned"
-                                    ? "Returned"
-                                    : "Completed"}
-                              </span>
-                            )}
+                                    ? "border border-red-500/40 bg-red-500/10 text-red-400"
+                                    : "border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#D4AF37]"
+                              }`}
+                            >
+                              {order.orderStatus}
+                            </Badge>
+                          </TableCell>
+
+                          <TableCell>
+                            <div className={cellStackClass}>
+                              <p className={subTextClass}>
+                                Placed: {formatDate(order.createdAt)}
+                              </p>
+                              {order.paidAt ? (
+                                <p className={subTextClass}>
+                                  Paid: {formatDate(order.paidAt)}
+                                </p>
+                              ) : null}
+                              {order.deliveredAt ? (
+                                <p className={subTextClass}>
+                                  Delivered: {formatDate(order.deliveredAt)}
+                                </p>
+                              ) : null}
+                              {order.returnedAt ? (
+                                <p className="text-xs text-red-400">
+                                  Returned: {formatDate(order.returnedAt)}
+                                </p>
+                              ) : null}
+                            </div>
+                          </TableCell>
+
+                          <TableCell className="text-right">
+                            <Select
+                              value={getNextStatusValue(order)}
+                              disabled={!isModifiable || isUpdating}
+                              onValueChange={(value) =>
+                                changeStatus(order._id, value as AdminOrderStatus)
+                              }
+                            >
+                              <SelectTrigger className={selectTriggerClass}>
+                                <SelectValue
+                                  placeholder={
+                                    isUpdating
+                                      ? "Updating..."
+                                      : order.orderStatus
+                                  }
+                                />
+                              </SelectTrigger>
+                              <SelectContent className="border border-[#D4AF37]/40 bg-black text-white">
+                                {orderStatusOptions.map((status) => (
+                                  <SelectItem key={status} value={status}>
+                                    Mark as {status}
+                                  </SelectItem>
+                                ))}
+                              </SelectContent>
+                            </Select>
                           </TableCell>
                         </TableRow>
                       );

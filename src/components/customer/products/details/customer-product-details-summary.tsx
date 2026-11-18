@@ -15,35 +15,34 @@ const summaryWrapClass = "space-y-6";
 const badgesWrapClass = "flex flex-wrap items-center gap-2";
 
 const categoryBadgeClass =
-  "border-border bg-secondary text-secondary-foreground hover:bg-secondary";
+  "border border-[#D4AF37]/50 bg-black/60 text-white rounded-lg px-3 py-1 font-medium";
 
 const stockBadgeClass =
-  "border-primary/30 bg-primary/15 text-primary hover:bg-primary/15";
+  "border border-[#D4AF37]/60 bg-[#D4AF37]/15 text-[#D4AF37] rounded-lg px-3 py-1 font-semibold";
 
-const metaGridClass = "grid gap-3 text-sm sm:grid-cols-2";
+const metaGridClass = "grid gap-3 text-sm sm:grid-cols-2 rounded-xl border border-[#D4AF37]/30 bg-card p-4";
 
 const metaItemClass = "space-y-1";
 
-const metaLabelClass = "block text-muted-foreground";
+const metaLabelClass = "block text-xs uppercase tracking-wider text-muted-foreground";
 
-const metaValueClass = "block font-medium text-foreground";
+const metaValueClass = "block font-medium text-white";
 
 const priceBlockClass = "space-y-3";
 
 const priceRowClass = "flex flex-wrap items-center gap-3";
 
-const salePriceClass = "text-3xl font-semibold text-foreground";
+const salePriceClass = "text-3xl font-semibold text-white";
 
 const originalPriceClass = "text-lg text-muted-foreground line-through";
 
-const descriptionClass =
-  "whitespace-pre-line text-sm leading-7 text-muted-foreground";
-
 const actionButtonsClass = "flex flex-col gap-3 sm:flex-row";
 
-const primaryButtonClass = "rounded-none sm:flex-1";
+const primaryButtonClass =
+  "rounded-xl sm:flex-1 bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-all shadow-md shadow-[#D4AF37]/20";
 
-const secondaryButtonClass = "rounded-none sm:flex-1";
+const secondaryButtonClass =
+  "rounded-xl sm:flex-1 border border-[#D4AF37]/60 text-white hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all";
 
 const iconClass = "mr-2 h-4 w-4";
 
@@ -81,7 +80,7 @@ function CustomerProductDetailsSummary({
             {product.stock <= 5 ? `Only ${product.stock} left` : "In stock"}
           </Badge>
         ) : (
-          <Badge variant={"destructive"}>Out of stock</Badge>
+          <Badge variant={"destructive"} className="rounded-lg">Out of stock</Badge>
         )}
 
         {hasSale ? (
@@ -99,7 +98,7 @@ function CustomerProductDetailsSummary({
 
         <p className={metaItemClass}>
           <span className={metaLabelClass}>Category</span>
-          <span className={metaValueClass}>{product?.category.name}</span>
+          <span className={metaValueClass}>{product?.category?.name}</span>
         </p>
       </div>
 
@@ -113,10 +112,14 @@ function CustomerProductDetailsSummary({
           ) : null}
         </div>
 
-        {product.description ? <p>{product.description}</p> : null}
+        {product.description ? (
+          <p className="whitespace-pre-line text-sm leading-7 text-muted-foreground">
+            {product.description}
+          </p>
+        ) : null}
       </div>
 
-      {product.colors.length ? (
+      {product.colors && product.colors.length ? (
         <CustomerProductOptionsGroup
           values={product.colors}
           selectedValue={selectedColor}
@@ -125,7 +128,8 @@ function CustomerProductDetailsSummary({
         />
       ) : null}
 
-      {product.colors.length ? (
+      {/* FIXED: Check product.sizes.length instead of product.colors.length */}
+      {product.sizes && product.sizes.length ? (
         <CustomerProductOptionsGroup
           values={product.sizes}
           selectedValue={selectedSize}
@@ -134,7 +138,7 @@ function CustomerProductDetailsSummary({
         />
       ) : null}
 
-      <Separator />
+      <Separator className="bg-[#D4AF37]/30" />
 
       <div className={actionButtonsClass}>
         <Button
@@ -154,7 +158,7 @@ function CustomerProductDetailsSummary({
           onClick={() => void toggleWishlist()}
         >
           <Heart
-            className={`${iconClass} ${isWishlistActive ? "fill-current" : ""}`}
+            className={`${iconClass} ${isWishlistActive ? "fill-[#D4AF37] text-[#D4AF37]" : ""}`}
           />
           {isWishlistActive ? "Remove from Wishlist" : "Save to Wishlist"}
         </Button>

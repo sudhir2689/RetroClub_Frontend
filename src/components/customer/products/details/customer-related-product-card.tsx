@@ -8,26 +8,26 @@ import { formatPrice } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 const cardClass =
-  "overflow-hidden border-border/60 bg-card/80 transition hover:border-primary/50";
+  "group overflow-hidden rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-xl hover:shadow-[#D4AF37]/10";
 
 const linkClass = "block";
 
-const imageWrapClass = "aspect-[4/5] bg-muted";
+const imageWrapClass = "aspect-[4/5] bg-black overflow-hidden border-b border-[#D4AF37]/20";
 
-const imageClass = "h-full w-full object-cover";
+const imageClass = "h-full w-full object-cover transition-all duration-500 group-hover:scale-105";
 
 const noImageClass =
   "flex h-full items-center justify-center text-sm text-muted-foreground";
 
 const contentClass = "space-y-2 p-4";
 
-const brandClass = "text-xs uppercase tracking-[0.18em] text-muted-foreground";
+const brandClass = "text-xs uppercase tracking-[0.18em] text-[#D4AF37] font-semibold";
 
-const titleClass = "line-clamp-1 text-base font-semibold text-foreground";
+const titleClass = "line-clamp-1 text-base font-semibold text-white group-hover:text-[#D4AF37] transition-colors";
 
-const priceRowClass = "flex items-center gap-2";
+const priceRowClass = "flex items-center gap-2 pt-1";
 
-const salePriceClass = "font-semibold text-foreground";
+const salePriceClass = "font-semibold text-white";
 
 const originalPriceClass = "text-sm text-muted-foreground line-through";
 

@@ -11,46 +11,47 @@ import { formatPrice } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
 const cardClass =
-  "overflow-hidden border-border/60 bg-card/80 transition hover:border-primary/50";
+  "group overflow-hidden rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] transition-all duration-300 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-xl hover:shadow-[#D4AF37]/10";
 
 const linkClass = "block";
 
-const imageWrapClass = "relative aspect-[4/5] bg-muted";
+const imageWrapClass = "relative aspect-[4/5] bg-black overflow-hidden border-b border-[#D4AF37]/20";
 
 const imageClass =
-  "h-full w-full object-cover transition duration-300 hover:scale-[1.02]";
+  "h-full w-full object-cover transition duration-500 group-hover:scale-105";
 
 const noImageClass =
   "flex h-full items-center justify-center text-sm text-muted-foreground";
 
 const saleBadgeClass =
-  "absolute left-3 top-3 border-primary/30 bg-secondary text-primary hover:bg-secondary";
+  "absolute left-3 top-3 border border-[#D4AF37]/60 bg-black/80 text-[#D4AF37] rounded-lg px-2.5 py-0.5 text-xs font-semibold backdrop-blur-md";
 
-const contentClass = "space-y-4 p-4";
+const contentClass = "space-y-4 p-5";
 
-const detailsWrapClass = "space-y-1";
+const detailsWrapClass = "space-y-1.5";
 
-const brandClass = "text-xs uppercase tracking-[0.18em] text-muted-foreground";
+const brandClass = "text-xs font-semibold uppercase tracking-[0.18em] text-[#D4AF37]";
 
-const titleClass = "line-clamp-1 text-base font-semibold text-foreground";
+const titleClass = "line-clamp-1 text-base font-semibold text-white group-hover:text-[#D4AF37] transition-colors";
 
-const categoryClass = "text-sm text-muted-foreground";
+const categoryClass = "text-xs text-muted-foreground";
 
-const priceRowClass = "flex items-center gap-2";
+const priceRowClass = "flex items-baseline gap-2.5 pt-1";
 
-const salePriceClass = "text-base font-semibold text-foreground";
+const salePriceClass = "text-lg font-semibold text-white";
 
-const originalPriceClass = "text-sm text-muted-foreground line-through";
+const originalPriceClass = "text-xs text-muted-foreground line-through";
 
-const colorsWrapClass = "flex items-center gap-2";
+const colorsWrapClass = "flex items-center gap-1.5";
 
-const colorSwatchClass = "h-4 w-4 border border-border";
+const colorSwatchClass = "h-4 w-4 rounded-full border border-white/20";
 
 const extraColorsClass = "text-xs text-muted-foreground";
 
-const footerClass = "flex items-center justify-between gap-3";
+const footerClass = "flex items-center justify-between gap-3 pt-2";
 
-const buttonClass = "rounded-none px-4";
+const buttonClass =
+  "w-full rounded-xl border border-[#D4AF37]/60 bg-transparent text-[#D4AF37] font-semibold hover:bg-[#D4AF37] hover:text-black transition-all text-xs h-9";
 
 type CustomerProductCardProps = {
   product: CustomerProduct;
@@ -86,13 +87,14 @@ function CustomerProductCard({ product }: CustomerProductCardProps) {
           </div>
 
           <div className={priceRowClass}>
-            <span>{formatPrice(salePrice)}</span>
+            <span className={salePriceClass}>{formatPrice(salePrice)}</span>
             {hasSale ? (
               <span className={originalPriceClass}>
                 {formatPrice(product.price)}
               </span>
             ) : null}
           </div>
+
           {product.colors.length ? (
             <div className={colorsWrapClass}>
               {product.colors.slice(0, 4).map((color) => (

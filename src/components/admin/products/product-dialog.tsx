@@ -35,24 +35,28 @@ type ProductDialogProps = {
   onSaved: () => Promise<void>;
 };
 
-const dialogContentClass = "max-h-[92vh] overflow-y-auto sm:max-w-4xl";
+const dialogContentClass =
+  "max-h-[92vh] w-[95vw] sm:max-w-4xl overflow-y-auto rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl shadow-black p-6";
 
-const contentWrapClass = "grid gap-6";
+const contentWrapClass = "grid gap-6 mt-4";
 
-const twoColumnGridClass = "grid gap-4 md:grid-cols-2";
+const twoColumnGridClass = "grid gap-4 sm:grid-cols-2";
 
-const threeColumnGridClass = "grid gap-4 md:grid-cols-3";
+const threeColumnGridClass = "grid gap-4 sm:grid-cols-3";
 
 const fieldGroupClass = "space-y-2";
 
-const sectionGridClass = "grid gap-6 md:grid-cols-2";
+const sectionGridClass = "grid gap-6 sm:grid-cols-2";
 
 const statusGroupClass =
-  "flex gap-6 rounded-xl border border-border bg-card px-4 py-3";
+  "flex gap-6 rounded-xl border border-[#D4AF37]/40 bg-black/60 px-4 py-3";
 
 const statusItemClass = "flex items-center space-x-2";
 
-const actionsRowClass = "flex justify-end gap-3";
+const actionsRowClass = "flex justify-end gap-3 pt-4 border-t border-[#D4AF37]/20";
+
+const inputClass =
+  "rounded-xl border border-[#D4AF37]/40 bg-black/60 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]";
 
 export function ProductDialog({
   open,
@@ -83,33 +87,35 @@ export function ProductDialog({
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={dialogContentClass}>
-        <DialogHeader>
-          <DialogTitle>
-            {isEditMode ? "Update Product" : "Create Product"}
+        <DialogHeader className="border-b border-[#D4AF37]/20 pb-4">
+          <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
+            <span className="h-2.5 w-2.5 rounded-full bg-[#D4AF37]" />
+            {isEditMode ? "Update Product" : "Create New Product / Clothes"}
           </DialogTitle>
         </DialogHeader>
         <div className={contentWrapClass}>
           <div className={twoColumnGridClass}>
             <div className={fieldGroupClass}>
-              <Label>Title</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Title</Label>
               <Input
                 value={form.title}
                 onChange={(event) => updateField("title", event.target.value)}
-                placeholder="Title"
+                placeholder="Product title (e.g. Classic Denim Jacket)"
+                className={inputClass}
               />
             </div>
 
             <div className={fieldGroupClass}>
-              <Label>Brand</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Brand</Label>
               <Select
                 value={form.brand}
                 onValueChange={(val) => updateField("brand", val)}
               >
-                <SelectTrigger>
+                <SelectTrigger className={inputClass}>
                   <SelectValue placeholder="Brand" />
                 </SelectTrigger>
 
-                <SelectContent>
+                <SelectContent className="border border-[#D4AF37]/40 bg-black text-white">
                   {BRANDS.map((brand) => (
                     <SelectItem key={brand} value={brand}>
                       {brand}
@@ -120,28 +126,29 @@ export function ProductDialog({
             </div>
           </div>
           <div className={fieldGroupClass}>
-            <Label>Description</Label>
+            <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Description</Label>
             <Textarea
               value={form.description}
               onChange={(event) =>
                 updateField("description", event.target.value)
               }
-              rows={5}
-              placeholder="Description"
+              rows={4}
+              placeholder="Detailed description of the product or clothes..."
+              className={inputClass}
             />
           </div>
 
           <div className={twoColumnGridClass}>
             <div className={fieldGroupClass}>
-              <Label>Category</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Category</Label>
               <Select
                 value={form.category}
                 onValueChange={(val) => updateField("category", val)}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Category" />
+                <SelectTrigger className={inputClass}>
+                  <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="border border-[#D4AF37]/40 bg-black text-white">
                   {categories.map((category) => (
                     <SelectItem key={category._id} value={category._id}>
                       {category.name}
@@ -152,7 +159,7 @@ export function ProductDialog({
             </div>
 
             <div className={fieldGroupClass}>
-              <Label>Status</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Status</Label>
               <RadioGroup
                 value={form.status}
                 onValueChange={(value) =>
@@ -162,7 +169,7 @@ export function ProductDialog({
               >
                 <div className={statusItemClass}>
                   <RadioGroupItem value="active" id="product-status-active" />
-                  <Label htmlFor="product-status-active">Active</Label>
+                  <Label htmlFor="product-status-active" className="cursor-pointer">Active</Label>
                 </div>
 
                 <div className={statusItemClass}>
@@ -170,7 +177,7 @@ export function ProductDialog({
                     value="inactive"
                     id="product-status-inactive"
                   />
-                  <Label htmlFor="product-status-inactive">Inactive</Label>
+                  <Label htmlFor="product-status-inactive" className="cursor-pointer">Inactive</Label>
                 </div>
               </RadioGroup>
             </div>
@@ -178,35 +185,39 @@ export function ProductDialog({
 
           <div className={threeColumnGridClass}>
             <div className={fieldGroupClass}>
-              <Label>Price</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Price (₹)</Label>
               <Input
                 value={form.price}
                 onChange={(e) => updateField("price", e.target.value)}
                 type="number"
                 min="0"
                 placeholder="0"
+                className={inputClass}
               />
             </div>
 
             <div className={fieldGroupClass}>
-              <Label>Sale Percentage</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Sale Percentage (%)</Label>
               <Input
                 value={form.salePercentage}
                 onChange={(e) => updateField("salePercentage", e.target.value)}
                 type="number"
                 min="0"
+                max="100"
                 placeholder="0"
+                className={inputClass}
               />
             </div>
 
             <div className={fieldGroupClass}>
-              <Label>Stock</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">Stock Quantity</Label>
               <Input
                 value={form.stock}
                 onChange={(e) => updateField("stock", e.target.value)}
                 type="number"
                 min="0"
                 placeholder="0"
+                className={inputClass}
               />
             </div>
           </div>
@@ -231,16 +242,24 @@ export function ProductDialog({
           />
 
           <div className={actionsRowClass}>
-            <Button variant="outline" onClick={() => onOpenChange(false)}>
+            <Button
+              variant="outline"
+              onClick={() => onOpenChange(false)}
+              className="rounded-xl border border-[#D4AF37]/40 text-white hover:bg-[#D4AF37]/10"
+            >
               Cancel
             </Button>
 
-            <Button onClick={submit} disabled={saving}>
+            <Button
+              onClick={submit}
+              disabled={saving}
+              className="rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-md shadow-[#D4AF37]/20"
+            >
               {saving
-                ? "Saving..."
+                ? "Saving Product..."
                 : isEditMode
                   ? "Update Product"
-                  : "Create Product"}
+                  : "Save & Publish Product"}
             </Button>
           </div>
         </div>

@@ -4,18 +4,13 @@ import PromoTable from "@/components/admin/promos/promos-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAdminPromos } from "@/features/admin/promo/use-admin-promo";
 
-const pageWrapClass = "space-y-6 p-6";
+const pageWrapClass = "space-y-6";
 
-const cardClass = "border-border bg-card shadow-sm";
+const cardClass = "rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] shadow-xl shadow-black/50 overflow-hidden";
 
-const cardHeaderClass = "space-y-4";
+const cardHeaderClass = "space-y-4 border-b border-[#D4AF37]/20 p-6";
 
-const cardTitleClass = "text-xl";
-
-const cardContentClass = "space-y-4";
-
-const errorClass =
-  "rounded-none border border-destructive/20 bg-destructive/10 px-4 py-3 text-sm text-destructive";
+const cardTitleClass = "text-2xl font-bold tracking-tight text-white";
 
 function AdminPromos() {
   const {
@@ -28,7 +23,6 @@ function AdminPromos() {
     editingPromo,
     openCreateDialog,
     closePromoDialog,
-    refreshAll,
     savePromo,
     removePromo,
     saving,
@@ -40,7 +34,12 @@ function AdminPromos() {
     <div className={pageWrapClass}>
       <Card className={cardClass}>
         <CardHeader className={cardHeaderClass}>
-          <CardTitle className={cardTitleClass}>Promos</CardTitle>
+          <div>
+            <CardTitle className={cardTitleClass}>Coupons & Promo Codes</CardTitle>
+            <p className="text-xs text-muted-foreground mt-1">
+              Create and manage discount codes, percentage cuts, and minimum cart thresholds.
+            </p>
+          </div>
           <PromoToolbar
             search={search}
             onSearchChange={setSearch}
@@ -48,7 +47,7 @@ function AdminPromos() {
           />
         </CardHeader>
 
-        <CardContent>
+        <CardContent className="p-6">
           <PromoTable
             promos={promos}
             loading={loading}

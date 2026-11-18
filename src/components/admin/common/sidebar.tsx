@@ -9,13 +9,13 @@ import {
 import { NavLink } from "react-router-dom";
 import { BrandLogo } from "./BrandLogo.tsx";
 
-type AdminNavItem = {
+export type AdminNavItem = {
   label: string;
   href: string;
   icon: LucideIcon;
 };
 
-const items: AdminNavItem[] = [
+export const adminNavItems: AdminNavItem[] = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
   { label: "Products", href: "/admin/products", icon: Package },
   { label: "Coupons", href: "/admin/coupons", icon: BadgePercent },
@@ -24,41 +24,38 @@ const items: AdminNavItem[] = [
 ];
 
 const sidebarRoot =
-  "hidden w-[300px] shrink-0 border-r border-sidebar-border bg-sidebar lg:flex lg:flex-col";
+  "hidden w-[280px] shrink-0 border-r border-[#D4AF37]/30 bg-black lg:flex lg:flex-col";
 
 const brandRow =
-  "flex h-[72px] items-center border-b border-sidebar-border px-5";
-const navWrap = "space-y-2";
+  "flex h-[72px] items-center border-b border-[#D4AF37]/20 px-6";
+const navWrap = "space-y-2 p-4";
 const navItemBase =
-  "flex h-11 items-center gap-3 px-4 text-[15px] font-medium transition-colors";
+  "flex h-11 items-center gap-3.5 px-4 text-sm font-medium transition-all duration-200 rounded-xl";
 
-const navItemDesktop = `${navItemBase} rounded-none`;
-const navItemMobile = navItemBase;
-
-const activeItem = "bg-sidebar-primary text-sidebar-primary-foreground";
+const activeItem =
+  "bg-[#D4AF37] text-black font-semibold shadow-md shadow-[#D4AF37]/20";
 const idleItem =
-  "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground";
+  "text-white/80 hover:bg-white/5 hover:text-[#D4AF37]";
 
-function SidebarNav() {
+export function AdminSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <nav className={navWrap}>
-      {items.map((item) => {
+      {adminNavItems.map((item) => {
         const Icon = item.icon;
-        const link = (
+        return (
           <NavLink
             key={item.label}
             to={item.href}
             end={item.href === "/admin"}
+            onClick={onNavigate}
             className={({ isActive }) =>
-              `${navItemDesktop} ${isActive ? activeItem : idleItem}`
+              `${navItemBase} ${isActive ? activeItem : idleItem}`
             }
           >
-            <Icon className="h-[18px] w-[18px]" />
+            <Icon className="h-4.5 w-4.5" />
             <span>{item.label}</span>
           </NavLink>
         );
-
-        return link;
       })}
     </nav>
   );
@@ -68,11 +65,11 @@ export function AdminSidebar() {
   return (
     <aside className={sidebarRoot}>
       <div className={brandRow}>
-        <BrandLogo className="h-10 w-auto text-foreground" />
+        <BrandLogo className="h-9 w-auto text-white" />
       </div>
 
       <div className="flex-1 overflow-y-auto">
-        <SidebarNav />
+        <AdminSidebarNav />
       </div>
     </aside>
   );

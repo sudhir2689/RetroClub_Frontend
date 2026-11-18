@@ -5,13 +5,11 @@ const wrapperClass = "space-y-3";
 
 const headerClass = "space-y-1";
 
-const titleClass = "text-sm font-semibold text-foreground";
-
-const descriptionClass = "text-sm text-muted-foreground";
+const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
 
 const gridClass = "grid grid-cols-4 gap-2";
 
-const sizeButtonClass = "h-11";
+const sizeButtonClass = "h-11 rounded-xl font-semibold transition-all";
 
 type SizeSelectorProps = {
   selectedSizes: string[];
@@ -22,7 +20,7 @@ export function SizeSelector({ onToggle, selectedSizes }: SizeSelectorProps) {
   return (
     <div className={wrapperClass}>
       <div className={headerClass}>
-        <h3 className={titleClass}>Sizes</h3>
+        <h3 className={titleClass}>Available Sizes</h3>
       </div>
       <div className={gridClass}>
         {SIZE_OPTIONS.map((sizeItem) => {
@@ -30,7 +28,11 @@ export function SizeSelector({ onToggle, selectedSizes }: SizeSelectorProps) {
 
           return (
             <Button
-              className={sizeButtonClass}
+              className={`${sizeButtonClass} ${
+                active
+                  ? "bg-[#D4AF37] text-black border border-[#D4AF37] hover:bg-[#e5c158]"
+                  : "border border-[#D4AF37]/40 bg-black text-white hover:bg-[#D4AF37]/10"
+              }`}
               onClick={() => onToggle(sizeItem)}
               key={sizeItem}
               type="button"

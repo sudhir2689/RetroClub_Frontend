@@ -22,14 +22,14 @@ import type { ProductSort } from "@/features/customer/products/types";
 import { useCustomerProductList } from "@/features/customer/products/use-customer-collections";
 import { SlidersHorizontal } from "lucide-react";
 
-const pageWrapClass = "min-h-screen bg-background";
+const pageWrapClass = "min-h-screen bg-black text-foreground";
 
 const heroSectionClass =
-  "border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background";
+  "border-b border-[#D4AF37]/30 bg-gradient-to-b from-[#D4AF37]/10 via-black to-black";
 
 const heroContainerClass = "mx-auto max-w-7xl px-4 py-10";
 
-const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-primary";
+const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-[#D4AF37] font-semibold";
 
 const heroContentClass =
   "mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between";
@@ -37,13 +37,13 @@ const heroContentClass =
 const heroTitleWrapClass = "space-y-2";
 
 const heroTitleClass =
-  "text-3xl font-semibold tracking-tight text-foreground md:text-4xl";
+  "text-3xl font-semibold tracking-tight text-white md:text-4xl";
 
 const sortWrapClass = "flex items-center gap-3 text-sm text-muted-foreground";
 
-const sortTriggerClass = "w-[180px] rounded-none bg-card";
+const sortTriggerClass = "w-[180px] rounded-xl border border-[#D4AF37]/40 bg-black text-white";
 
-const contentContainerClass = "mx-auto max-w-7xl px-4 py-2";
+const contentContainerClass = "mx-auto max-w-7xl px-4 py-6";
 
 const topBarClass =
   "mb-6 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between";
@@ -51,15 +51,16 @@ const topBarClass =
 const activeBadgesWrapClass = "flex flex-wrap items-center gap-2";
 
 const activeBadgeClass =
-  "border-border bg-secondary text-secondary-foreground hover:bg-secondary";
+  "border border-[#D4AF37]/40 bg-[#D4AF37]/15 text-[#D4AF37] rounded-lg px-2.5 py-0.5 text-xs font-medium";
 
 const topBarActionsClass = "flex items-center gap-3";
 
-const mobileFilterButtonClass = "rounded-none lg:hidden";
+const mobileFilterButtonClass =
+  "rounded-xl border border-[#D4AF37]/50 bg-black text-[#D4AF37] hover:bg-[#D4AF37]/10 lg:hidden";
 
 const mobileFilterIconClass = "mr-2 h-4 w-4";
 
-const mobileSheetContentClass = "w-full max-w-sm border-border bg-background";
+const mobileSheetContentClass = "w-full max-w-sm border-r border-[#D4AF37]/40 bg-black text-white p-6";
 
 const mobileSheetHeaderClass = "sr-only";
 
@@ -67,18 +68,19 @@ const layoutGridClass = "grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]";
 
 const desktopAsideClass = "hidden lg:block";
 
-const desktopFilterCardClass = "sticky top-24 border-border/60 bg-card/80 p-5";
+const desktopFilterCardClass = "sticky top-24 rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] p-5 shadow-xl shadow-black/50";
 
 const productSectionClass = "space-y-6";
 
-const actionButtonClass = "rounded-none";
+const actionButtonClass =
+  "rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors";
 
-const emptyCardClass = "border-border/60 bg-card/80";
+const emptyCardClass = "rounded-2xl border border-[#D4AF37]/30 bg-[#0d0d0d]";
 
 const emptyCardContentClass =
   "flex min-h-60 flex-col items-center justify-center gap-4 p-6 text-center";
 
-const emptyTitleClass = "text-xl font-semibold text-foreground";
+const emptyTitleClass = "text-xl font-semibold text-white";
 
 const productGridClass = "grid gap-5 sm:grid-cols-2 xl:grid-cols-3";
 
@@ -119,7 +121,7 @@ function Collections() {
                   <SelectValue placeholder="Sort By" />
                 </SelectTrigger>
 
-                <SelectContent>
+                <SelectContent className="border border-[#D4AF37]/40 bg-black text-white">
                   <SelectItem value="recent">Newest First</SelectItem>
                   <SelectItem value="price-low">Price: Low to High</SelectItem>
                   <SelectItem value="price-high">Price: High to Low</SelectItem>
@@ -146,7 +148,7 @@ function Collections() {
               <SheetTrigger asChild>
                 <Button className={mobileFilterButtonClass}>
                   <SlidersHorizontal className={mobileFilterIconClass} />
-                  Filers
+                  Filters
                 </Button>
               </SheetTrigger>
 

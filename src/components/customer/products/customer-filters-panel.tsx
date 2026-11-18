@@ -13,36 +13,37 @@ const panelWrapClass = "space-y-6 overflow-y-auto px-4 py-2 lg:px-0 lg:py-0";
 
 const panelHeaderClass = "flex items-center justify-between gap-3";
 
-const titleClass = "text-base font-semibold text-foreground";
+const titleClass = "text-base font-semibold text-white";
 
-const clearButtonClass = "rounded-none px-2 text-sm";
+const clearButtonClass = "rounded-lg px-2 text-xs text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-white";
 
 const sectionClass = "space-y-3";
 
-const sectionTitleClass = "text-sm font-medium text-foreground";
+const sectionTitleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
 
 const stackedOptionsClass = "space-y-1";
 
-const fullWidthButtonClass = "w-full justify-start rounded-none";
+const fullWidthButtonClass =
+  "w-full justify-start rounded-xl text-xs font-medium transition-colors";
 
 const colorsWrapClass = "flex flex-wrap gap-3";
 
 const colorButtonBaseClass =
   "flex flex-col items-center gap-2 text-xs text-muted-foreground";
 
-const colorButtonActiveClass = "text-foreground";
+const colorButtonActiveClass = "text-white font-medium";
 
-const colorSwatchBaseClass = "h-8 w-8 border";
+const colorSwatchBaseClass = "h-8 w-8 rounded-full border";
 
-const colorSwatchActiveClass = "border-primary ring-2 ring-primary/30";
+const colorSwatchActiveClass = "border-[#D4AF37] ring-2 ring-[#D4AF37]/50 scale-110";
 
-const colorSwatchInactiveClass = "border-border";
+const colorSwatchInactiveClass = "border-white/20 hover:border-[#D4AF37]/60";
 
-const helperTextClass = "text-sm text-muted-foreground";
+const helperTextClass = "text-xs text-muted-foreground";
 
 const sizesWrapClass = "flex flex-wrap gap-2";
 
-const sizeButtonClass = "min-w-12 rounded-none";
+const sizeButtonClass = "min-w-12 rounded-xl text-xs font-semibold border transition-all";
 
 type CustomerFiltersPanelProps = {
   categories: ProductCategory[];
@@ -78,7 +79,7 @@ function CustomerFiltersPanel({
         ) : null}
       </div>
 
-      <Separator />
+      <Separator className="bg-[#D4AF37]/30" />
 
       <section className={sectionClass}>
         <h3 className={sectionTitleClass}>Categories</h3>
@@ -92,7 +93,11 @@ function CustomerFiltersPanel({
                 key={item._id}
                 type="button"
                 variant={isActive ? "default" : "ghost"}
-                className={fullWidthButtonClass}
+                className={`${fullWidthButtonClass} ${
+                  isActive
+                    ? "bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158]"
+                    : "text-muted-foreground hover:bg-white/5 hover:text-white"
+                }`}
                 onClick={() => onToggleFacet("category", item._id)}
               >
                 {item.name}
@@ -101,10 +106,12 @@ function CustomerFiltersPanel({
           })}
         </div>
       </section>
-      <Separator />
+
+      <Separator className="bg-[#D4AF37]/30" />
 
       <section className={sectionClass}>
         <h3 className={sectionTitleClass}>Brands</h3>
+
         <div className={stackedOptionsClass}>
           {BRAND_OPTIONS.map((brand) => {
             const isActive = filters.brand === brand;
@@ -114,7 +121,11 @@ function CustomerFiltersPanel({
                 key={brand}
                 type="button"
                 variant={isActive ? "default" : "ghost"}
-                className={fullWidthButtonClass}
+                className={`${fullWidthButtonClass} ${
+                  isActive
+                    ? "bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158]"
+                    : "text-muted-foreground hover:bg-white/5 hover:text-white"
+                }`}
                 onClick={() => onToggleFacet("brand", brand)}
               >
                 {brand}
@@ -123,38 +134,49 @@ function CustomerFiltersPanel({
           })}
         </div>
       </section>
-      <Separator />
+
+      <Separator className="bg-[#D4AF37]/30" />
 
       <section className={sectionClass}>
         <h3 className={sectionTitleClass}>Colors</h3>
-        <div className={colorsWrapClass}>
-          {availableColors.map((color) => {
-            const isActive = filters.color === color;
 
-            return (
-              <button
-                key={color}
-                type="button"
-                className={`${colorButtonBaseClass} ${
-                  isActive ? colorButtonActiveClass : ""
-                }`}
-                onClick={() => onToggleFacet("color", color)}
-              >
-                <span
-                  className={`${colorSwatchBaseClass} ${
-                    isActive ? colorSwatchActiveClass : colorSwatchInactiveClass
+        {availableColors.length ? (
+          <div className={colorsWrapClass}>
+            {availableColors.map((color) => {
+              const isActive = filters.color === color;
+
+              return (
+                <button
+                  key={color}
+                  type="button"
+                  onClick={() => onToggleFacet("color", color)}
+                  className={`${colorButtonBaseClass} ${
+                    isActive ? colorButtonActiveClass : ""
                   }`}
-                  style={{ backgroundColor: getSwatchColor(color) }}
-                />
-              </button>
-            );
-          })}
-        </div>
+                >
+                  <span
+                    className={`${colorSwatchBaseClass} ${
+                      isActive
+                        ? colorSwatchActiveClass
+                        : colorSwatchInactiveClass
+                    }`}
+                    style={{ backgroundColor: getSwatchColor(color) }}
+                  />
+                  <span>{color}</span>
+                </button>
+              );
+            })}
+          </div>
+        ) : (
+          <p className={helperTextClass}>No colors available</p>
+        )}
       </section>
-      <Separator />
+
+      <Separator className="bg-[#D4AF37]/30" />
 
       <section className={sectionClass}>
         <h3 className={sectionTitleClass}>Sizes</h3>
+
         <div className={sizesWrapClass}>
           {SIZE_OPTIONS.map((size) => {
             const isActive = filters.size === size;
@@ -163,8 +185,12 @@ function CustomerFiltersPanel({
               <Button
                 key={size}
                 type="button"
-                variant={isActive ? "default" : "ghost"}
-                className={fullWidthButtonClass}
+                variant={isActive ? "default" : "outline"}
+                className={`${sizeButtonClass} ${
+                  isActive
+                    ? "bg-[#D4AF37] text-black font-semibold border-[#D4AF37] hover:bg-[#e5c158]"
+                    : "border-[#D4AF37]/40 bg-black text-white hover:bg-[#D4AF37]/10"
+                }`}
                 onClick={() => onToggleFacet("size", size)}
               >
                 {size}
@@ -173,7 +199,6 @@ function CustomerFiltersPanel({
           })}
         </div>
       </section>
-      <Separator />
     </div>
   );
 }

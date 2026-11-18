@@ -1,7 +1,11 @@
 export type CustomerHomeBanner = {
   _id: string;
   imageUrl: string;
+  productId?: string;
+  linkUrl?: string;
+  title?: string;
   createdAt: string;
+  createAt?: string;
 };
 
 export type CustomerHomeCategory = {
@@ -18,6 +22,7 @@ export type CustomerHomeProduct = {
   finalPrice: number;
   salePercentage: number;
   createdAt: string;
+  createAt?: string;
 };
 
 export type CustomerHomeCoupon = {

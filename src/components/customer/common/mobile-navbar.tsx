@@ -39,31 +39,29 @@ export type NavItem = {
 };
 
 const iconLink =
-  "relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-foreground/90 transition hover:bg-white/5 hover:text-foreground";
+  "relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-white/90 transition hover:bg-white/10 hover:text-white cursor-pointer";
 
-const mobileWrap = "ml-auto flex items-center gap-1 lg:hidden";
+const mobileWrap = "ml-auto flex items-center gap-2 lg:hidden";
 
 const menuButton =
-  "h-11 w-11 rounded-xl border border-white/10 bg-white/5 text-foreground hover:bg-white/10";
+  "h-10 w-10 rounded-xl border border-white/15 bg-white/5 text-white hover:bg-white/10";
 
+// Sheet border stays monochrome without golden border to maintain "except the navbar"
 const sheetContent =
-  "w-[380px] max-w-[92vw] border-r border-border bg-background p-0 sm:w-[460px]";
+  "w-[340px] max-w-[88vw] border-r border-white/15 bg-black text-white p-0 sm:w-[400px]";
 
 const brandWrap = "flex items-center gap-3";
 
-const brandTitle =
-  "text-[25px] font-semibold tracking-[-0.02em] text-foreground";
+const brandBlock = "px-6 py-5";
 
-const brandBlock = "px-5 py-6 sm:px-6";
+const drawerSection = "space-y-3 px-6 py-5";
 
-const drawerSection = "space-y-3 px-5 py-5 sm:px-6";
-
-const drawerTitle = "text-sm font-semibold tracking-wide text-muted-foreground";
+const drawerTitle = "text-xs font-semibold uppercase tracking-wider text-muted-foreground";
 
 const drawerItemsWrap = "space-y-1";
 
 const drawerItemLink =
-  "flex w-full cursor-pointer items-center gap-3 rounded-xl px-2 py-3 text-left text-[18px] font-medium text-foreground transition hover:bg-white/5";
+  "flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-left text-base font-medium text-white transition hover:bg-white/10";
 
 const cartBadge =
   "absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-amber-400 px-1.5 text-[11px] font-semibold leading-5 text-black";
@@ -176,21 +174,22 @@ export function CustomerMobileNavbar({
         type="button"
         onClick={() => setCartOpen(true)}
         className={iconLink}
+        aria-label="View Cart"
       >
-        <ShoppingCart className="h-4.5 w-4.5" />
+        <ShoppingCart className="h-5 w-5" />
         <span className={cartBadge}>{cart?.items?.length ?? 0}</span>
       </button>
 
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger asChild>
-          <Button variant={"ghost"} size={"icon"} className={menuButton}>
+          <Button variant={"ghost"} size={"icon"} className={menuButton} aria-label="Open Menu">
             <Menu className="h-5 w-5" />
           </Button>
         </SheetTrigger>
 
         <SheetContent side="left" className={sheetContent}>
           <SheetHeader className="sr-only">
-            <SheetTitle>Menu</SheetTitle>
+            <SheetTitle>Navigation Menu</SheetTitle>
           </SheetHeader>
           <div className={brandBlock}>
             <Link
@@ -198,19 +197,19 @@ export function CustomerMobileNavbar({
               onClick={() => setSheetOpen(false)}
               className={brandWrap}
             >
-              <BrandLogo className="h-10 w-auto text-foreground" />
+              <BrandLogo className="h-9 w-auto text-white" />
             </Link>
           </div>
-          <Separator />
+          <Separator className="bg-white/10" />
           <DrawerSection
-            title="Collections"
+            title="Browse"
             items={[collectionsPage]}
             onNavigate={() => setSheetOpen(false)}
           />
 
-          <Separator />
+          <Separator className="bg-white/10" />
           <DrawerSection
-            title="Account"
+            title="Account & Orders"
             items={mobileAccountItems}
             onNavigate={() => setSheetOpen(false)}
           />
@@ -219,3 +218,5 @@ export function CustomerMobileNavbar({
     </div>
   );
 }
+
+export default CustomerMobileNavbar;

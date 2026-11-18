@@ -11,23 +11,24 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const pageWrapClass = "min-h-screen bg-background";
+const pageWrapClass = "min-h-screen bg-black text-foreground";
 const heroSectionClass =
-  "border-b border-border/60 bg-gradient-to-b from-primary/10 via-background to-background";
+  "border-b border-[#D4AF37]/30 bg-gradient-to-b from-[#D4AF37]/10 via-black to-black";
 const heroContainerClass = "mx-auto max-w-7xl px-4 py-8";
-const backButtonClass = "mb-4 rounded-none px-0 hover:bg-transparent";
+const backButtonClass =
+  "mb-4 rounded-xl border border-[#D4AF37]/40 px-3 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-white transition-colors";
 const backIconClass = "mr-2 h-4 w-4";
 const heroContentClass = "space-y-2";
-const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-primary";
+const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-[#D4AF37] font-semibold";
 const heroTitleClass =
-  "max-w-3xl text-3xl font-semibold tracking-tight text-foreground md:text-4xl";
+  "max-w-3xl text-3xl font-semibold tracking-tight text-white md:text-4xl";
 const contentContainerClass = "mx-auto max-w-7xl px-4 py-8";
 const contentGridClass = "grid gap-8 lg:grid-cols-[1.05fr_0.95fr]";
-const relatedSectionClass = "mt-14 space-y-5";
+const relatedSectionClass = "mt-16 space-y-6";
 const relatedHeadingWrapClass = "space-y-1";
-const relatedEyebrowClass = "text-sm uppercase tracking-[0.18em] text-primary";
+const relatedEyebrowClass = "text-sm uppercase tracking-[0.18em] text-[#D4AF37] font-semibold";
 const relatedTitleClass =
-  "text-2xl font-semibold tracking-tight text-foreground";
+  "text-2xl font-semibold tracking-tight text-white";
 const relatedGridClass = "grid gap-5 sm:grid-cols-2 xl:grid-cols-4";
 
 function CollectionDetails() {
@@ -58,6 +59,8 @@ function CollectionDetails() {
     : false;
 
   useEffect(() => {
+    // Redirect to top of the page whenever a product is selected
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     void loadProduct(id);
 
     return () => {
@@ -79,7 +82,7 @@ function CollectionDetails() {
           </Button>
           <div className={heroContentClass}>
             <p className={heroEyebrowClass}>{product?.brand}</p>
-            <p className={heroTitleClass}>{product?.title}</p>
+            <h1 className={heroTitleClass}>{product?.title}</h1>
           </div>
         </div>
       </section>
@@ -117,7 +120,7 @@ function CollectionDetails() {
           <section className={relatedSectionClass}>
             <div className={relatedHeadingWrapClass}>
               <p className={relatedEyebrowClass}>You may also like</p>
-              <p className={relatedTitleClass}>Related Products</p>
+              <h2 className={relatedTitleClass}>Related Products</h2>
             </div>
 
             <div className={relatedGridClass}>

@@ -21,25 +21,25 @@ import type {
   CustomerPaymentStatus,
 } from "@/features/customer/orders/types";
 import { formatPrice } from "@/lib/utils";
-import { ShoppingBasket } from "lucide-react";
+import { RefreshCw, ShoppingBasket } from "lucide-react";
 
 const dialogClass =
-  "max-h-[92vh] overflow-y-auto border-border bg-background sm:max-w-3xl";
-const wrapClass = "space-y-4";
+  "max-h-[92vh] w-[95vw] sm:max-w-4xl overflow-y-auto rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl p-6";
+const wrapClass = "space-y-4 mt-2";
 const topRowClass = "flex items-center justify-between gap-3";
 
-const metaClass = "text-sm text-muted-foreground";
+const metaClass = "text-xs text-muted-foreground";
 
-const buttonClass = "rounded-none";
-const emptyClass = "text-sm text-muted-foreground";
+const buttonClass = "rounded-xl border border-[#D4AF37]/40 bg-black text-[#D4AF37] hover:bg-[#D4AF37]/10 text-xs";
+const emptyClass = "text-sm text-muted-foreground text-center py-8";
 const successBadgeClass =
-  "border-primary/30 bg-primary/10 text-primary hover:bg-primary/10";
+  "border border-green-500/40 bg-green-500/10 text-green-400 rounded-lg";
 
 const dangerBadgeClass =
-  "border-destructive/30 bg-destructive/10 text-destructive hover:bg-destructive/10";
+  "border border-red-500/40 bg-red-500/10 text-red-400 rounded-lg";
 
 const neutralBadgeClass =
-  "border-border bg-secondary/60 text-foreground hover:bg-secondary/60";
+  "border border-[#D4AF37]/30 bg-[#D4AF37]/10 text-[#D4AF37] rounded-lg";
 
 function CustomerPaymentStatusBadge(props: { status: CustomerPaymentStatus }) {
   const { status } = props;
@@ -84,78 +84,92 @@ function CustomerOrdersDialog() {
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && closeOrders()}>
       <DialogContent className={dialogClass}>
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <ShoppingBasket className="h-4 w-4" />
-            My Orders
+        <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
+          <DialogTitle className="flex items-center gap-2 text-xl font-bold text-white">
+            <ShoppingBasket className="h-5 w-5 text-[#D4AF37]" />
+            My Orders History
           </DialogTitle>
         </DialogHeader>
         <div className={wrapClass}>
           <div className={topRowClass}>
-            <p className={metaClass}>Track your recent orders</p>
+            <p className={metaClass}>Track your purchases, statuses, and eligible returns</p>
             <Button
               type="button"
+              variant="outline"
+              size="sm"
               className={buttonClass}
               onClick={() => void loadOrders()}
             >
+              <RefreshCw className={`h-3.5 w-3.5 mr-1 ${loading ? "animate-spin" : ""}`} />
               Refresh
             </Button>
           </div>
 
-          {loading ? <p>Loading...</p> : null}
-          {!loading && !items.length ? (
-            <p className={emptyClass}>No orders found</p>
-          ) : null}
-
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableHead>Order</TableHead>
-                <TableHead>Items</TableHead>
-                <TableHead>Amount</TableHead>
-                <TableHead>payment</TableHead>
-                <TableHead>Status</TableHead>
-                <TableHead>Paid at</TableHead>
-                <TableHead className="text-right">Action</TableHead>
-              </TableHeader>
-
-              <TableBody>
-                {items.map((order) => (
-                  <TableRow key={order._id}>
-                    <TableCell className="font-medium">{order._id}</TableCell>
-                    <TableCell>{order.totalItems}</TableCell>
-                    <TableCell>{formatPrice(order.totalAmount)}</TableCell>
-                    <TableCell>
-                      <CustomerPaymentStatusBadge
-                        status={order.paymentStatus}
-                      />
-                    </TableCell>
-                    <TableCell>
-                      <CustomerOrderStatusBadge status={order.orderStatus} />
-                    </TableCell>
-                    <TableCell>
-                      {formatDate(order.paidAt || order.createdAt)}
-                    </TableCell>
-                    <TableCell className="text-right">
-                      {canReturnOrder(order) ? (
-                        <Button
-                          size="sm"
-                          className="rounded-none"
-                          onClick={() => returnOrder(order._id)}
-                        >
-                          Return
-                        </Button>
-                      ) : (
-                        <span className="text-xs text-muted-foreground">
-                          {order.orderStatus === "returned" ? "Returned" : ""}
-                        </span>
-                      )}
-                    </TableCell>
+          {!items.length ? (
+            <div className={emptyClass}>No orders found. Start shopping our collections!</div>
+          ) : (
+            <div className="overflow-x-auto rounded-xl border border-[#D4AF37]/30 bg-card">
+              <Table>
+                <TableHeader className="bg-black/60 border-b border-[#D4AF37]/30">
+                  <TableRow className="border-[#D4AF37]/30 hover:bg-transparent">
+                    <TableHead className="text-[#D4AF37]">Order</TableHead>
+                    <TableHead className="text-[#D4AF37]">Date</TableHead>
+                    <TableHead className="text-[#D4AF37]">Items</TableHead>
+                    <TableHead className="text-[#D4AF37]">Amount</TableHead>
+                    <TableHead className="text-[#D4AF37]">Payment</TableHead>
+                    <TableHead className="text-[#D4AF37]">Status</TableHead>
+                    <TableHead className="text-right text-[#D4AF37]">Action</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </div>
+                </TableHeader>
+
+                <TableBody>
+                  {items.map((order) => {
+                    const returnable = canReturnOrder(order);
+
+                    return (
+                      <TableRow
+                        key={order._id}
+                        className="border-b border-[#D4AF37]/20 hover:bg-white/[0.02]"
+                      >
+                        <TableCell className="font-mono text-xs text-[#D4AF37]">
+                          #{order.code}
+                        </TableCell>
+                        <TableCell className="text-xs text-muted-foreground">
+                          {formatDate(order.createdAt)}
+                        </TableCell>
+                        <TableCell className="text-white">{order.totalItems}</TableCell>
+                        <TableCell className="font-semibold text-white">
+                          {formatPrice(order.totalAmount)}
+                        </TableCell>
+                        <TableCell>
+                          <CustomerPaymentStatusBadge status={order.paymentStatus} />
+                        </TableCell>
+                        <TableCell>
+                          <CustomerOrderStatusBadge status={order.orderStatus} />
+                        </TableCell>
+                        <TableCell className="text-right">
+                          {returnable ? (
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => void returnOrder(order._id)}
+                              className="rounded-xl border border-red-500/40 text-red-400 hover:bg-red-500/10 text-xs"
+                            >
+                              Return Order
+                            </Button>
+                          ) : (
+                            <span className="text-xs text-muted-foreground">
+                              {order.orderStatus === "returned" ? "Returned" : "Completed"}
+                            </span>
+                          )}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+          )}
         </div>
       </DialogContent>
     </Dialog>

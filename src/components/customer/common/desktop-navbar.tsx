@@ -45,34 +45,32 @@ const collectionsPage: NavItem = {
 const shell =
   "mx-auto flex h-[72px] max-w-[1600px] items-center gap-3 px-4 sm:px-6 lg:px-8";
 
+// Sleek dark navbar border (no golden border on navbar as requested)
 const headerClass =
-  "sticky top-0 z-50 border-b border-border/70 bg-secondary/60 backdrop-blur-xl";
+  "sticky top-0 z-50 border-b border-white/10 bg-black/90 backdrop-blur-xl text-white";
 
 const textLink =
-  "inline-flex h-10 items-center gap-2 rounded-xl px-3 text-[15px] font-medium text-foreground/90 transition hover:bg-white/5 hover:text-foreground";
+  "inline-flex h-10 items-center gap-2 rounded-xl px-3 text-[15px] font-medium text-white/90 transition hover:bg-white/10 hover:text-white";
 
 const iconLink =
-  "relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-foreground/90 transition hover:bg-white/5 hover:text-foreground";
+  "relative inline-flex h-10 w-10 items-center justify-center rounded-xl text-white/90 transition hover:bg-white/10 hover:text-white cursor-pointer";
 
 const brandWrap = "flex shrink-0 items-center gap-3";
 
-const brandTitle =
-  "text-[25px] font-semibold tracking-[-0.02em] text-foreground";
-
 const desktopCollectionsWrap = "ml-6 hidden lg:block";
 
-const desktopNav = "ml-auto hidden items-center gap-1 lg:flex";
+const desktopNav = "ml-auto hidden items-center gap-2 lg:flex";
 
 const dropdownButton =
-  "h-10 rounded-xl px-3 text-[15px] font-medium text-foreground/90 hover:bg-white/5 hover:text-foreground";
+  "h-10 rounded-xl px-3 text-[15px] font-medium text-white/90 hover:bg-white/10 hover:text-white";
 
 const dropdownContent =
-  "mt-3 rounded-2xl border-border bg-popover/95 p-2 backdrop-blur";
+  "mt-3 rounded-2xl border border-white/15 bg-black/95 p-2 backdrop-blur-xl text-white shadow-xl";
 
 const accountDropdownContent = `${dropdownContent} w-56`;
 
 const dropdownItemLink =
-  "flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5";
+  "flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 text-sm text-white/90 hover:bg-white/10 hover:text-white transition-colors";
 
 const cartBadge =
   "absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-amber-400 px-1.5 text-[11px] font-semibold leading-5 text-black";
@@ -147,7 +145,7 @@ export function CustomerNavbar() {
     <header className={headerClass}>
       <div className={shell}>
         <Link to={"/"} className={brandWrap}>
-          <BrandLogo className="h-10 w-auto text-foreground" />
+          <BrandLogo className="h-10 w-auto text-white" />
         </Link>
 
         <div className={desktopCollectionsWrap}>
@@ -164,6 +162,7 @@ export function CustomerNavbar() {
               type="button"
               className={iconLink}
               onClick={() => setWishlistOpen(true)}
+              aria-label="Wishlist"
             >
               <Heart className="w-[20px] h-[20px]" />
               <span className={wishlistBadge}>{wishlistCount}</span>
@@ -174,7 +173,7 @@ export function CustomerNavbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant={"ghost"} className={dropdownButton}>
-                  <User className="h-4.5 w-4.5" />
+                  <User className="h-4.5 w-4.5 mr-1.5" />
                   Account
                 </Button>
               </DropdownMenuTrigger>
@@ -211,9 +210,9 @@ export function CustomerNavbar() {
             <NavTextLink href="/sign-in" label="Login" icon={LogIn} />
           )}
 
-          <div onClick={() => setOpen(true)} className={iconLink}>
+          <div onClick={() => setOpen(true)} className={iconLink} role="button" aria-label="Shopping Cart">
             <ShoppingCart className="h-4.5 w-4.5" />
-            <span className={cartBadge}>{cart?.items?.length}</span>
+            <span className={cartBadge}>{cart?.items?.length ?? 0}</span>
           </div>
         </nav>
 
@@ -227,3 +226,5 @@ export function CustomerNavbar() {
     </header>
   );
 }
+
+export default CustomerNavbar;

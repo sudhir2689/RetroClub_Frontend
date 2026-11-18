@@ -122,13 +122,13 @@ export const useCustomerProductDetailsStore =
         toast.error("Failed to toggle wishlist items");
       }
     },
-    addToCart: async (isLoaded, isBootatraped, isSignedIn) => {
+    addToCart: async (isLoaded, isBootstrapped, isSignedIn) => {
       const { data, selectedColor, selectedSize } = get();
       const product = data?.product ?? null;
 
       if (!product || product.stock < 1) return;
 
-      if (!isLoaded || !isBootatraped) {
+      if (!isLoaded || !isBootstrapped) {
         toast.error("Try again");
         return;
       }

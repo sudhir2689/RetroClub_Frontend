@@ -7,16 +7,14 @@ const wrapperClass = "space-y-4";
 
 const headerClass = "space-y-1";
 
-const titleClass = "text-sm font-semibold text-foreground";
-
-const descriptionClass = "text-sm text-muted-foreground";
+const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
 
 const uploadLabelClass =
-  "flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-border bg-muted/40 px-4 py-6 text-center transition hover:bg-muted";
+  "flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#D4AF37]/50 bg-black/60 px-4 py-6 text-center transition hover:border-[#D4AF37] hover:bg-[#D4AF37]/[0.03]";
 
-const uploadIconClass = "mb-2 h-5 w-5 text-muted-foreground";
+const uploadIconClass = "mb-2 h-6 w-6 text-[#D4AF37]";
 
-const uploadTitleClass = "text-sm font-medium text-foreground";
+const uploadTitleClass = "text-sm font-semibold text-white";
 
 const uploadSubtitleClass = "mt-1 text-xs text-muted-foreground";
 
@@ -24,22 +22,22 @@ const hiddenInputClass = "hidden";
 
 const sectionClass = "space-y-2";
 
-const sectionTitleClass = "text-sm font-medium text-foreground";
+const sectionTitleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
 
-const gridClass = "grid grid-cols-2 gap-3 md:grid-cols-4";
+const gridClass = "grid grid-cols-2 gap-3 sm:grid-cols-4";
 
 const imageCardClass =
-  "overflow-hidden rounded-xl border border-border bg-card";
+  "overflow-hidden rounded-xl border border-[#D4AF37]/40 bg-black";
 
 const imageClass = "h-28 w-full object-cover";
 
-const imageActionsClass = "flex items-center justify-between gap-2 p-2";
+const imageActionsClass = "flex items-center justify-between gap-2 p-2 border-t border-[#D4AF37]/20";
 
 const starIconClass = "mr-1 h-3.5 w-3.5";
 
-const removeIconClass = "h-4 w-4";
+const removeIconClass = "h-4 w-4 text-red-400";
 
-const fileNameClass = "p-2 text-xs text-muted-foreground";
+const fileNameClass = "p-2 text-xs text-muted-foreground truncate";
 
 type ImagePickerProps = {
   existingImages: ProductImage[];
@@ -72,11 +70,14 @@ export function ImagePicker({
   return (
     <div className={wrapperClass}>
       <div className={headerClass}>
-        <h3 className={titleClass}>Images</h3>
+        <h3 className={titleClass}>Product Images</h3>
       </div>
       <label className={uploadLabelClass}>
         <ImagePlus className={uploadIconClass} />
-        <span className={uploadTitleClass}>Upload Product Images</span>
+        <span className={uploadTitleClass}>Upload Clothes / Product Images</span>
+        <span className={uploadSubtitleClass}>
+          Select one or multiple images (cover will be chosen automatically)
+        </span>
 
         <input
           type="file"
@@ -101,19 +102,27 @@ export function ImagePicker({
 
                   <div className={imageActionsClass}>
                     <Button
+                      size={"sm"}
                       type="button"
-                      size="sm"
-                      variant={isCover ? "default" : "secondary"}
+                      variant={isCover ? "default" : "outline"}
+                      className={`h-7 rounded-lg text-xs ${
+                        isCover
+                          ? "bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158]"
+                          : "border-[#D4AF37]/40 bg-black text-[#D4AF37]"
+                      }`}
                       onClick={() => onCoverImageChange(image.publicId)}
                     >
-                      <Star className={starIconClass} />
+                      <Star
+                        className={`${starIconClass} ${isCover ? "fill-current" : ""}`}
+                      />
                       {isCover ? "Cover" : "Set Cover"}
                     </Button>
 
                     <Button
+                      size={"icon"}
                       type="button"
-                      size="icon"
-                      variant="ghost"
+                      variant={"ghost"}
+                      className="h-7 w-7 rounded-lg hover:bg-red-500/10"
                       onClick={() => onExistingRemove(image.publicId)}
                     >
                       <X className={removeIconClass} />
@@ -128,19 +137,17 @@ export function ImagePicker({
 
       {previewUrls.length > 0 ? (
         <div className={sectionClass}>
-          <p className={sectionTitleClass}>New Uploads</p>
+          <p className={sectionTitleClass}>New Uploads Preview</p>
+
           <div className={gridClass}>
-            {previewUrls.map((previewItem, index) => (
-              <div
-                key={`${previewItem.file.name}-${index}`}
-                className={imageCardClass}
-              >
+            {previewUrls.map((item, index) => (
+              <div key={item.url} className={imageCardClass}>
                 <img
-                  src={previewItem.url}
-                  alt={previewItem.file.name}
+                  src={item.url}
+                  alt={`preview ${index}`}
                   className={imageClass}
                 />
-                <div className={fileNameClass}>{previewItem.file.name}</div>
+                <p className={fileNameClass}>{item.file.name}</p>
               </div>
             ))}
           </div>

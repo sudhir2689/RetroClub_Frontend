@@ -11,27 +11,29 @@ import type { Promo, PromoFormValues } from "@/features/admin/promo/types";
 import { useEffect, useState } from "react";
 
 const dialogContentClass =
-  "max-h-[92vh] overflow-y-auto border-border bg-background sm:max-w-2xl";
+  "max-h-[92vh] w-[95vw] sm:max-w-2xl overflow-y-auto rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl p-6";
 
-const layoutClass = "grid gap-6";
+const layoutClass = "grid gap-5 mt-4";
 
-const firstRowClass = "grid gap-4 md:grid-cols-2";
+const firstRowClass = "grid gap-4 sm:grid-cols-2";
 
-const secondRowClass = "grid gap-4 md:grid-cols-2";
+const secondRowClass = "grid gap-4 sm:grid-cols-2";
 
-const thirdRowClass = "grid gap-4 md:grid-cols-2";
+const thirdRowClass = "grid gap-4 sm:grid-cols-2";
 
-const fieldWrapClass = "space-y-2";
+const fieldWrapClass = "space-y-1.5";
 
-const inputClass = "rounded-none";
+const inputClass =
+  "rounded-xl border border-[#D4AF37]/40 bg-black/60 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]";
 
-const errorTextClass = "text-sm text-destructive";
+const errorTextClass = "text-xs text-red-400";
 
-const footerClass = "flex justify-end gap-3";
+const footerClass = "flex justify-end gap-3 pt-4 border-t border-[#D4AF37]/20";
 
-const outlineButtonClass = "rounded-none";
+const outlineButtonClass = "rounded-xl border border-[#D4AF37]/40 text-white hover:bg-[#D4AF37]/10";
 
-const primaryButtonClass = "rounded-none";
+const primaryButtonClass =
+  "rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-md shadow-[#D4AF37]/20";
 
 type PromoDialogProps = {
   open: boolean;
@@ -99,139 +101,139 @@ function PromoDialog({
     key: K,
     value: PromoFormValues[K],
   ) {
-    setForm((current) => ({
-      ...current,
+    setForm((prev) => ({
+      ...prev,
       [key]: value,
     }));
   }
 
-  async function submit() {
-    if (
-      !form.code.trim() ||
-      !form.percentage.trim() ||
-      !form.count.trim() ||
-      !form.minimumOrderValue.trim() ||
-      !form.startsAt.trim() ||
-      !form.endsAt.trim()
-    ) {
-      return;
-    }
-
-    try {
-      await onSaved({
-        code: form.code.trim().toUpperCase(),
-        percentage: form.percentage,
-        count: form.count,
-        minimumOrderValue: form.minimumOrderValue,
-        startsAt: new Date(form.startsAt).toISOString(),
-        endsAt: new Date(form.endsAt).toISOString(),
-      });
-    } catch (error) {
-      console.log(error);
-    }
+  async function handleSubmit() {
+    await onSaved(form);
   }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={dialogContentClass}>
-        <DialogHeader>
-          <DialogTitle>{isEditMode ? "Edit Promo" : "Add Promo"}</DialogTitle>
+        <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
+          <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[#D4AF37]" />
+            {isEditMode ? "Update Promo Code" : "Create New Promo Code"}
+          </DialogTitle>
         </DialogHeader>
+
         <div className={layoutClass}>
           <div className={firstRowClass}>
             <div className={fieldWrapClass}>
-              <Label>Promo Code</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">
+                Promo Code
+              </Label>
               <Input
-                className={inputClass}
-                type="text"
                 value={form.code}
-                placeholder="SUMMARY10"
-                onChange={(e) => updateField("code", e.target.value)}
+                onChange={(event) =>
+                  updateField("code", event.target.value.toUpperCase())
+                }
+                placeholder="e.g. RETRO25"
+                className={inputClass}
               />
             </div>
 
             <div className={fieldWrapClass}>
-              <Label>Discount Percentage</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">
+                Discount Percentage (%)
+              </Label>
               <Input
-                className={inputClass}
-                type="number"
-                min={"1"}
-                max={"100"}
                 value={form.percentage}
+                onChange={(event) =>
+                  updateField("percentage", event.target.value)
+                }
+                type="number"
+                min="1"
+                max="100"
                 placeholder="10"
-                onChange={(e) => updateField("percentage", e.target.value)}
+                className={inputClass}
               />
             </div>
           </div>
 
           <div className={secondRowClass}>
             <div className={fieldWrapClass}>
-              <Label>Promo Count</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">
+                Usage Count Limit
+              </Label>
               <Input
-                className={inputClass}
-                type="number"
-                min={"1"}
                 value={form.count}
+                onChange={(event) => updateField("count", event.target.value)}
+                type="number"
+                min="1"
                 placeholder="100"
-                onChange={(e) => updateField("count", e.target.value)}
+                className={inputClass}
               />
             </div>
 
             <div className={fieldWrapClass}>
-              <Label>Minimum Order Value</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">
+                Minimum Order Value (₹)
+              </Label>
               <Input
-                className={inputClass}
-                type="number"
-                min={"0"}
                 value={form.minimumOrderValue}
-                placeholder="999"
-                onChange={(e) =>
-                  updateField("minimumOrderValue", e.target.value)
+                onChange={(event) =>
+                  updateField("minimumOrderValue", event.target.value)
                 }
+                type="number"
+                min="0"
+                placeholder="500"
+                className={inputClass}
               />
             </div>
           </div>
 
           <div className={thirdRowClass}>
             <div className={fieldWrapClass}>
-              <Label>Valid From</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">
+                Valid From
+              </Label>
               <Input
-                className={inputClass}
-                type="datetime-local"
                 value={form.startsAt}
-                onChange={(e) => updateField("startsAt", e.target.value)}
+                onChange={(event) =>
+                  updateField("startsAt", event.target.value)
+                }
+                type="datetime-local"
+                className={inputClass}
               />
             </div>
 
             <div className={fieldWrapClass}>
-              <Label>Valid Till</Label>
+              <Label className="text-xs uppercase tracking-wider text-[#D4AF37] font-semibold">
+                Valid Till
+              </Label>
               <Input
-                className={inputClass}
-                type="datetime-local"
                 value={form.endsAt}
-                onChange={(e) => updateField("endsAt", e.target.value)}
+                onChange={(event) => updateField("endsAt", event.target.value)}
+                type="datetime-local"
+                className={inputClass}
               />
             </div>
           </div>
 
           <div className={footerClass}>
             <Button
-              className={outlineButtonClass}
-              variant={"secondary"}
+              variant="outline"
               onClick={() => onOpenChange(false)}
+              className={outlineButtonClass}
             >
               Cancel
             </Button>
+
             <Button
-              onClick={submit}
+              onClick={handleSubmit}
               disabled={saving}
               className={primaryButtonClass}
             >
               {saving
                 ? "Saving..."
                 : isEditMode
-                  ? "Update Promo"
-                  : "Create Promo"}
+                  ? "Update Promo Code"
+                  : "Create Promo Code"}
             </Button>
           </div>
         </div>
