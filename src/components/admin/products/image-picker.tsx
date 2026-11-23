@@ -108,7 +108,7 @@ export function ImagePicker({
                       className={`h-7 rounded-lg text-xs ${
                         isCover
                           ? "bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158]"
-                          : "border-[#D4AF37]/40 bg-black text-[#D4AF37]"
+                          : "border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10"
                       }`}
                       onClick={() => onCoverImageChange(image.publicId)}
                     >

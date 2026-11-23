@@ -219,7 +219,7 @@ function AdminOrders() {
                                   }
                                 />
                               </SelectTrigger>
-                              <SelectContent className="border border-[#D4AF37]/40 bg-black text-white">
+                              <SelectContent className="border border-[#D4AF37] bg-white text-black">
                                 {orderStatusOptions.map((status) => (
                                   <SelectItem key={status} value={status}>
                                     Mark as {status}
