@@ -15,6 +15,9 @@ import AdminSettings from "./pages/admin/Settings";
 import Collections from "./pages/customer/Collections";
 import CollectionDetails from "./pages/customer/Collection-Details";
 import CustomerOrderSuccessPage from "./pages/customer/Order-Sucess";
+import CartPage from "./pages/customer/Cart";
+import CheckoutAddressPage from "./pages/customer/CheckoutAddress";
+import CheckoutPaymentPage from "./pages/customer/CheckoutPayment";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +27,18 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <StoreHome />,
+      },
+      {
+        path: "cart",
+        element: <CartPage />,
+      },
+      {
+        path: "collections",
+        element: <Collections />,
+      },
+      {
+        path: "collection/:id",
+        element: <CollectionDetails />,
       },
       {
         element: <PublicOnlyLayout />,
@@ -36,19 +51,19 @@ export const router = createBrowserRouter([
             path: "sign-up/*",
             element: <SignUpPage />,
           },
-          {
-            path: "collections",
-            element: <Collections />,
-          },
-          {
-            path: "collection/:id",
-            element: <CollectionDetails />,
-          },
         ],
       },
       {
         element: <ProtectedLayout />,
         children: [
+          {
+            path: "checkout/address",
+            element: <CheckoutAddressPage />,
+          },
+          {
+            path: "checkout/payment",
+            element: <CheckoutPaymentPage />,
+          },
           {
             path: "order-success",
             element: <CustomerOrderSuccessPage />,

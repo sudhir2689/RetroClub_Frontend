@@ -24,14 +24,14 @@ import { formatPrice } from "@/lib/utils";
 import { RefreshCw, ShoppingBasket } from "lucide-react";
 
 const dialogClass =
-  "max-h-[92vh] w-[95vw] sm:max-w-4xl overflow-y-auto rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl p-6";
+  "max-h-[92vh] w-[95vw] sm:max-w-4xl overflow-y-auto rounded-2xl border border-[#D4AF37] bg-white text-black shadow-2xl p-6";
 const wrapClass = "space-y-4 mt-2";
 const topRowClass = "flex items-center justify-between gap-3";
 
-const metaClass = "text-xs text-muted-foreground";
+const metaClass = "text-xs text-zinc-500";
 
-const buttonClass = "rounded-xl border border-[#D4AF37]/40 bg-black text-[#D4AF37] hover:bg-[#D4AF37]/10 text-xs";
-const emptyClass = "text-sm text-muted-foreground text-center py-8";
+const buttonClass = "rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10 text-xs font-semibold";
+const emptyClass = "text-sm text-zinc-500 text-center py-8";
 const successBadgeClass =
   "border border-green-500/40 bg-green-500/10 text-green-400 rounded-lg";
 
@@ -85,7 +85,7 @@ function CustomerOrdersDialog() {
     <Dialog open={isOpen} onOpenChange={(open) => !open && closeOrders()}>
       <DialogContent className={dialogClass}>
         <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
-          <DialogTitle className="flex items-center gap-2 text-xl font-bold text-white">
+          <DialogTitle className="flex items-center gap-2 text-xl font-bold text-black">
             <ShoppingBasket className="h-5 w-5 text-[#D4AF37]" />
             My Orders History
           </DialogTitle>
@@ -108,17 +108,17 @@ function CustomerOrdersDialog() {
           {!items.length ? (
             <div className={emptyClass}>No orders found. Start shopping our collections!</div>
           ) : (
-            <div className="overflow-x-auto rounded-xl border border-[#D4AF37]/30 bg-card">
+            <div className="overflow-x-auto rounded-xl border border-[#D4AF37] bg-white">
               <Table>
-                <TableHeader className="bg-black/60 border-b border-[#D4AF37]/30">
+                <TableHeader className="bg-zinc-50 border-b border-[#D4AF37]/30">
                   <TableRow className="border-[#D4AF37]/30 hover:bg-transparent">
-                    <TableHead className="text-[#D4AF37]">Order</TableHead>
-                    <TableHead className="text-[#D4AF37]">Date</TableHead>
-                    <TableHead className="text-[#D4AF37]">Items</TableHead>
-                    <TableHead className="text-[#D4AF37]">Amount</TableHead>
-                    <TableHead className="text-[#D4AF37]">Payment</TableHead>
-                    <TableHead className="text-[#D4AF37]">Status</TableHead>
-                    <TableHead className="text-right text-[#D4AF37]">Action</TableHead>
+                    <TableHead className="text-[#997300] font-bold">Order</TableHead>
+                    <TableHead className="text-[#997300] font-bold">Date</TableHead>
+                    <TableHead className="text-[#997300] font-bold">Items</TableHead>
+                    <TableHead className="text-[#997300] font-bold">Amount</TableHead>
+                    <TableHead className="text-[#997300] font-bold">Payment</TableHead>
+                    <TableHead className="text-[#997300] font-bold">Status</TableHead>
+                    <TableHead className="text-right text-[#997300] font-bold">Action</TableHead>
                   </TableRow>
                 </TableHeader>
 
@@ -129,16 +129,16 @@ function CustomerOrdersDialog() {
                     return (
                       <TableRow
                         key={order._id}
-                        className="border-b border-[#D4AF37]/20 hover:bg-white/[0.02]"
+                        className="border-b border-[#D4AF37]/20 hover:bg-zinc-50/50"
                       >
-                        <TableCell className="font-mono text-xs text-[#D4AF37]">
+                        <TableCell className="font-mono text-xs font-bold text-[#997300]">
                           #{order.code}
                         </TableCell>
-                        <TableCell className="text-xs text-muted-foreground">
+                        <TableCell className="text-xs text-zinc-600">
                           {formatDate(order.createdAt)}
                         </TableCell>
-                        <TableCell className="text-white">{order.totalItems}</TableCell>
-                        <TableCell className="font-semibold text-white">
+                        <TableCell className="text-black font-medium">{order.totalItems}</TableCell>
+                        <TableCell className="font-bold text-black">
                           {formatPrice(order.totalAmount)}
                         </TableCell>
                         <TableCell>
@@ -153,12 +153,12 @@ function CustomerOrdersDialog() {
                               size="sm"
                               variant="outline"
                               onClick={() => void returnOrder(order._id)}
-                              className="rounded-xl border border-red-500/40 text-red-400 hover:bg-red-500/10 text-xs"
+                              className="rounded-xl border border-red-500/40 text-red-600 hover:bg-red-50 text-xs font-semibold"
                             >
                               Return Order
                             </Button>
                           ) : (
-                            <span className="text-xs text-muted-foreground">
+                            <span className="text-xs text-zinc-500 font-medium">
                               {order.orderStatus === "returned" ? "Returned" : "Completed"}
                             </span>
                           )}

@@ -15,34 +15,34 @@ const summaryWrapClass = "space-y-6";
 const badgesWrapClass = "flex flex-wrap items-center gap-2";
 
 const categoryBadgeClass =
-  "border border-[#D4AF37]/50 bg-black/60 text-white rounded-lg px-3 py-1 font-medium";
+  "border border-[#D4AF37]/50 bg-white text-black rounded-lg px-3 py-1 font-semibold";
 
 const stockBadgeClass =
-  "border border-[#D4AF37]/60 bg-[#D4AF37]/15 text-[#D4AF37] rounded-lg px-3 py-1 font-semibold";
+  "border border-emerald-500/40 bg-emerald-50 text-emerald-800 rounded-lg px-3 py-1 font-semibold";
 
-const metaGridClass = "grid gap-3 text-sm sm:grid-cols-2 rounded-xl border border-[#D4AF37]/30 bg-card p-4";
+const metaGridClass = "grid gap-3 text-sm sm:grid-cols-2 rounded-2xl border border-[#D4AF37] bg-white p-4 shadow-xs";
 
 const metaItemClass = "space-y-1";
 
-const metaLabelClass = "block text-xs uppercase tracking-wider text-muted-foreground";
+const metaLabelClass = "block text-xs uppercase tracking-wider text-zinc-500 font-bold";
 
-const metaValueClass = "block font-medium text-white";
+const metaValueClass = "block font-bold text-black";
 
 const priceBlockClass = "space-y-3";
 
 const priceRowClass = "flex flex-wrap items-center gap-3";
 
-const salePriceClass = "text-3xl font-semibold text-white";
+const salePriceClass = "text-3xl font-black text-black";
 
-const originalPriceClass = "text-lg text-muted-foreground line-through";
+const originalPriceClass = "text-lg text-zinc-400 line-through";
 
 const actionButtonsClass = "flex flex-col gap-3 sm:flex-row";
 
 const primaryButtonClass =
-  "rounded-xl sm:flex-1 bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-all shadow-md shadow-[#D4AF37]/20";
+  "rounded-xl sm:flex-1 bg-[#D4AF37] text-black font-bold hover:bg-[#e5c158] transition-all shadow-md shadow-[#D4AF37]/20";
 
 const secondaryButtonClass =
-  "rounded-xl sm:flex-1 border border-[#D4AF37]/60 text-white hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] transition-all";
+  "rounded-xl sm:flex-1 border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10 transition-all font-semibold";
 
 const iconClass = "mr-2 h-4 w-4";
 

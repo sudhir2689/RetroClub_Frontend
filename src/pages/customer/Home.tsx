@@ -15,19 +15,19 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const pageWrapClass =
-  "min-h-screen bg-black text-foreground antialiased selection:bg-[#D4AF37]/30";
+  "min-h-screen bg-[#fafafa] text-black antialiased selection:bg-[#D4AF37]/30";
 const contentContainerClass = "mx-auto max-w-7xl px-4 py-0 sm:px-6 lg:px-8";
 const sectionStackClass = "space-y-16 sm:space-y-20";
 
 const sectionHeadClass = "mb-8 sm:mb-10 space-y-2";
 const sectionEyebrowClass =
-  "text-xs font-bold uppercase tracking-[0.3em] text-[#D4AF37]";
+  "text-xs font-bold uppercase tracking-[0.3em] text-[#997300]";
 const sectionTitleClass =
-  "text-3xl font-medium tracking-tight text-white sm:text-4xl lg:text-5xl";
+  "text-3xl font-bold tracking-tight text-black sm:text-4xl lg:text-5xl";
 
 // Amazon-style Banner Carousel classes
 const carouselWrapClass =
-  "relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-[#D4AF37]/50 bg-black shadow-2xl shadow-black/80";
+  "relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-[#D4AF37] bg-black shadow-xl shadow-black/30";
 const carouselHeightClass =
   "relative h-[220px] sm:h-[340px] md:h-[440px] lg:h-[500px] xl:h-[540px] w-full overflow-hidden";
 const bannerImageClass =
@@ -46,58 +46,58 @@ const dotInactive = "w-2 bg-white/40 hover:bg-white/70";
 // Product Section Classes (placed immediately below banner)
 const productGridClass = "grid gap-6 sm:grid-cols-2 xl:grid-cols-4";
 const productCardClass =
-  "group flex h-full flex-col overflow-hidden rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] p-2 transition-all duration-500 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-xl hover:shadow-[#D4AF37]/10";
+  "group flex h-full flex-col overflow-hidden rounded-2xl border border-[#D4AF37]/50 bg-white p-2 transition-all duration-500 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-lg";
 const productContentClass =
   "flex flex-1 flex-col justify-between space-y-4 p-4";
 const productImageWrapClass =
-  "relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-black border border-[#D4AF37]/20";
+  "relative aspect-[4/5] w-full overflow-hidden rounded-xl bg-zinc-100 border border-[#D4AF37]/20";
 const productImageClass =
   "h-full w-full object-cover transition-all duration-700 group-hover:scale-105";
 const productInfoWrapClass = "space-y-2";
 const productBrandRowClass = "flex items-center justify-between gap-3";
 const productBrandClass =
-  "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
+  "text-xs font-bold uppercase tracking-wider text-[#997300]";
 const productTitleClass =
-  "line-clamp-2 text-base font-medium leading-relaxed text-white transition-colors group-hover:text-[#D4AF37]";
+  "line-clamp-2 text-base font-bold leading-relaxed text-black transition-colors group-hover:text-[#997300]";
 const productPriceRowClass = "flex items-end justify-between gap-3 pt-2";
 const productPriceClass =
-  "text-xl font-semibold tracking-tight text-white";
+  "text-xl font-bold tracking-tight text-black";
 const productOriginalPriceClass =
-  "text-sm font-medium text-muted-foreground line-through decoration-muted-foreground/50";
+  "text-sm font-medium text-zinc-400 line-through decoration-zinc-400/50";
 const productViewClass =
-  "inline-flex h-8 items-center justify-center rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-4 text-xs font-semibold text-[#D4AF37] opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:bg-[#D4AF37] group-hover:text-black";
+  "inline-flex h-8 items-center justify-center rounded-full border border-[#D4AF37] bg-white px-4 text-xs font-bold text-black opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:bg-[#D4AF37]";
 
 // Category Classes
 const categoryGridClass = "grid gap-6 sm:grid-cols-2 xl:grid-cols-4";
 const categoryCardClass =
-  "group relative overflow-hidden rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] p-1.5 transition-all duration-500 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-xl hover:shadow-[#D4AF37]/10";
+  "group relative overflow-hidden rounded-2xl border border-[#D4AF37]/50 bg-white p-1.5 transition-all duration-500 hover:-translate-y-1 hover:border-[#D4AF37] hover:shadow-lg";
 const categoryContentClass =
-  "h-full space-y-5 rounded-xl bg-gradient-to-br from-black/80 to-[#141414] p-8 backdrop-blur-sm transition-colors duration-500 group-hover:bg-black/90";
+  "h-full space-y-5 rounded-xl bg-white p-8 transition-colors duration-500";
 const categoryIconWrapClass =
-  "flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#D4AF37] ring-1 ring-[#D4AF37]/20 transition-transform duration-500 group-hover:scale-110 group-hover:bg-[#D4AF37] group-hover:text-black";
+  "flex h-14 w-14 items-center justify-center rounded-2xl border border-[#D4AF37] bg-[#D4AF37]/10 text-[#997300] ring-1 ring-[#D4AF37]/20 transition-transform duration-500 group-hover:scale-110 group-hover:bg-[#D4AF37] group-hover:text-black";
 const categoryIconClass = "h-6 w-6";
 const categoryTextWrapClass = "space-y-2";
-const categoryTitleClass = "text-xl font-medium tracking-tight text-white";
+const categoryTitleClass = "text-xl font-bold tracking-tight text-black";
 const categoryLinkClass =
-  "inline-flex items-center gap-2 text-sm font-semibold text-[#D4AF37] transition-colors group-hover:text-[#e5c158]";
+  "inline-flex items-center gap-2 text-sm font-bold text-[#997300] transition-colors group-hover:text-black";
 const categoryArrowIconClass =
   "h-4 w-4 transition-transform group-hover:translate-x-1";
 
 // Coupon Classes
 const couponGridClass = "grid gap-6 md:grid-cols-2 xl:grid-cols-4";
 const couponCardClass =
-  "group relative overflow-hidden rounded-2xl border border-dashed border-[#D4AF37]/50 bg-black/60 transition-all duration-300 hover:border-[#D4AF37] hover:bg-[#D4AF37]/[0.03]";
+  "group relative overflow-hidden rounded-2xl border border-[#D4AF37] bg-white transition-all duration-300 hover:shadow-md";
 const couponContentClass = "space-y-6 p-8";
 const couponHeadClass = "flex items-start justify-between gap-4";
 const couponIconWrapClass =
-  "flex h-12 w-12 items-center justify-center rounded-full border border-[#D4AF37]/40 bg-[#D4AF37]/15 text-[#D4AF37] transition-transform duration-500 group-hover:rotate-12";
+  "flex h-12 w-12 items-center justify-center rounded-full border border-[#D4AF37] bg-[#D4AF37]/15 text-[#997300] transition-transform duration-500 group-hover:rotate-12";
 const couponIconClass = "h-6 w-6";
-const couponCodeClass = "text-2xl font-bold tracking-widest text-[#D4AF37]";
+const couponCodeClass = "text-2xl font-black tracking-widest text-[#997300]";
 const couponBadgeClass =
-  "border border-[#D4AF37]/40 bg-[#D4AF37]/15 px-3 py-1 text-sm font-semibold text-[#D4AF37]";
+  "border border-[#D4AF37] bg-[#D4AF37]/10 px-3 py-1 text-sm font-bold text-black";
 const couponCodeWrapClass = "space-y-1 pt-2";
 const couponCodeLabelClass =
-  "text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground";
+  "text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-500";
 
 export function StoreHome() {
   const { data, loading, loadHome } = useCustomerHomeStore((state) => state);

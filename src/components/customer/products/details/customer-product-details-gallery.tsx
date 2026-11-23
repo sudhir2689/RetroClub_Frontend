@@ -11,19 +11,19 @@ type CustomerProductDetailsGalleryProps = {
 const galleryWrapClass = "space-y-4";
 
 const mainImageCardClass =
-  "overflow-hidden rounded-2xl border border-[#D4AF37]/50 bg-black shadow-xl shadow-black/60";
+  "overflow-hidden rounded-2xl border border-[#D4AF37] bg-white shadow-md";
 
-const mainImageWrapClass = "aspect-[4/5] bg-black";
+const mainImageWrapClass = "aspect-[4/5] bg-zinc-100";
 
 const imageClass = "h-full w-full object-cover transition-all duration-500";
 
 const noImageClass =
-  "flex h-full items-center justify-center text-sm text-muted-foreground";
+  "flex h-full items-center justify-center text-sm text-zinc-400";
 
 const thumbnailsGridClass = "grid grid-cols-4 gap-3 sm:grid-cols-5";
 
 const thumbnailButtonBaseClass =
-  "overflow-hidden rounded-xl border bg-black transition-all duration-300";
+  "overflow-hidden rounded-xl border bg-white transition-all duration-300";
 
 const thumbnailButtonActiveClass =
   "border-[#D4AF37] ring-2 ring-[#D4AF37]/40 scale-105";

@@ -4,9 +4,9 @@ import { ScrollToTop } from "../common/ScrollToTop";
 
 export function CustomerLayout() {
   return (
-    <div className="min-h-screen bg-black text-foreground">
+    <div className="min-h-screen bg-[#fafafa] text-zinc-900">
       <ScrollToTop />
-      {/* navbar */}
+      {/* navbar (stays dark) */}
       <CustomerNavbar />
       <main className="mx-auto max-w-7xl px-4 py-8">
         <Outlet />

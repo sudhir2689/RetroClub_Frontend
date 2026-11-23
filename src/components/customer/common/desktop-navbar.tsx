@@ -25,7 +25,6 @@ import CustomerWishlistDialog from "../wishlist/customer-wishlist-dialog";
 import { useCustomerProfileStore } from "@/features/customer/profile/store";
 import CustomerProfileDialog from "../profile/customer-profile-dialog";
 import { useCustomerCartAndCheckoutStore } from "@/features/customer/cart-and-checkout/store";
-import CustomerCartAndCheckoutDrawer from "../cart-and-checkout/customer-cart-and-checkout-drawer";
 import { useCustomerOrdersStore } from "@/features/customer/orders/store";
 import CustomerOrdersDialog from "../orders/customer-orders-dialog";
 import { BrandLogo } from "@/components/admin/common/BrandLogo";
@@ -110,7 +109,7 @@ export function CustomerNavbar() {
     (state) => state,
   );
 
-  const { setOpen, cart, loadCart } = useCustomerCartAndCheckoutStore(
+  const { cart, loadCart } = useCustomerCartAndCheckoutStore(
     (state) => state,
   );
 
@@ -210,10 +209,10 @@ export function CustomerNavbar() {
             <NavTextLink href="/sign-in" label="Login" icon={LogIn} />
           )}
 
-          <div onClick={() => setOpen(true)} className={iconLink} role="button" aria-label="Shopping Cart">
+          <Link to="/cart" className={iconLink} aria-label="Shopping Cart">
             <ShoppingCart className="h-4.5 w-4.5" />
             <span className={cartBadge}>{cart?.items?.length ?? 0}</span>
-          </div>
+          </Link>
         </nav>
 
         <CustomerMobileNavbar isSignedIn={!!isSignedIn} />
@@ -221,7 +220,6 @@ export function CustomerNavbar() {
         {showSignInUi ? <CustomerWishlistDialog /> : null}
         {showSignInUi ? <CustomerProfileDialog /> : null}
         {showSignInUi ? <CustomerOrdersDialog /> : null}
-        <CustomerCartAndCheckoutDrawer />
       </div>
     </header>
   );

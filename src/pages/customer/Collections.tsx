@@ -22,14 +22,14 @@ import type { ProductSort } from "@/features/customer/products/types";
 import { useCustomerProductList } from "@/features/customer/products/use-customer-collections";
 import { SlidersHorizontal } from "lucide-react";
 
-const pageWrapClass = "min-h-screen bg-black text-foreground";
+const pageWrapClass = "min-h-screen bg-[#fafafa] text-black";
 
 const heroSectionClass =
-  "border-b border-[#D4AF37]/30 bg-gradient-to-b from-[#D4AF37]/10 via-black to-black";
+  "border-b border-[#D4AF37]/30 bg-white";
 
 const heroContainerClass = "mx-auto max-w-7xl px-4 py-10";
 
-const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-[#D4AF37] font-semibold";
+const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-[#997300] font-bold";
 
 const heroContentClass =
   "mt-3 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between";
@@ -37,11 +37,11 @@ const heroContentClass =
 const heroTitleWrapClass = "space-y-2";
 
 const heroTitleClass =
-  "text-3xl font-semibold tracking-tight text-white md:text-4xl";
+  "text-3xl font-bold tracking-tight text-black md:text-4xl";
 
-const sortWrapClass = "flex items-center gap-3 text-sm text-muted-foreground";
+const sortWrapClass = "flex items-center gap-3 text-sm text-zinc-600";
 
-const sortTriggerClass = "w-[180px] rounded-xl border border-[#D4AF37]/40 bg-black text-white";
+const sortTriggerClass = "w-[180px] rounded-xl border border-[#D4AF37] bg-white text-black";
 
 const contentContainerClass = "mx-auto max-w-7xl px-4 py-6";
 
@@ -51,16 +51,16 @@ const topBarClass =
 const activeBadgesWrapClass = "flex flex-wrap items-center gap-2";
 
 const activeBadgeClass =
-  "border border-[#D4AF37]/40 bg-[#D4AF37]/15 text-[#D4AF37] rounded-lg px-2.5 py-0.5 text-xs font-medium";
+  "border border-[#D4AF37] bg-[#D4AF37]/10 text-black rounded-lg px-2.5 py-0.5 text-xs font-semibold";
 
 const topBarActionsClass = "flex items-center gap-3";
 
 const mobileFilterButtonClass =
-  "rounded-xl border border-[#D4AF37]/50 bg-black text-[#D4AF37] hover:bg-[#D4AF37]/10 lg:hidden";
+  "rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10 lg:hidden font-semibold";
 
-const mobileFilterIconClass = "mr-2 h-4 w-4";
+const mobileFilterIconClass = "mr-2 h-4 w-4 text-[#997300]";
 
-const mobileSheetContentClass = "w-full max-w-sm border-r border-[#D4AF37]/40 bg-black text-white p-6";
+const mobileSheetContentClass = "w-full max-w-sm border-r border-[#D4AF37] bg-white text-black p-6";
 
 const mobileSheetHeaderClass = "sr-only";
 
@@ -68,19 +68,19 @@ const layoutGridClass = "grid gap-8 lg:grid-cols-[280px_minmax(0,1fr)]";
 
 const desktopAsideClass = "hidden lg:block";
 
-const desktopFilterCardClass = "sticky top-24 rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] p-5 shadow-xl shadow-black/50";
+const desktopFilterCardClass = "sticky top-24 rounded-2xl border border-[#D4AF37] bg-white p-5 shadow-xs";
 
 const productSectionClass = "space-y-6";
 
 const actionButtonClass =
   "rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors";
 
-const emptyCardClass = "rounded-2xl border border-[#D4AF37]/30 bg-[#0d0d0d]";
+const emptyCardClass = "rounded-2xl border border-[#D4AF37] bg-white";
 
 const emptyCardContentClass =
   "flex min-h-60 flex-col items-center justify-center gap-4 p-6 text-center";
 
-const emptyTitleClass = "text-xl font-semibold text-white";
+const emptyTitleClass = "text-xl font-bold text-black";
 
 const productGridClass = "grid gap-5 sm:grid-cols-2 xl:grid-cols-3";
 

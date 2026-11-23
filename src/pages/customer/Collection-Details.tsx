@@ -11,24 +11,24 @@ import { ArrowLeft } from "lucide-react";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const pageWrapClass = "min-h-screen bg-black text-foreground";
+const pageWrapClass = "min-h-screen bg-[#fafafa] text-black";
 const heroSectionClass =
-  "border-b border-[#D4AF37]/30 bg-gradient-to-b from-[#D4AF37]/10 via-black to-black";
+  "border-b border-[#D4AF37]/30 bg-white";
 const heroContainerClass = "mx-auto max-w-7xl px-4 py-8";
 const backButtonClass =
-  "mb-4 rounded-xl border border-[#D4AF37]/40 px-3 text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-white transition-colors";
+  "mb-4 rounded-xl border border-[#D4AF37] px-3 text-black hover:bg-[#D4AF37]/10 transition-colors";
 const backIconClass = "mr-2 h-4 w-4";
 const heroContentClass = "space-y-2";
-const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-[#D4AF37] font-semibold";
+const heroEyebrowClass = "text-sm uppercase tracking-[0.2em] text-[#997300] font-bold";
 const heroTitleClass =
-  "max-w-3xl text-3xl font-semibold tracking-tight text-white md:text-4xl";
+  "max-w-3xl text-3xl font-bold tracking-tight text-black md:text-4xl";
 const contentContainerClass = "mx-auto max-w-7xl px-4 py-8";
 const contentGridClass = "grid gap-8 lg:grid-cols-[1.05fr_0.95fr]";
 const relatedSectionClass = "mt-16 space-y-6";
 const relatedHeadingWrapClass = "space-y-1";
-const relatedEyebrowClass = "text-sm uppercase tracking-[0.18em] text-[#D4AF37] font-semibold";
+const relatedEyebrowClass = "text-sm uppercase tracking-[0.18em] text-[#997300] font-bold";
 const relatedTitleClass =
-  "text-2xl font-semibold tracking-tight text-white";
+  "text-2xl font-bold tracking-tight text-black";
 const relatedGridClass = "grid gap-5 sm:grid-cols-2 xl:grid-cols-4";
 
 function CollectionDetails() {

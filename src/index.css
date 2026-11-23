@@ -6,19 +6,19 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  /* Black & White theme with luxurious Gold boundaries */
-  --bg: #000000;
-  --text: #e2e8f0;
-  --text-h: #ffffff;
+  /* White theme with Golden Peripheries & Crisp Black text */
+  --bg: #ffffff;
+  --text: #0f172a;
+  --text-h: #000000;
   --gold: #d4af37;
-  --border: rgba(212, 175, 55, 0.45);
-  --code-bg: #121212;
-  --accent: #171717;
-  --accent-bg: rgba(212, 175, 55, 0.1);
-  --accent-border: rgba(212, 175, 55, 0.6);
-  --social-bg: rgba(25, 25, 25, 0.6);
+  --border: rgba(212, 175, 55, 0.65);
+  --code-bg: #f8fafc;
+  --accent: #f8fafc;
+  --accent-bg: rgba(212, 175, 55, 0.08);
+  --accent-border: rgba(212, 175, 55, 0.7);
+  --social-bg: rgba(245, 245, 245, 0.9);
   --shadow:
-    rgba(0, 0, 0, 0.6) 0 10px 25px -3px, rgba(212, 175, 55, 0.08) 0 4px 10px -2px;
+    rgba(0, 0, 0, 0.05) 0 10px 25px -3px, rgba(212, 175, 55, 0.12) 0 4px 10px -2px;
 
   --sans: "Inter Variable", system-ui, -apple-system, sans-serif;
   --heading: "Inter Variable", system-ui, -apple-system, sans-serif;
@@ -26,7 +26,7 @@
 
   font: 16px/150% var(--sans);
   letter-spacing: 0.15px;
-  color-scheme: dark;
+  color-scheme: light;
   color: var(--text);
   background: var(--bg);
   font-synthesis: none;
@@ -34,43 +34,43 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  --background: oklch(0 0 0);
-  --foreground: oklch(0.98 0 0);
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.12 0 0);
 
-  --card: oklch(0.12 0 0);
-  --card-foreground: oklch(0.98 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0 0);
 
-  --popover: oklch(0.12 0 0);
-  --popover-foreground: oklch(0.98 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0 0);
 
   /* Gold primary */
-  --primary: oklch(0.78 0.14 85);
+  --primary: oklch(0.72 0.14 85);
   --primary-foreground: oklch(0.1 0 0);
 
-  --secondary: oklch(0.18 0 0);
-  --secondary-foreground: oklch(0.98 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.12 0 0);
 
-  --muted: oklch(0.16 0 0);
-  --muted-foreground: oklch(0.65 0 0);
+  --muted: oklch(0.96 0 0);
+  --muted-foreground: oklch(0.45 0 0);
 
-  --accent-foreground: oklch(0.98 0 0);
+  --accent-foreground: oklch(0.12 0 0);
 
-  --destructive: oklch(0.6 0.22 25);
+  --destructive: oklch(0.55 0.22 25);
 
-  --input: rgba(212, 175, 55, 0.4);
+  --input: rgba(212, 175, 55, 0.45);
 
-  --ring: oklch(0.78 0.14 85);
+  --ring: oklch(0.72 0.14 85);
 
-  --chart-1: oklch(0.78 0.14 85);
-  --chart-2: oklch(0.85 0.12 85);
-  --chart-3: oklch(0.65 0.15 85);
-  --chart-4: oklch(0.5 0.12 85);
-  --chart-5: oklch(0.4 0.1 85);
+  --chart-1: oklch(0.72 0.14 85);
+  --chart-2: oklch(0.6 0.12 85);
+  --chart-3: oklch(0.5 0.15 85);
+  --chart-4: oklch(0.4 0.12 85);
+  --chart-5: oklch(0.3 0.1 85);
 
   /* Curved rounded edges for all boxes */
   --radius: 0.75rem;
 
-  --sidebar: oklch(0.08 0 0);
+  --sidebar: oklch(0.1 0 0);
   --sidebar-foreground: oklch(0.98 0 0);
   --sidebar-primary: oklch(0.78 0.14 85);
   --sidebar-primary-foreground: oklch(0.1 0 0);
@@ -129,12 +129,12 @@
   }
   body {
     @apply bg-background text-foreground;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #0f172a;
   }
   html {
     @apply font-sans;
-    background-color: #000000;
-    color-scheme: dark;
+    background-color: #ffffff;
+    color-scheme: light;
   }
 }

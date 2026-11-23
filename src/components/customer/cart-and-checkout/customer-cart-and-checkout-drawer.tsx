@@ -17,35 +17,35 @@ import { formatPrice } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 
 const contentClass =
-  "ml-auto flex h-[90dvh] max-h-[90dvh] w-full overflow-hidden rounded-t-3xl sm:rounded-l-3xl sm:rounded-tr-none border-l border-t sm:border-t-0 border-[#D4AF37]/50 bg-black text-white p-0 shadow-2xl";
+  "ml-auto flex h-[90dvh] max-h-[90dvh] w-full overflow-hidden rounded-t-3xl sm:rounded-l-3xl sm:rounded-tr-none border-l border-t sm:border-t-0 border-[#D4AF37] bg-white text-black p-0 shadow-2xl";
 
 const shellClass = "grid h-full min-h-0 w-full lg:grid-cols-[1.7fr_1fr]";
 const leftPaneClass =
   "min-h-0 border-b border-[#D4AF37]/20 lg:border-b-0 lg:border-r";
 const rightPaneClass =
-  "min-h-0 bg-gradient-to-b from-[#141414] via-black to-black";
+  "min-h-0 bg-white";
 const rightInnerClass = "flex h-full min-h-0 flex-col p-5";
 
 const panelClass =
-  "flex h-full min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] shadow-xl";
-const panelHeaderClass = "border-b border-[#D4AF37]/20 px-5 py-4";
-const panelTitleClass = "flex items-center gap-2 text-left text-lg font-bold text-white";
+  "flex h-full min-h-0 flex-1 flex-col overflow-hidden rounded-2xl border border-[#D4AF37] bg-white shadow-xs";
+const panelHeaderClass = "border-b border-zinc-100 px-5 py-4";
+const panelTitleClass = "flex items-center gap-2 text-left text-lg font-bold text-black";
 
 const scrollClass = "min-h-0 flex-1";
 const bodyClass = "space-y-4 px-5 py-4";
 
-const sectionTitleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
-const helperClass = "text-xs text-muted-foreground";
-const cardClass = "rounded-xl border border-[#D4AF37]/30 bg-black/60 p-3 text-sm";
+const sectionTitleClass = "text-xs font-bold uppercase tracking-wider text-[#997300]";
+const helperClass = "text-xs text-zinc-500";
+const cardClass = "rounded-xl border border-[#D4AF37]/40 bg-white p-3 text-sm text-black";
 const rowClass = "flex items-center justify-between text-sm py-1";
 const totalRowClass =
-  "flex items-center justify-between border-t border-[#D4AF37]/30 pt-4 text-base font-bold text-white";
+  "flex items-center justify-between border-t border-[#D4AF37]/30 pt-4 text-base font-bold text-black";
 
 const promoRowClass = "flex gap-2";
-const promoInputClass = "rounded-xl border border-[#D4AF37]/40 bg-black text-white text-xs";
-const actionClass = "shrink-0 space-y-3 border-t border-[#D4AF37]/20 px-5 py-4";
+const promoInputClass = "rounded-xl border border-[#D4AF37]/50 bg-white text-black text-xs font-medium";
+const actionClass = "shrink-0 space-y-3 border-t border-zinc-100 px-5 py-4";
 const primaryButtonClass =
-  "h-11 w-full rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-md shadow-[#D4AF37]/20";
+  "h-11 w-full rounded-xl bg-blue-600 text-white font-bold hover:bg-blue-700 transition-colors shadow-md shadow-blue-500/20";
 
 const promoTitle =
   "flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";

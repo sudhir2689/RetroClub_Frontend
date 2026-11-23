@@ -72,6 +72,8 @@ type CustomerCartAndCheckoutStore = {
   setPromoInput: (value: string) => void;
   clearPromo: () => void;
   applyPromo: () => Promise<void>;
+  setSelectedAddressId: (id: string) => void;
+  setAddresses: (addresses: CheckoutAddressOption[]) => void;
   startRazorpayCheckout: (args: RazorpayArgs) => Promise<void>;
   startPointsCheckout: (args: PointsArgs) => Promise<void>;
   clear: () => void;
@@ -315,7 +317,14 @@ export const useCustomerCartAndCheckoutStore =
           });
         }
 
-        toast.success("Added to cart");
+        toast.success("Added to cart", {
+          action: {
+            label: "View Cart",
+            onClick: () => {
+              window.location.href = "/cart";
+            },
+          },
+        });
       } catch {
         toast.error("Failed to add in cart");
       }
@@ -395,6 +404,8 @@ export const useCustomerCartAndCheckoutStore =
         toast.success("Unable to apply promo");
       }
     },
+    setSelectedAddressId: (value) => set({ selectedAddressId: value }),
+    setAddresses: (addresses) => set({ addresses }),
     clear: () =>
       set({
         cart: emptyCart,

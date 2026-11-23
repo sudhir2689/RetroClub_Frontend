@@ -13,13 +13,13 @@ const panelWrapClass = "space-y-6 overflow-y-auto px-4 py-2 lg:px-0 lg:py-0";
 
 const panelHeaderClass = "flex items-center justify-between gap-3";
 
-const titleClass = "text-base font-semibold text-white";
+const titleClass = "text-base font-bold text-black";
 
-const clearButtonClass = "rounded-lg px-2 text-xs text-[#D4AF37] hover:bg-[#D4AF37]/10 hover:text-white";
+const clearButtonClass = "rounded-lg px-2 text-xs text-[#997300] hover:bg-[#D4AF37]/10 font-bold";
 
 const sectionClass = "space-y-3";
 
-const sectionTitleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
+const sectionTitleClass = "text-xs font-bold uppercase tracking-wider text-[#997300]";
 
 const stackedOptionsClass = "space-y-1";
 
@@ -29,15 +29,15 @@ const fullWidthButtonClass =
 const colorsWrapClass = "flex flex-wrap gap-3";
 
 const colorButtonBaseClass =
-  "flex flex-col items-center gap-2 text-xs text-muted-foreground";
+  "flex flex-col items-center gap-2 text-xs text-zinc-600";
 
-const colorButtonActiveClass = "text-white font-medium";
+const colorButtonActiveClass = "text-black font-bold";
 
 const colorSwatchBaseClass = "h-8 w-8 rounded-full border";
 
 const colorSwatchActiveClass = "border-[#D4AF37] ring-2 ring-[#D4AF37]/50 scale-110";
 
-const colorSwatchInactiveClass = "border-white/20 hover:border-[#D4AF37]/60";
+const colorSwatchInactiveClass = "border-zinc-300 hover:border-[#D4AF37]";
 
 const helperTextClass = "text-xs text-muted-foreground";
 
@@ -96,7 +96,7 @@ function CustomerFiltersPanel({
                 className={`${fullWidthButtonClass} ${
                   isActive
                     ? "bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158]"
-                    : "text-muted-foreground hover:bg-white/5 hover:text-white"
+                    : "text-zinc-700 hover:bg-zinc-100 hover:text-black font-medium"
                 }`}
                 onClick={() => onToggleFacet("category", item._id)}
               >
@@ -124,7 +124,7 @@ function CustomerFiltersPanel({
                 className={`${fullWidthButtonClass} ${
                   isActive
                     ? "bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158]"
-                    : "text-muted-foreground hover:bg-white/5 hover:text-white"
+                    : "text-zinc-700 hover:bg-zinc-100 hover:text-black font-medium"
                 }`}
                 onClick={() => onToggleFacet("brand", brand)}
               >
@@ -189,7 +189,7 @@ function CustomerFiltersPanel({
                 className={`${sizeButtonClass} ${
                   isActive
                     ? "bg-[#D4AF37] text-black font-semibold border-[#D4AF37] hover:bg-[#e5c158]"
-                    : "border-[#D4AF37]/40 bg-black text-white hover:bg-[#D4AF37]/10"
+                    : "border-[#D4AF37]/50 bg-white text-black hover:bg-[#D4AF37]/10"
                 }`}
                 onClick={() => onToggleFacet("size", size)}
               >

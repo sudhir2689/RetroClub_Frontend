@@ -13,50 +13,50 @@ import { useUser } from "@clerk/react";
 import { Pencil, Plus, Trash2, User } from "lucide-react";
 
 const dialogClass =
-  "max-h-[92vh] w-[95vw] sm:max-w-5xl overflow-y-auto rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl p-6";
+  "max-h-[92vh] w-[95vw] sm:max-w-5xl overflow-y-auto rounded-2xl border border-[#D4AF37] bg-white text-black shadow-2xl p-6";
 
-const dialogTitle = "flex items-center gap-2 text-xl font-bold text-white";
+const dialogTitle = "flex items-center gap-2 text-xl font-bold text-black";
 
 const shellClass = "space-y-6 mt-4";
 const accountCardClass =
-  "rounded-2xl border border-[#D4AF37]/40 bg-gradient-to-r from-black via-[#141414] to-black p-6 shadow-md";
+  "rounded-2xl border border-[#D4AF37] bg-white p-6 shadow-xs";
 const accountRowClass = "flex flex-wrap items-center justify-between gap-4";
 const accountTextClass = "space-y-1";
-const accountTitleClass = "text-xl font-bold text-white";
-const emailClass = "text-sm text-muted-foreground";
+const accountTitleClass = "text-xl font-bold text-black";
+const emailClass = "text-sm text-zinc-600";
 const pointsClass =
-  "inline-flex items-center rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-4 py-1 text-sm font-bold text-[#D4AF37]";
+  "inline-flex items-center rounded-full border border-[#D4AF37] bg-[#D4AF37]/10 px-4 py-1 text-sm font-bold text-[#997300]";
 
 const gridClass = "grid gap-6 lg:grid-cols-[1.1fr_0.9fr]";
 const singleGridClass = "grid gap-6";
 
 const sectionClass = "space-y-4";
 const sectionHeaderClass = "flex items-center justify-between gap-3";
-const sectionTitleClass = "text-base font-bold text-white";
-const sectionTextClass = "text-xs text-muted-foreground";
+const sectionTitleClass = "text-base font-bold text-black";
+const sectionTextClass = "text-xs text-zinc-500";
 
 const listClass = "space-y-3 max-h-96 overflow-y-auto pr-1";
 const itemClass =
-  "space-y-3 rounded-xl border border-[#D4AF37]/30 bg-[#0d0d0d] p-4 transition-colors hover:border-[#D4AF37]";
+  "space-y-3 rounded-xl border border-[#D4AF37]/50 bg-white p-4 transition-colors hover:border-[#D4AF37]";
 const itemTopClass = "flex flex-wrap items-start justify-between gap-3";
 const itemTextClass = "space-y-1";
 const defaultClass =
-  "inline-flex rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/15 px-2.5 py-0.5 text-xs font-semibold text-[#D4AF37]";
-const nameClass = "font-semibold text-white";
+  "inline-flex rounded-full border border-[#D4AF37]/50 bg-[#D4AF37]/10 px-2.5 py-0.5 text-xs font-bold text-[#997300]";
+const nameClass = "font-bold text-black";
 const addressClass = "text-xs text-muted-foreground";
 const actionRowClass = "flex gap-2";
 const buttonClass = "rounded-xl text-xs";
 const emptyClass = "text-sm text-muted-foreground";
 
 const formWrapClass =
-  "space-y-4 rounded-xl border border-[#D4AF37]/40 bg-[#0d0d0d] p-5";
+  "space-y-4 rounded-xl border border-[#D4AF37] bg-white p-5 shadow-xs";
 const twoColumnClass = "grid gap-4 sm:grid-cols-2";
 const threeColumnClass = "grid gap-4 sm:grid-cols-3";
 const fieldClass = "space-y-1.5";
 const inputClass =
-  "rounded-xl border border-[#D4AF37]/40 bg-black/60 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]";
+  "rounded-xl border border-[#D4AF37]/50 bg-white text-black placeholder:text-zinc-400 focus:border-[#D4AF37]";
 const checkboxRowClass =
-  "flex items-center gap-3 rounded-xl border border-[#D4AF37]/30 bg-black/40 px-3 py-3 text-sm text-white";
+  "flex items-center gap-3 rounded-xl border border-[#D4AF37]/30 bg-zinc-50 px-3 py-3 text-sm text-black";
 const checkboxClass = "h-4 w-4 accent-[#D4AF37]";
 const formActionsClass = "flex flex-wrap justify-end gap-3 pt-2";
 
@@ -161,7 +161,7 @@ function CustomerProfileDialog() {
                           size="sm"
                           variant="ghost"
                           onClick={() => void removeAddress(item._id)}
-                          className={`${buttonClass} text-red-400 hover:bg-red-500/10`}
+                          className={`${buttonClass} text-red-600 hover:text-red-700 bg-transparent hover:bg-transparent font-medium`}
                         >
                           <Trash2 className="h-3.5 w-3.5 mr-1" />
                           Delete
@@ -234,7 +234,7 @@ function CustomerProfileDialog() {
                   <Button
                     variant="outline"
                     onClick={cancelForm}
-                    className="rounded-xl border border-[#D4AF37]/40 text-white hover:bg-[#D4AF37]/10 text-xs"
+                    className="rounded-xl border border-[#D4AF37]/40 text-black hover:bg-zinc-100 text-xs"
                   >
                     Cancel
                   </Button>

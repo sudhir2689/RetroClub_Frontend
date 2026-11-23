@@ -122,7 +122,7 @@ export function CustomerMobileNavbar({
   const [sheetOpen, setSheetOpen] = useState(false);
   const { signOut } = useAuth();
 
-  const { setOpen: setCartOpen, cart } = useCustomerCartAndCheckoutStore(
+  const { cart } = useCustomerCartAndCheckoutStore(
     (state) => state,
   );
   const { openProfile } = useCustomerProfileStore((state) => state);
@@ -135,6 +135,12 @@ export function CustomerMobileNavbar({
     label: "Collections",
     href: "/collections",
     icon: ShoppingBag,
+  };
+
+  const cartPage: NavItem = {
+    label: `My Cart (${cart?.items?.length ?? 0})`,
+    href: "/cart",
+    icon: ShoppingCart,
   };
 
   const mobileAccountItems: NavItem[] = isSignedIn
@@ -170,15 +176,14 @@ export function CustomerMobileNavbar({
 
   return (
     <div className={mobileWrap}>
-      <button
-        type="button"
-        onClick={() => setCartOpen(true)}
+      <Link
+        to="/cart"
         className={iconLink}
         aria-label="View Cart"
       >
         <ShoppingCart className="h-5 w-5" />
         <span className={cartBadge}>{cart?.items?.length ?? 0}</span>
-      </button>
+      </Link>
 
       <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
         <SheetTrigger asChild>
@@ -203,7 +208,7 @@ export function CustomerMobileNavbar({
           <Separator className="bg-white/10" />
           <DrawerSection
             title="Browse"
-            items={[collectionsPage]}
+            items={[collectionsPage, cartPage]}
             onNavigate={() => setSheetOpen(false)}
           />
 

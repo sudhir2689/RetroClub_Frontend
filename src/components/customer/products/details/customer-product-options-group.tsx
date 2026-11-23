@@ -7,16 +7,16 @@ const baseButtonClass =
   "inline-flex items-center justify-center gap-2 border px-4 py-2 text-sm font-medium transition";
 
 const activeButtonClass =
-  "border-amber-400 bg-amber-400/15 text-amber-300 ring-2 ring-amber-400/30 shadow-[0_0_12px_rgba(212,175,55,0.2)]";
+  "border-[#D4AF37] bg-[#D4AF37]/20 text-black font-bold ring-2 ring-[#D4AF37]/40 shadow-xs";
 
 const inactiveButtonClass =
-  "border-amber-400/40 bg-zinc-950 text-foreground hover:border-amber-400 hover:bg-zinc-900";
+  "border-[#D4AF37]/40 bg-white text-black hover:border-[#D4AF37] hover:bg-zinc-50";
 
 const sizeButtonClass = "min-w-12 rounded-lg";
 
 const colorButtonClass = "rounded-lg";
 
-const swatchClass = "h-4 w-4 rounded-sm border border-amber-400/40";
+const swatchClass = "h-4 w-4 rounded-sm border border-zinc-300";
 
 type CustomerProductOptionsGroupProps = {
   values: string[];
