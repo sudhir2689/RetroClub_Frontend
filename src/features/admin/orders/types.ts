@@ -7,6 +7,16 @@ export type AdminOrderStatus =
   | "refunded";
 export type AdminPaymentStatus = "pending" | "paid" | "failed";
 
+export type AdminOrderItemDetail = {
+  productId: string;
+  title: string;
+  brand: string;
+  price: number;
+  salePercentage: number;
+  imageUrl: string;
+  quantity: number;
+};
+
 export type AdminOrder = {
   _id: string;
   code: string;
@@ -24,6 +34,7 @@ export type AdminOrder = {
   refundedAt?: string | null;
   cancellationNote?: string;
   createdAt: string;
+  orderItems?: AdminOrderItemDetail[];
 };
 
 export type AdminOrdersResponse = {

@@ -7,6 +7,16 @@ export type CustomerOrderStatus =
   | "refunded";
 export type CustomerPaymentStatus = "pending" | "paid" | "failed";
 
+export type CustomerOrderItemDetail = {
+  productId: string;
+  title: string;
+  brand: string;
+  price: number;
+  salePercentage: number;
+  imageUrl: string;
+  quantity: number;
+};
+
 export type CustomerOrder = {
   _id: string;
   code: string;
@@ -22,6 +32,7 @@ export type CustomerOrder = {
   refundedAt?: string | null;
   cancellationNote?: string;
   createdAt: string;
+  orderItems?: CustomerOrderItemDetail[];
 };
 
 export type CustomerOrdersResponse = {

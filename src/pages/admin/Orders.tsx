@@ -23,7 +23,9 @@ import type {
   AdminPaymentStatus,
 } from "@/features/admin/orders/types";
 import { formatPrice } from "@/lib/utils";
+import { ExternalLink } from "lucide-react";
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const pageWrapClass = "min-h-screen bg-[#fafafa] text-zinc-900";
 const contentWrapClass = "mx-auto max-w-7xl space-y-6";
@@ -156,7 +158,64 @@ function AdminOrders() {
                             </div>
                           </TableCell>
 
-                          <TableCell className="font-medium text-black">{order.totalItems}</TableCell>
+                          <TableCell className="min-w-[220px]">
+                            {order.orderItems && order.orderItems.length > 0 ? (
+                              <div className="flex flex-col gap-2 py-1">
+                                {order.orderItems.map((prodItem, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="flex items-center gap-2.5"
+                                  >
+                                    <Link
+                                      to={
+                                        prodItem.productId
+                                          ? `/collection/${prodItem.productId}`
+                                          : "#"
+                                      }
+                                      className="group relative h-10 w-10 shrink-0 overflow-hidden rounded-lg border border-[#D4AF37]/40 bg-zinc-100 hover:border-[#D4AF37] transition-all"
+                                      title={`View ${prodItem.title}`}
+                                    >
+                                      {prodItem.imageUrl ? (
+                                        <img
+                                          src={prodItem.imageUrl}
+                                          alt={prodItem.title}
+                                          className="h-full w-full object-cover group-hover:scale-105 transition-transform"
+                                        />
+                                      ) : (
+                                        <div className="flex h-full w-full items-center justify-center text-[9px] text-zinc-400">
+                                          Kit
+                                        </div>
+                                      )}
+                                    </Link>
+
+                                    <div className="min-w-0 flex-1">
+                                      <Link
+                                        to={
+                                          prodItem.productId
+                                            ? `/collection/${prodItem.productId}`
+                                            : "#"
+                                        }
+                                        className="line-clamp-1 text-xs font-semibold text-black hover:text-[#997300] hover:underline transition-colors flex items-center gap-1 group/link"
+                                      >
+                                        <span>{prodItem.title}</span>
+                                        <ExternalLink className="h-2.5 w-2.5 shrink-0 opacity-60 group-hover/link:opacity-100 text-[#997300]" />
+                                      </Link>
+                                      <p className="text-[11px] text-zinc-500 font-medium">
+                                        Qty: {prodItem.quantity}
+                                        {prodItem.brand
+                                          ? ` • ${prodItem.brand}`
+                                          : ""}
+                                      </p>
+                                    </div>
+                                  </div>
+                                ))}
+                              </div>
+                            ) : (
+                              <span className="font-medium text-black">
+                                {order.totalItems} items
+                              </span>
+                            )}
+                          </TableCell>
 
                           <TableCell className="font-bold text-black">
                             {formatPrice(order.totalAmount)}
