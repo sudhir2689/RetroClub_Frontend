@@ -13,30 +13,30 @@ import { getCoverImage } from "@/features/admin/products/use-product-form";
 import { formatPrice } from "@/lib/utils";
 import { Pencil } from "lucide-react";
 
-const wrapperClass = "overflow-x-auto rounded-xl border border-[#D4AF37]/40 bg-card";
+const wrapperClass = "overflow-x-auto rounded-xl border border-[#D4AF37] bg-white";
 
-const tableHeaderClass = "bg-black/50 border-b border-[#D4AF37]/30";
+const tableHeaderClass = "bg-zinc-50 border-b border-[#D4AF37]/30";
 
-const imageHeadClass = "w-[90px] text-[#D4AF37]";
+const imageHeadClass = "w-[90px] text-[#997300] font-bold";
 
-const editHeadClass = "w-[80px] text-right text-[#D4AF37]";
+const editHeadClass = "w-[80px] text-right text-[#997300] font-bold";
 
-const stateCellClass = "h-28 text-center text-muted-foreground";
+const stateCellClass = "h-28 text-center text-zinc-500";
 
 const imageBoxClass =
-  "h-14 w-14 overflow-hidden rounded-lg border border-[#D4AF37]/40 bg-black";
+  "h-14 w-14 overflow-hidden rounded-lg border border-[#D4AF37]/40 bg-zinc-100";
 
 const imageClass = "h-full w-full object-cover";
 
 const titleWrapClass = "space-y-1";
 
-const titleClass = "font-medium text-white line-clamp-1";
+const titleClass = "font-bold text-black line-clamp-1";
 
-const descriptionClass = "line-clamp-1 text-xs text-muted-foreground max-w-xs";
+const descriptionClass = "line-clamp-1 text-xs text-zinc-500 max-w-xs";
 
 const editCellWrapClass = "flex justify-end";
 
-const editIconClass = "h-4 w-4 mr-1 text-[#D4AF37]";
+const editIconClass = "h-4 w-4 mr-1 text-[#997300]";
 
 type ProductsTableProps = {
   products: Product[];
@@ -55,12 +55,12 @@ export function ProductsTable({
         <TableHeader className={tableHeaderClass}>
           <TableRow className="border-[#D4AF37]/30 hover:bg-transparent">
             <TableHead className={imageHeadClass}>Image</TableHead>
-            <TableHead className="text-[#D4AF37]">Title</TableHead>
-            <TableHead className="text-[#D4AF37]">Brand</TableHead>
-            <TableHead className="text-[#D4AF37]">Category</TableHead>
-            <TableHead className="text-[#D4AF37]">Price</TableHead>
-            <TableHead className="text-[#D4AF37]">Status</TableHead>
-            <TableHead className="text-[#D4AF37]">Stock</TableHead>
+            <TableHead className="text-[#997300] font-bold">Title</TableHead>
+            <TableHead className="text-[#997300] font-bold">Brand</TableHead>
+            <TableHead className="text-[#997300] font-bold">Category</TableHead>
+            <TableHead className="text-[#997300] font-bold">Price</TableHead>
+            <TableHead className="text-[#997300] font-bold">Status</TableHead>
+            <TableHead className="text-[#997300] font-bold">Stock</TableHead>
             <TableHead className={editHeadClass}>Action</TableHead>
           </TableRow>
         </TableHeader>
@@ -83,7 +83,7 @@ export function ProductsTable({
               return (
                 <TableRow
                   key={product._id}
-                  className="border-b border-[#D4AF37]/20 hover:bg-white/[0.02] transition-colors"
+                  className="border-b border-[#D4AF37]/20 hover:bg-zinc-50/60 transition-colors"
                 >
                   <TableCell>
                     <div className={imageBoxClass}>
@@ -103,28 +103,28 @@ export function ProductsTable({
                       <p className={descriptionClass}>{product.description}</p>
                     </div>
                   </TableCell>
-                  <TableCell className="text-sm text-white/90">{product.brand}</TableCell>
-                  <TableCell className="text-sm text-white/90">
-                    <span className="rounded-lg border border-[#D4AF37]/30 bg-[#D4AF37]/10 px-2.5 py-0.5 text-xs text-[#D4AF37]">
+                  <TableCell className="text-sm font-medium text-zinc-800">{product.brand}</TableCell>
+                  <TableCell className="text-sm text-zinc-700">
+                    <span className="rounded-lg border border-[#D4AF37]/40 bg-[#D4AF37]/10 px-2.5 py-0.5 text-xs font-bold text-[#997300]">
                       {product.category?.name || "Uncategorized"}
                     </span>
                   </TableCell>
-                  <TableCell className="text-sm font-semibold text-white">
+                  <TableCell className="text-sm font-bold text-black">
                     {formatPrice(product.price)}
                   </TableCell>
                   <TableCell>
                     <Badge
                       className={`rounded-lg px-2.5 py-0.5 text-xs font-semibold ${
                         product.status === "active"
-                          ? "border border-green-500/40 bg-green-500/10 text-green-400"
-                          : "border border-zinc-700 bg-zinc-800 text-zinc-400"
+                          ? "border border-green-500/40 bg-green-50 text-green-700"
+                          : "border border-zinc-300 bg-zinc-100 text-zinc-600"
                       }`}
                     >
                       {product.status}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-sm text-white/90">
-                    <span className={product.stock <= 5 ? "text-amber-400 font-bold" : ""}>
+                  <TableCell className="text-sm text-zinc-800">
+                    <span className={product.stock <= 5 ? "text-red-600 font-bold" : "font-medium"}>
                       {product.stock}
                     </span>
                   </TableCell>
@@ -133,7 +133,7 @@ export function ProductsTable({
                       size={"sm"}
                       variant={"outline"}
                       onClick={() => onEdit(product)}
-                      className="rounded-xl border border-[#D4AF37]/40 bg-black text-[#D4AF37] hover:bg-[#D4AF37] hover:text-black transition-colors"
+                      className="rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10 transition-colors font-semibold cursor-pointer"
                     >
                       <Pencil className={editIconClass} />
                       Edit

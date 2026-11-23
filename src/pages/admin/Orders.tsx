@@ -25,27 +25,27 @@ import type {
 import { formatPrice } from "@/lib/utils";
 import { useEffect } from "react";
 
-const pageWrapClass = "min-h-screen bg-black text-foreground";
+const pageWrapClass = "min-h-screen bg-[#fafafa] text-zinc-900";
 const contentWrapClass = "mx-auto max-w-7xl space-y-6";
-const cardClass = "rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] shadow-xl shadow-black/50 overflow-hidden";
-const wrapClass = "space-y-4 border-b border-[#D4AF37]/20 p-6";
+const cardClass = "rounded-2xl border border-[#D4AF37] bg-white shadow-xs overflow-hidden";
+const wrapClass = "space-y-4 border-b border-[#D4AF37]/20 p-6 bg-white";
 const topRowClass =
   "flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between";
-const titleClass = "text-2xl font-bold tracking-tight text-white flex items-center gap-2";
-const metaClass = "text-xs text-muted-foreground";
+const titleClass = "text-2xl font-bold tracking-tight text-black flex items-center gap-2";
+const metaClass = "text-xs text-zinc-600";
 const emptyClass =
-  "rounded-xl border border-dashed border-[#D4AF37]/30 bg-black/40 p-8 text-center text-sm text-muted-foreground";
-const tableWrapClass = "overflow-x-auto rounded-xl border border-[#D4AF37]/30 bg-card";
+  "rounded-xl border border-dashed border-[#D4AF37]/30 bg-zinc-50 p-8 text-center text-sm text-zinc-500";
+const tableWrapClass = "overflow-x-auto rounded-xl border border-[#D4AF37] bg-white";
 const cellStackClass = "space-y-1";
-const primaryTextClass = "font-medium text-white";
-const subTextClass = "text-xs text-muted-foreground";
-const selectTriggerClass = "h-9 w-[160px] rounded-xl border border-[#D4AF37]/40 bg-black text-white";
+const primaryTextClass = "font-bold text-black";
+const subTextClass = "text-xs text-zinc-500";
+const selectTriggerClass = "h-9 w-[160px] rounded-xl border border-[#D4AF37]/50 bg-white text-black";
 const successBadgeClass =
-  "border border-green-500/40 bg-green-500/10 text-green-400 rounded-lg";
+  "border border-green-500/40 bg-green-50 text-green-700 rounded-lg";
 const dangerBadgeClass =
-  "border border-red-500/40 bg-red-500/10 text-red-400 rounded-lg";
+  "border border-red-500/40 bg-red-50 text-red-700 rounded-lg";
 const neutralBadgeClass =
-  "border border-zinc-700 bg-zinc-800 text-zinc-300 rounded-lg";
+  "border border-zinc-300 bg-zinc-100 text-zinc-700 rounded-lg";
 
 const orderStatusOptions: AdminOrderStatus[] = [
   "placed",
@@ -109,22 +109,22 @@ function AdminOrders() {
             </div>
           </CardHeader>
 
-          <CardContent className="p-6">
+          <CardContent className="p-6 bg-white">
             {!orders.length ? (
               <div className={emptyClass}>No orders placed yet</div>
             ) : (
               <div className={tableWrapClass}>
                 <Table>
-                  <TableHeader className="bg-black/60 border-b border-[#D4AF37]/30">
+                  <TableHeader className="bg-zinc-50 border-b border-[#D4AF37]/30">
                     <TableRow className="border-[#D4AF37]/30 hover:bg-transparent">
-                      <TableHead className="text-[#D4AF37]">Order Code</TableHead>
-                      <TableHead className="text-[#D4AF37]">Customer</TableHead>
-                      <TableHead className="text-[#D4AF37]">Items</TableHead>
-                      <TableHead className="text-[#D4AF37]">Amount</TableHead>
-                      <TableHead className="text-[#D4AF37]">Payment</TableHead>
-                      <TableHead className="text-[#D4AF37]">Order Status</TableHead>
-                      <TableHead className="text-[#D4AF37]">Dates</TableHead>
-                      <TableHead className="text-right text-[#D4AF37]">Actions</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Order Code</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Customer</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Items</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Amount</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Payment</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Order Status</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Dates</TableHead>
+                      <TableHead className="text-right text-[#997300] font-bold">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
 
@@ -136,9 +136,9 @@ function AdminOrders() {
                       return (
                         <TableRow
                           key={order._id}
-                          className="border-b border-[#D4AF37]/20 hover:bg-white/[0.02] transition-colors"
+                          className="border-b border-[#D4AF37]/20 hover:bg-zinc-50/60 transition-colors"
                         >
-                          <TableCell className="font-mono text-xs text-[#D4AF37]">
+                          <TableCell className="font-mono text-xs font-bold text-[#997300]">
                             #{order.code}
                           </TableCell>
 
@@ -153,9 +153,9 @@ function AdminOrders() {
                             </div>
                           </TableCell>
 
-                          <TableCell className="text-white">{order.totalItems}</TableCell>
+                          <TableCell className="font-medium text-black">{order.totalItems}</TableCell>
 
-                          <TableCell className="font-semibold text-white">
+                          <TableCell className="font-bold text-black">
                             {formatPrice(order.totalAmount)}
                           </TableCell>
 

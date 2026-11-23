@@ -24,10 +24,10 @@ export const adminNavItems: AdminNavItem[] = [
 ];
 
 const sidebarRoot =
-  "hidden w-[280px] shrink-0 border-r border-[#D4AF37]/30 bg-black lg:flex lg:flex-col";
+  "hidden w-[280px] shrink-0 border-r border-[#D4AF37]/30 bg-white lg:flex lg:flex-col";
 
 const brandRow =
-  "flex h-[72px] items-center border-b border-[#D4AF37]/20 px-6";
+  "flex h-[72px] items-center border-b border-[#D4AF37]/20 px-6 bg-white";
 const navWrap = "space-y-2 p-4";
 const navItemBase =
   "flex h-11 items-center gap-3.5 px-4 text-sm font-medium transition-all duration-200 rounded-xl";
@@ -35,7 +35,7 @@ const navItemBase =
 const activeItem =
   "bg-[#D4AF37] text-black font-semibold shadow-md shadow-[#D4AF37]/20";
 const idleItem =
-  "text-white/80 hover:bg-white/5 hover:text-[#D4AF37]";
+  "text-zinc-700 hover:bg-zinc-100 hover:text-black font-medium";
 
 export function AdminSidebarNav({ onNavigate }: { onNavigate?: () => void }) {
   return (
@@ -65,7 +65,7 @@ export function AdminSidebar() {
   return (
     <aside className={sidebarRoot}>
       <div className={brandRow}>
-        <BrandLogo className="h-9 w-auto text-white" />
+        <BrandLogo className="h-9 w-auto text-black" />
       </div>
 
       <div className="flex-1 overflow-y-auto">

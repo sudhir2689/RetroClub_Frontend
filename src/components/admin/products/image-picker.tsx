@@ -7,37 +7,37 @@ const wrapperClass = "space-y-4";
 
 const headerClass = "space-y-1";
 
-const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
+const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#997300]";
 
 const uploadLabelClass =
-  "flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#D4AF37]/50 bg-black/60 px-4 py-6 text-center transition hover:border-[#D4AF37] hover:bg-[#D4AF37]/[0.03]";
+  "flex min-h-28 cursor-pointer flex-col items-center justify-center rounded-xl border border-dashed border-[#D4AF37]/50 bg-zinc-50 px-4 py-6 text-center transition hover:border-[#D4AF37] hover:bg-[#D4AF37]/5";
 
-const uploadIconClass = "mb-2 h-6 w-6 text-[#D4AF37]";
+const uploadIconClass = "mb-2 h-6 w-6 text-[#997300]";
 
-const uploadTitleClass = "text-sm font-semibold text-white";
+const uploadTitleClass = "text-sm font-semibold text-black";
 
-const uploadSubtitleClass = "mt-1 text-xs text-muted-foreground";
+const uploadSubtitleClass = "mt-1 text-xs text-zinc-500";
 
 const hiddenInputClass = "hidden";
 
 const sectionClass = "space-y-2";
 
-const sectionTitleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
+const sectionTitleClass = "text-xs font-semibold uppercase tracking-wider text-[#997300]";
 
 const gridClass = "grid grid-cols-2 gap-3 sm:grid-cols-4";
 
 const imageCardClass =
-  "overflow-hidden rounded-xl border border-[#D4AF37]/40 bg-black";
+  "overflow-hidden rounded-xl border border-[#D4AF37]/40 bg-white shadow-xs";
 
 const imageClass = "h-28 w-full object-cover";
 
-const imageActionsClass = "flex items-center justify-between gap-2 p-2 border-t border-[#D4AF37]/20";
+const imageActionsClass = "flex items-center justify-between gap-2 p-2 border-t border-[#D4AF37]/20 bg-white";
 
 const starIconClass = "mr-1 h-3.5 w-3.5";
 
-const removeIconClass = "h-4 w-4 text-red-400";
+const removeIconClass = "h-4 w-4 text-red-500";
 
-const fileNameClass = "p-2 text-xs text-muted-foreground truncate";
+const fileNameClass = "p-2 text-xs text-zinc-500 truncate bg-white";
 
 type ImagePickerProps = {
   existingImages: ProductImage[];

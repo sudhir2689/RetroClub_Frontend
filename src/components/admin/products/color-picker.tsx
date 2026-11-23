@@ -7,21 +7,21 @@ const wrapperClass = "space-y-3";
 
 const headerClass = "space-y-1";
 
-const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
+const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#997300]";
 
 const actionsRowClass = "flex flex-wrap items-center gap-3";
 
-const colorInputClass = "h-11 w-16 rounded-xl border border-[#D4AF37]/40 bg-black p-1 cursor-pointer";
+const colorInputClass = "h-11 w-16 rounded-xl border border-[#D4AF37]/50 bg-white p-1 cursor-pointer";
 
 const colorsListClass = "flex flex-wrap gap-2";
 
 const colorChipClass =
-  "group inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 bg-black/80 px-3 py-1.5 text-xs font-medium text-white transition hover:border-[#D4AF37]";
+  "group inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/50 bg-white px-3 py-1.5 text-xs font-semibold text-black transition hover:border-[#D4AF37] shadow-xs";
 
-const colorDotClass = "h-3.5 w-3.5 rounded-full border border-white/20";
+const colorDotClass = "h-3.5 w-3.5 rounded-full border border-zinc-300";
 
 const removeIconClass =
-  "h-3.5 w-3.5 text-muted-foreground group-hover:text-red-400";
+  "h-3.5 w-3.5 text-zinc-400 group-hover:text-red-500";
 
 type ColorPickerProps = {
   colors: string[];
@@ -50,7 +50,7 @@ export function ColorPicker({ colors, onAdd, onRemove }: ColorPickerProps) {
           onClick={() => onAdd(selectedColor)}
           type="button"
           variant="secondary"
-          className="rounded-xl border border-[#D4AF37]/40 bg-black text-[#D4AF37] hover:bg-[#D4AF37]/10"
+          className="rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10"
         >
           Add Color
         </Button>

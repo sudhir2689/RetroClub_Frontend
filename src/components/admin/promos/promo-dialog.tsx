@@ -11,7 +11,7 @@ import type { Promo, PromoFormValues } from "@/features/admin/promo/types";
 import { useEffect, useState } from "react";
 
 const dialogContentClass =
-  "max-h-[92vh] w-[95vw] sm:max-w-2xl overflow-y-auto rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl p-6";
+  "max-h-[92vh] w-[95vw] sm:max-w-2xl overflow-y-auto rounded-2xl border border-[#D4AF37] bg-white text-black shadow-2xl p-6";
 
 const layoutClass = "grid gap-5 mt-4";
 
@@ -24,13 +24,13 @@ const thirdRowClass = "grid gap-4 sm:grid-cols-2";
 const fieldWrapClass = "space-y-1.5";
 
 const inputClass =
-  "rounded-xl border border-[#D4AF37]/40 bg-black/60 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]";
+  "rounded-xl border border-[#D4AF37]/50 bg-white text-black placeholder:text-zinc-400 focus:border-[#D4AF37]";
 
-const errorTextClass = "text-xs text-red-400";
+const errorTextClass = "text-xs text-red-500";
 
 const footerClass = "flex justify-end gap-3 pt-4 border-t border-[#D4AF37]/20";
 
-const outlineButtonClass = "rounded-xl border border-[#D4AF37]/40 text-white hover:bg-[#D4AF37]/10";
+const outlineButtonClass = "rounded-xl border border-[#D4AF37] text-black hover:bg-zinc-100";
 
 const primaryButtonClass =
   "rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-md shadow-[#D4AF37]/20";
@@ -115,7 +115,7 @@ function PromoDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={dialogContentClass}>
         <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
-          <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
+          <DialogTitle className="text-xl font-bold text-black flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#D4AF37]" />
             {isEditMode ? "Update Promo Code" : "Create New Promo Code"}
           </DialogTitle>

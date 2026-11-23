@@ -459,8 +459,11 @@ export const useCustomerCartAndCheckoutStore =
           amount: session.razorpay.amount,
           currency: session.razorpay.currency,
           order_id: session.razorpay.orderId,
-          name: "Monster E-commerce",
-          description: "Order payment",
+          name: "RetroClub",
+          description: "Vintage Football Kits Order",
+          theme: {
+            color: "#D4AF37",
+          },
           prefill: { name, email },
           handler: async (response) => {
             try {

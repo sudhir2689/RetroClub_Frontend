@@ -8,10 +8,10 @@ const wrapClass =
 const searchWrapClass = "relative w-full max-w-sm";
 
 const searchIconClass =
-  "pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#D4AF37]";
+  "pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#997300]";
 
 const searchInputClass =
-  "rounded-xl border border-[#D4AF37]/40 bg-black/60 pl-9 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]";
+  "rounded-xl border border-[#D4AF37]/50 bg-white pl-9 text-black placeholder:text-zinc-400 focus:border-[#D4AF37]";
 
 const addButtonClass =
   "rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-md shadow-[#D4AF37]/20";

@@ -5,7 +5,7 @@ const wrapperClass = "space-y-3";
 
 const headerClass = "space-y-1";
 
-const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#D4AF37]";
+const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#997300]";
 
 const gridClass = "grid grid-cols-4 gap-2";
 
@@ -31,7 +31,7 @@ export function SizeSelector({ onToggle, selectedSizes }: SizeSelectorProps) {
               className={`${sizeButtonClass} ${
                 active
                   ? "bg-[#D4AF37] text-black border border-[#D4AF37] hover:bg-[#e5c158]"
-                  : "border border-[#D4AF37]/40 bg-black text-white hover:bg-[#D4AF37]/10"
+                  : "border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10"
               }`}
               onClick={() => onToggle(sizeItem)}
               key={sizeItem}

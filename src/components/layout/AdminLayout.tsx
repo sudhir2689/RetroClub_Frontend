@@ -18,7 +18,7 @@ export function AdminLayout() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen bg-black text-foreground">
+    <div className="min-h-screen bg-[#fafafa] text-zinc-900">
       <ScrollToTop />
       <div className="flex min-h-screen">
         {/* Desktop Sidebar */}
@@ -26,7 +26,7 @@ export function AdminLayout() {
 
         <div className="flex min-w-0 flex-1 flex-col">
           {/* Header */}
-          <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-[#D4AF37]/30 bg-black/90 px-4 backdrop-blur-md lg:px-8">
+          <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-4 border-b border-[#D4AF37]/30 bg-white/95 px-4 backdrop-blur-md lg:px-8">
             {/* Mobile Menu Button & Brand */}
             <div className="flex items-center gap-3 lg:hidden">
               <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
@@ -34,7 +34,7 @@ export function AdminLayout() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    className="h-10 w-10 rounded-xl border border-[#D4AF37]/40 bg-black/50 text-[#D4AF37] hover:bg-[#D4AF37]/10"
+                    className="h-10 w-10 rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10"
                     aria-label="Open Admin Menu"
                   >
                     <Menu className="h-5 w-5" />
@@ -43,11 +43,11 @@ export function AdminLayout() {
 
                 <SheetContent
                   side="left"
-                  className="w-[280px] border-r border-[#D4AF37]/40 bg-black p-0 text-white"
+                  className="w-[280px] border-r border-[#D4AF37] bg-white p-0 text-black shadow-xl"
                 >
                   <SheetHeader className="border-b border-[#D4AF37]/20 p-5 text-left">
                     <SheetTitle className="sr-only">Admin Navigation</SheetTitle>
-                    <BrandLogo className="h-8 w-auto text-white" />
+                    <BrandLogo className="h-8 w-auto text-black" />
                   </SheetHeader>
 
                   <div className="py-4">
@@ -58,16 +58,16 @@ export function AdminLayout() {
                     <Link
                       to="/"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center gap-2 rounded-xl border border-[#D4AF37]/40 px-3 py-2 text-xs font-semibold text-[#D4AF37] hover:bg-[#D4AF37]/10"
+                      className="flex items-center gap-2 rounded-xl border border-[#D4AF37] px-3 py-2 text-xs font-semibold text-black hover:bg-[#D4AF37]/10 transition-colors"
                     >
-                      <ShoppingBag className="h-4 w-4" />
+                      <ShoppingBag className="h-4 w-4 text-[#997300]" />
                       View Customer Store
                     </Link>
                   </div>
                 </SheetContent>
               </Sheet>
 
-              <BrandLogo className="h-8 w-auto text-white" />
+              <BrandLogo className="h-8 w-auto text-black" />
             </div>
 
             {/* Quick Actions in Header */}
@@ -75,7 +75,7 @@ export function AdminLayout() {
               <Button
                 asChild
                 size="sm"
-                className="hidden sm:inline-flex rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors"
+                className="hidden sm:inline-flex rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-xs"
               >
                 <Link to="/admin/products?create=true">
                   <Plus className="h-4 w-4 mr-1.5" />
@@ -87,7 +87,7 @@ export function AdminLayout() {
                 asChild
                 variant="outline"
                 size="sm"
-                className="hidden md:inline-flex rounded-xl border border-[#D4AF37]/40 text-[#D4AF37] hover:bg-[#D4AF37]/10 text-xs"
+                className="hidden md:inline-flex rounded-xl border border-[#D4AF37] text-black hover:bg-[#D4AF37]/10 text-xs font-semibold"
               >
                 <Link to="/">Storefront</Link>
               </Button>
@@ -98,7 +98,7 @@ export function AdminLayout() {
             </div>
           </header>
 
-          <main className="flex-1 bg-black p-4 sm:p-6 lg:p-8">
+          <main className="flex-1 bg-[#fafafa] p-4 sm:p-6 lg:p-8">
             <Outlet />
           </main>
         </div>

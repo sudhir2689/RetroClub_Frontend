@@ -25,7 +25,9 @@ declare global {
     };
     theme?: {
       color?: string;
+      backdrop_color?: string;
     };
+    [key: string]: any;
   }
 
   interface Window {

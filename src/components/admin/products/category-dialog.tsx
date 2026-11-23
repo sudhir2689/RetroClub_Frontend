@@ -16,7 +16,7 @@ import { Pencil, Tag } from "lucide-react";
 import { useState } from "react";
 
 const dialogContentClass =
-  "sm:max-w-xl rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl p-6";
+  "sm:max-w-xl rounded-2xl border border-[#D4AF37] bg-white text-black shadow-2xl p-6";
 
 const contentWrap = "space-y-4 mt-2";
 
@@ -25,16 +25,16 @@ const formRow = "flex gap-3";
 const categoriesList = "space-y-2 max-h-64 overflow-y-auto pr-1";
 
 const categoryRow =
-  "flex items-center justify-between rounded-xl border border-[#D4AF37]/30 bg-[#0d0d0d] px-4 py-3 hover:border-[#D4AF37]/60 transition-colors";
+  "flex items-center justify-between rounded-xl border border-[#D4AF37]/40 bg-zinc-50 px-4 py-3 hover:border-[#D4AF37] transition-colors";
 
 const categoryInfo = "flex items-center gap-2.5";
 
-const categoryIcon = "h-4 w-4 text-[#D4AF37]";
+const categoryIcon = "h-4 w-4 text-[#997300]";
 
-const categoryName = "text-sm font-medium text-white";
+const categoryName = "text-sm font-semibold text-black";
 
 const emptyStateClass =
-  "rounded-xl border border-dashed border-[#D4AF37]/30 p-6 text-center text-sm text-muted-foreground";
+  "rounded-xl border border-dashed border-[#D4AF37]/30 p-6 text-center text-sm text-zinc-500";
 
 type CategoryDialogProps = {
   open: boolean;
@@ -91,7 +91,7 @@ export function CategoryDialog({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className={dialogContentClass}>
         <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
-          <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
+          <DialogTitle className="text-xl font-bold text-black flex items-center gap-2">
             <span className="h-2 w-2 rounded-full bg-[#D4AF37]" />
             Manage Categories
           </DialogTitle>
@@ -103,7 +103,7 @@ export function CategoryDialog({
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Vintage Hoodies, Denim, T-Shirts"
-              className="rounded-xl border border-[#D4AF37]/40 bg-black/60 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]"
+              className="rounded-xl border border-[#D4AF37]/50 bg-white text-black placeholder:text-zinc-400 focus:border-[#D4AF37]"
             />
             <Button
               onClick={handleSave}

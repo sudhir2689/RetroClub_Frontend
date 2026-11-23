@@ -8,10 +8,10 @@ const wrapperClass =
 const searchWrapClass = "relative w-full md:w-80";
 
 const searchIconClass =
-  "pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#D4AF37]";
+  "pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[#997300]";
 
 const searchInputClass =
-  "pl-9 rounded-xl border border-[#D4AF37]/40 bg-black/60 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]";
+  "pl-9 rounded-xl border border-[#D4AF37]/50 bg-white text-black placeholder:text-zinc-400 focus:border-[#D4AF37]";
 
 const actionsWrapClass = "flex flex-col sm:flex-row items-stretch sm:items-center gap-3";
 
@@ -46,13 +46,13 @@ export function ProductToolbar({
         <Button
           onClick={onManageCategories}
           variant="outline"
-          className="rounded-xl border border-[#D4AF37]/40 bg-black text-white hover:bg-[#D4AF37]/10 hover:border-[#D4AF37] text-xs font-semibold"
+          className="rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10 text-xs font-semibold cursor-pointer"
         >
           Manage Categories
         </Button>
         <Button
           onClick={onAddProduct}
-          className="rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-md shadow-[#D4AF37]/20"
+          className="rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] transition-colors shadow-md shadow-[#D4AF37]/20 cursor-pointer"
         >
           <Plus className={addIconClass} />
           Add Product / Clothes

@@ -9,13 +9,13 @@ import { useSearchParams } from "react-router-dom";
 
 const pageWrap = "space-y-6";
 
-const cardClass = "rounded-2xl border border-[#D4AF37]/40 bg-[#0d0d0d] shadow-xl shadow-black/50 overflow-hidden";
+const cardClass = "rounded-2xl border border-[#D4AF37] bg-white shadow-xs overflow-hidden";
 
-const cardHeaderClass = "space-y-4 border-b border-[#D4AF37]/20 p-6";
+const cardHeaderClass = "space-y-4 border-b border-[#D4AF37]/20 p-6 bg-white";
 
-const cardTitleClass = "text-2xl font-bold tracking-tight text-white";
+const cardTitleClass = "text-2xl font-bold tracking-tight text-black";
 
-const cardContentClass = "space-y-4 p-6";
+const cardContentClass = "space-y-4 p-6 bg-white";
 
 function AdminProducts() {
   const [searchParams] = useSearchParams();

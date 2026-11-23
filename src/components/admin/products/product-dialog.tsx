@@ -36,7 +36,7 @@ type ProductDialogProps = {
 };
 
 const dialogContentClass =
-  "max-h-[92vh] w-[95vw] sm:max-w-4xl overflow-y-auto rounded-2xl border border-[#D4AF37]/50 bg-black text-white shadow-2xl shadow-black p-6";
+  "max-h-[92vh] w-[95vw] sm:max-w-4xl overflow-y-auto rounded-2xl border border-[#D4AF37] bg-white text-black shadow-2xl p-6";
 
 const contentWrapClass = "grid gap-6 mt-4";
 
@@ -49,14 +49,14 @@ const fieldGroupClass = "space-y-2";
 const sectionGridClass = "grid gap-6 sm:grid-cols-2";
 
 const statusGroupClass =
-  "flex gap-6 rounded-xl border border-[#D4AF37]/40 bg-black/60 px-4 py-3";
+  "flex gap-6 rounded-xl border border-[#D4AF37]/40 bg-zinc-50 px-4 py-3 text-black";
 
 const statusItemClass = "flex items-center space-x-2";
 
 const actionsRowClass = "flex justify-end gap-3 pt-4 border-t border-[#D4AF37]/20";
 
 const inputClass =
-  "rounded-xl border border-[#D4AF37]/40 bg-black/60 text-white placeholder:text-muted-foreground focus:border-[#D4AF37]";
+  "rounded-xl border border-[#D4AF37]/50 bg-white text-black placeholder:text-zinc-400 focus:border-[#D4AF37]";
 
 export function ProductDialog({
   open,
@@ -88,7 +88,7 @@ export function ProductDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className={dialogContentClass}>
         <DialogHeader className="border-b border-[#D4AF37]/20 pb-4">
-          <DialogTitle className="text-xl font-bold text-white flex items-center gap-2">
+          <DialogTitle className="text-xl font-bold text-black flex items-center gap-2">
             <span className="h-2.5 w-2.5 rounded-full bg-[#D4AF37]" />
             {isEditMode ? "Update Product" : "Create New Product / Clothes"}
           </DialogTitle>
@@ -115,7 +115,7 @@ export function ProductDialog({
                   <SelectValue placeholder="Brand" />
                 </SelectTrigger>
 
-                <SelectContent className="border border-[#D4AF37]/40 bg-black text-white">
+                <SelectContent className="border border-[#D4AF37]/40 bg-white text-black">
                   {BRANDS.map((brand) => (
                     <SelectItem key={brand} value={brand}>
                       {brand}
@@ -148,7 +148,7 @@ export function ProductDialog({
                 <SelectTrigger className={inputClass}>
                   <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
-                <SelectContent className="border border-[#D4AF37]/40 bg-black text-white">
+                <SelectContent className="border border-[#D4AF37]/40 bg-white text-black">
                   {categories.map((category) => (
                     <SelectItem key={category._id} value={category._id}>
                       {category.name}
@@ -245,7 +245,7 @@ export function ProductDialog({
             <Button
               variant="outline"
               onClick={() => onOpenChange(false)}
-              className="rounded-xl border border-[#D4AF37]/40 text-white hover:bg-[#D4AF37]/10"
+              className="rounded-xl border border-[#D4AF37] text-black hover:bg-zinc-100"
             >
               Cancel
             </Button>
