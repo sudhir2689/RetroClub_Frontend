@@ -485,9 +485,14 @@ export const useCustomerCartAndCheckoutStore =
 
               toast.success("Payment successfull");
               onSuccess();
-            } catch {
+            } catch (confirmError) {
               set({ checkoutLoading: false });
-              toast.error("Payment confirmation failed");
+              const message =
+                confirmError instanceof Error
+                  ? confirmError.message
+                  : "Payment confirmation failed";
+              console.error("Payment confirmation error:", confirmError);
+              toast.error(message);
             }
           },
 
@@ -497,9 +502,12 @@ export const useCustomerCartAndCheckoutStore =
         });
 
         razorpay.open();
-      } catch {
+      } catch (error) {
         set({ checkoutLoading: false });
-        toast.error("Unable to start checkout");
+        const message =
+          error instanceof Error ? error.message : "Unable to start checkout";
+        console.error("Checkout error:", error);
+        toast.error(message);
       }
     },
 
