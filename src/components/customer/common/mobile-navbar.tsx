@@ -46,22 +46,22 @@ const mobileWrap = "ml-auto flex items-center gap-2 lg:hidden";
 const menuButton =
   "h-10 w-10 rounded-xl border border-white/15 bg-white/5 text-white hover:bg-white/10";
 
-// Sheet border stays monochrome without golden border to maintain "except the navbar"
+// Drawer styled in elegant white with golden border and accents
 const sheetContent =
-  "w-[340px] max-w-[88vw] border-r border-white/15 bg-black text-white p-0 sm:w-[400px]";
+  "w-[340px] max-w-[88vw] border-r border-[#D4AF37] bg-white text-black p-0 sm:w-[400px] shadow-2xl";
 
 const brandWrap = "flex items-center gap-3";
 
-const brandBlock = "px-6 py-5";
+const brandBlock = "px-6 py-5 border-b border-[#D4AF37]/20";
 
 const drawerSection = "space-y-3 px-6 py-5";
 
-const drawerTitle = "text-xs font-semibold uppercase tracking-wider text-muted-foreground";
+const drawerTitle = "text-xs font-semibold uppercase tracking-wider text-[#997300]";
 
 const drawerItemsWrap = "space-y-1";
 
 const drawerItemLink =
-  "flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-left text-base font-medium text-white transition hover:bg-white/10";
+  "flex w-full cursor-pointer items-center gap-3 rounded-xl px-3 py-3 text-left text-base font-medium text-zinc-800 transition hover:bg-[#D4AF37]/10 hover:text-black";
 
 const cartBadge =
   "absolute -right-1 -top-1 inline-flex min-w-5 items-center justify-center rounded-full bg-amber-400 px-1.5 text-[11px] font-semibold leading-5 text-black";
@@ -93,7 +93,7 @@ function DrawerSection({
                 }}
                 className={drawerItemLink}
               >
-                <Icon className="h-4.5 w-4.5" />
+                <Icon className="h-4.5 w-4.5 text-[#997300]" />
                 <span>{item.label}</span>
               </button>
             );
@@ -106,7 +106,7 @@ function DrawerSection({
               onClick={onNavigate}
               className={drawerItemLink}
             >
-              <Icon className="h-4.5 w-4.5" />
+              <Icon className="h-4.5 w-4.5 text-[#997300]" />
               <span>{item.label}</span>
             </Link>
           );
@@ -202,17 +202,17 @@ export function CustomerMobileNavbar({
               onClick={() => setSheetOpen(false)}
               className={brandWrap}
             >
-              <BrandLogo className="h-9 w-auto text-white" />
+              <BrandLogo className="h-9 w-auto text-black" />
             </Link>
           </div>
-          <Separator className="bg-white/10" />
+          <Separator className="bg-[#D4AF37]/20" />
           <DrawerSection
             title="Browse"
             items={[collectionsPage, cartPage]}
             onNavigate={() => setSheetOpen(false)}
           />
 
-          <Separator className="bg-white/10" />
+          <Separator className="bg-[#D4AF37]/20" />
           <DrawerSection
             title="Account & Orders"
             items={mobileAccountItems}
