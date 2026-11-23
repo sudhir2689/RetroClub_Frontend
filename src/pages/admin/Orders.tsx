@@ -47,10 +47,12 @@ const dangerBadgeClass =
 const neutralBadgeClass =
   "border border-zinc-300 bg-zinc-100 text-zinc-700 rounded-lg";
 
-const orderStatusOptions: AdminOrderStatus[] = [
-  "placed",
-  "shipped",
-  "delivered",
+const orderStatusOptions: { value: AdminOrderStatus; label: string }[] = [
+  { value: "placed", label: "Mark as placed (Processing)" },
+  { value: "shipped", label: "Mark as shipped (In transit)" },
+  { value: "delivered", label: "Mark as delivered" },
+  { value: "cancelled", label: "Cancel / Reject Order" },
+  { value: "refunded", label: "Mark as refunded" },
 ];
 
 function formatDate(value?: string | null) {
@@ -70,23 +72,23 @@ function AdminPaymentStatusBadge(props: { status: AdminPaymentStatus }) {
 }
 
 function canUpdateStatus(order: AdminOrder) {
-  if (order.paymentStatus !== "paid") return false;
-  if (order.orderStatus === "delivered") return false;
-  if (order.orderStatus === "returned") return false;
-
+  if (order.orderStatus === "refunded") return false;
   return true;
 }
 
 function getNextStatusValue(order: AdminOrder) {
-  if (order.orderStatus === "delivered" || order.orderStatus === "returned")
-    return "";
-
   return order.orderStatus;
 }
 
 function AdminOrders() {
-  const { loading, orders, updatingOrderId, fetchOrders, changeStatus } =
-    useAdminOrdersStore((state) => state);
+  const {
+    loading,
+    orders,
+    updatingOrderId,
+    fetchOrders,
+    changeStatus,
+    changeDeliveryDate,
+  } = useAdminOrdersStore((state) => state);
 
   useEffect(() => {
     void fetchOrders();
@@ -124,6 +126,7 @@ function AdminOrders() {
                       <TableHead className="text-[#997300] font-bold">Payment</TableHead>
                       <TableHead className="text-[#997300] font-bold">Order Status</TableHead>
                       <TableHead className="text-[#997300] font-bold">Dates</TableHead>
+                      <TableHead className="text-[#997300] font-bold">Exp. Delivery</TableHead>
                       <TableHead className="text-right text-[#997300] font-bold">Actions</TableHead>
                     </TableRow>
                   </TableHeader>
@@ -169,13 +172,23 @@ function AdminOrders() {
                             <Badge
                               className={`rounded-lg px-2.5 py-0.5 text-xs font-semibold ${
                                 order.orderStatus === "delivered"
-                                  ? "border border-green-500/40 bg-green-500/10 text-green-400"
-                                  : order.orderStatus === "returned"
-                                    ? "border border-red-500/40 bg-red-500/10 text-red-400"
-                                    : "border border-[#D4AF37]/40 bg-[#D4AF37]/10 text-[#D4AF37]"
+                                  ? "border border-green-500/40 bg-green-50 text-green-700"
+                                  : order.orderStatus === "shipped"
+                                    ? "border border-blue-500/40 bg-blue-50 text-blue-700"
+                                    : order.orderStatus === "cancelled"
+                                      ? "border border-red-500/40 bg-red-50 text-red-700"
+                                      : order.orderStatus === "refunded"
+                                        ? "border border-purple-500/40 bg-purple-50 text-purple-700"
+                                        : order.orderStatus === "returned"
+                                          ? "border border-orange-500/40 bg-orange-50 text-orange-700"
+                                          : "border border-[#D4AF37]/50 bg-[#D4AF37]/10 text-[#997300]"
                               }`}
                             >
-                              {order.orderStatus}
+                              {order.orderStatus === "shipped"
+                                ? "In transit"
+                                : order.orderStatus === "placed"
+                                  ? "Processing"
+                                  : order.orderStatus}
                             </Badge>
                           </TableCell>
 
@@ -194,12 +207,41 @@ function AdminOrders() {
                                   Delivered: {formatDate(order.deliveredAt)}
                                 </p>
                               ) : null}
+                              {order.cancelledAt ? (
+                                <p className="text-xs text-red-600">
+                                  Cancelled: {formatDate(order.cancelledAt)}
+                                </p>
+                              ) : null}
+                              {order.refundedAt ? (
+                                <p className="text-xs text-purple-600">
+                                  Refunded: {formatDate(order.refundedAt)}
+                                </p>
+                              ) : null}
                               {order.returnedAt ? (
-                                <p className="text-xs text-red-400">
+                                <p className="text-xs text-orange-600">
                                   Returned: {formatDate(order.returnedAt)}
                                 </p>
                               ) : null}
                             </div>
+                          </TableCell>
+
+                          <TableCell>
+                            <input
+                              type="date"
+                              defaultValue={
+                                order.expectedDeliveryDate
+                                  ? order.expectedDeliveryDate.slice(0, 10)
+                                  : ""
+                              }
+                              onChange={(e) =>
+                                void changeDeliveryDate(
+                                  order._id,
+                                  e.target.value || null,
+                                )
+                              }
+                              className="h-8 rounded-lg border border-[#D4AF37]/50 bg-white px-2 text-xs text-black cursor-pointer focus:outline-none focus:ring-1 focus:ring-[#D4AF37]"
+                              title="Set expected delivery date"
+                            />
                           </TableCell>
 
                           <TableCell className="text-right">
@@ -220,9 +262,9 @@ function AdminOrders() {
                                 />
                               </SelectTrigger>
                               <SelectContent className="border border-[#D4AF37] bg-white text-black">
-                                {orderStatusOptions.map((status) => (
-                                  <SelectItem key={status} value={status}>
-                                    Mark as {status}
+                                {orderStatusOptions.map((opt) => (
+                                  <SelectItem key={opt.value} value={opt.value}>
+                                    {opt.label}
                                   </SelectItem>
                                 ))}
                               </SelectContent>

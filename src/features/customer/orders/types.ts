@@ -2,7 +2,9 @@ export type CustomerOrderStatus =
   | "placed"
   | "shipped"
   | "delivered"
-  | "returned";
+  | "returned"
+  | "cancelled"
+  | "refunded";
 export type CustomerPaymentStatus = "pending" | "paid" | "failed";
 
 export type CustomerOrder = {
@@ -12,9 +14,13 @@ export type CustomerOrder = {
   totalAmount: number;
   paymentStatus: CustomerPaymentStatus;
   orderStatus: CustomerOrderStatus;
+  expectedDeliveryDate?: string | null;
   paidAt?: string | null;
   deliveredAt?: string | null;
   returnedAt?: string | null;
+  cancelledAt?: string | null;
+  refundedAt?: string | null;
+  cancellationNote?: string;
   createdAt: string;
 };
 

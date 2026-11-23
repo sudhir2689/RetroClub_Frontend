@@ -21,7 +21,15 @@ import type {
   CustomerPaymentStatus,
 } from "@/features/customer/orders/types";
 import { formatPrice } from "@/lib/utils";
-import { RefreshCw, ShoppingBasket } from "lucide-react";
+import {
+  AlertCircle,
+  Calendar,
+  CheckCircle2,
+  RefreshCw,
+  ShoppingBasket,
+  Truck,
+} from "lucide-react";
+import { useState } from "react";
 
 const dialogClass =
   "max-h-[92vh] w-[95vw] sm:max-w-4xl overflow-y-auto rounded-2xl border border-[#D4AF37] bg-white text-black shadow-2xl p-6";
@@ -30,16 +38,17 @@ const topRowClass = "flex items-center justify-between gap-3";
 
 const metaClass = "text-xs text-zinc-500";
 
-const buttonClass = "rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10 text-xs font-semibold";
+const buttonClass =
+  "rounded-xl border border-[#D4AF37] bg-white text-black hover:bg-[#D4AF37]/10 text-xs font-semibold";
 const emptyClass = "text-sm text-zinc-500 text-center py-8";
 const successBadgeClass =
-  "border border-green-500/40 bg-green-500/10 text-green-400 rounded-lg";
+  "border border-green-500/40 bg-green-50 text-green-700 rounded-lg font-semibold";
 
 const dangerBadgeClass =
-  "border border-red-500/40 bg-red-500/10 text-red-400 rounded-lg";
+  "border border-red-500/40 bg-red-50 text-red-700 rounded-lg font-semibold";
 
 const neutralBadgeClass =
-  "border border-[#D4AF37]/30 bg-[#D4AF37]/10 text-[#D4AF37] rounded-lg";
+  "border border-[#D4AF37]/50 bg-[#D4AF37]/10 text-[#997300] rounded-lg font-semibold";
 
 function CustomerPaymentStatusBadge(props: { status: CustomerPaymentStatus }) {
   const { status } = props;
@@ -55,14 +64,44 @@ function CustomerPaymentStatusBadge(props: { status: CustomerPaymentStatus }) {
 
 function CustomerOrderStatusBadge(props: { status: CustomerOrderStatus }) {
   const { status } = props;
-  const className =
-    status === "delivered"
-      ? successBadgeClass
-      : status === "returned"
-        ? dangerBadgeClass
-        : neutralBadgeClass;
 
-  return <Badge className={className}>{status}</Badge>;
+  if (status === "delivered") {
+    return (
+      <Badge className="border border-green-500/40 bg-green-50 text-green-700 rounded-lg font-semibold">
+        Delivered
+      </Badge>
+    );
+  }
+
+  if (status === "shipped") {
+    return (
+      <Badge className="border border-blue-500/40 bg-blue-50 text-blue-700 rounded-lg font-semibold">
+        In transit
+      </Badge>
+    );
+  }
+
+  if (status === "cancelled") {
+    return (
+      <Badge className="border border-red-500/40 bg-red-50 text-red-700 rounded-lg font-semibold">
+        Cancelled
+      </Badge>
+    );
+  }
+
+  if (status === "refunded" || status === "returned") {
+    return (
+      <Badge className="border border-purple-500/40 bg-purple-50 text-purple-700 rounded-lg font-semibold">
+        Returned & Refunded
+      </Badge>
+    );
+  }
+
+  return (
+    <Badge className="border border-[#D4AF37]/50 bg-[#D4AF37]/10 text-[#997300] rounded-lg font-semibold">
+      Processing
+    </Badge>
+  );
 }
 
 function formatDate(value?: string | null) {
@@ -80,99 +119,216 @@ function canReturnOrder(order: CustomerOrder) {
 function CustomerOrdersDialog() {
   const { isOpen, closeOrders, loading, items, returnOrder, loadOrders } =
     useCustomerOrdersStore((state) => state);
+  const [selectedNoticeOrder, setSelectedNoticeOrder] =
+    useState<CustomerOrder | null>(null);
 
   return (
-    <Dialog open={isOpen} onOpenChange={(open) => !open && closeOrders()}>
-      <DialogContent className={dialogClass}>
-        <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
-          <DialogTitle className="flex items-center gap-2 text-xl font-bold text-black">
-            <ShoppingBasket className="h-5 w-5 text-[#D4AF37]" />
-            My Orders History
-          </DialogTitle>
-        </DialogHeader>
-        <div className={wrapClass}>
-          <div className={topRowClass}>
-            <p className={metaClass}>Track your purchases, statuses, and eligible returns</p>
-            <Button
-              type="button"
-              variant="outline"
-              size="sm"
-              className={buttonClass}
-              onClick={() => void loadOrders()}
-            >
-              <RefreshCw className={`h-3.5 w-3.5 mr-1 ${loading ? "animate-spin" : ""}`} />
-              Refresh
-            </Button>
-          </div>
-
-          {!items.length ? (
-            <div className={emptyClass}>No orders found. Start shopping our collections!</div>
-          ) : (
-            <div className="overflow-x-auto rounded-xl border border-[#D4AF37] bg-white">
-              <Table>
-                <TableHeader className="bg-zinc-50 border-b border-[#D4AF37]/30">
-                  <TableRow className="border-[#D4AF37]/30 hover:bg-transparent">
-                    <TableHead className="text-[#997300] font-bold">Order</TableHead>
-                    <TableHead className="text-[#997300] font-bold">Date</TableHead>
-                    <TableHead className="text-[#997300] font-bold">Items</TableHead>
-                    <TableHead className="text-[#997300] font-bold">Amount</TableHead>
-                    <TableHead className="text-[#997300] font-bold">Payment</TableHead>
-                    <TableHead className="text-[#997300] font-bold">Status</TableHead>
-                    <TableHead className="text-right text-[#997300] font-bold">Action</TableHead>
-                  </TableRow>
-                </TableHeader>
-
-                <TableBody>
-                  {items.map((order) => {
-                    const returnable = canReturnOrder(order);
-
-                    return (
-                      <TableRow
-                        key={order._id}
-                        className="border-b border-[#D4AF37]/20 hover:bg-zinc-50/50"
-                      >
-                        <TableCell className="font-mono text-xs font-bold text-[#997300]">
-                          #{order.code}
-                        </TableCell>
-                        <TableCell className="text-xs text-zinc-600">
-                          {formatDate(order.createdAt)}
-                        </TableCell>
-                        <TableCell className="text-black font-medium">{order.totalItems}</TableCell>
-                        <TableCell className="font-bold text-black">
-                          {formatPrice(order.totalAmount)}
-                        </TableCell>
-                        <TableCell>
-                          <CustomerPaymentStatusBadge status={order.paymentStatus} />
-                        </TableCell>
-                        <TableCell>
-                          <CustomerOrderStatusBadge status={order.orderStatus} />
-                        </TableCell>
-                        <TableCell className="text-right">
-                          {returnable ? (
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              onClick={() => void returnOrder(order._id)}
-                              className="rounded-xl border border-red-500/40 text-red-600 hover:bg-red-50 text-xs font-semibold"
-                            >
-                              Return Order
-                            </Button>
-                          ) : (
-                            <span className="text-xs text-zinc-500 font-medium">
-                              {order.orderStatus === "returned" ? "Returned" : "Completed"}
-                            </span>
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
+    <>
+      <Dialog open={isOpen} onOpenChange={(open) => !open && closeOrders()}>
+        <DialogContent className={dialogClass}>
+          <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
+            <DialogTitle className="flex items-center gap-2 text-xl font-bold text-black">
+              <ShoppingBasket className="h-5 w-5 text-[#D4AF37]" />
+              My Orders History
+            </DialogTitle>
+          </DialogHeader>
+          <div className={wrapClass}>
+            <div className={topRowClass}>
+              <p className={metaClass}>
+                Track your purchases, statuses, and eligible returns
+              </p>
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className={buttonClass}
+                onClick={() => void loadOrders()}
+              >
+                <RefreshCw
+                  className={`h-3.5 w-3.5 mr-1 ${loading ? "animate-spin" : ""}`}
+                />
+                Refresh
+              </Button>
             </div>
-          )}
-        </div>
-      </DialogContent>
-    </Dialog>
+
+            {!items.length ? (
+              <div className={emptyClass}>
+                No orders found. Start shopping our collections!
+              </div>
+            ) : (
+              <div className="overflow-x-auto rounded-xl border border-[#D4AF37] bg-white">
+                <Table>
+                  <TableHeader className="bg-zinc-50 border-b border-[#D4AF37]/30">
+                    <TableRow className="border-[#D4AF37]/30 hover:bg-transparent">
+                      <TableHead className="text-[#997300] font-bold">
+                        Order
+                      </TableHead>
+                      <TableHead className="text-[#997300] font-bold">
+                        Date
+                      </TableHead>
+                      <TableHead className="text-[#997300] font-bold">
+                        Items
+                      </TableHead>
+                      <TableHead className="text-[#997300] font-bold">
+                        Amount
+                      </TableHead>
+                      <TableHead className="text-[#997300] font-bold">
+                        Payment
+                      </TableHead>
+                      <TableHead className="text-[#997300] font-bold">
+                        Status
+                      </TableHead>
+                      <TableHead className="text-right text-[#997300] font-bold">
+                        Action
+                      </TableHead>
+                    </TableRow>
+                  </TableHeader>
+
+                  <TableBody>
+                    {items.map((order) => {
+                      const returnable = canReturnOrder(order);
+
+                      return (
+                        <TableRow
+                          key={order._id}
+                          className="border-b border-[#D4AF37]/20 hover:bg-zinc-50/50"
+                        >
+                          <TableCell className="font-mono text-xs font-bold text-[#997300]">
+                            #{order.code}
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-0.5">
+                              <p className="text-xs text-zinc-600">
+                                {formatDate(order.createdAt)}
+                              </p>
+                              {order.expectedDeliveryDate ? (
+                                <p className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#997300]">
+                                  <Calendar className="h-3 w-3" />
+                                  Exp: {formatDate(order.expectedDeliveryDate)}
+                                </p>
+                              ) : null}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-black font-medium">
+                            {order.totalItems}
+                          </TableCell>
+                          <TableCell className="font-bold text-black">
+                            {formatPrice(order.totalAmount)}
+                          </TableCell>
+                          <TableCell>
+                            <CustomerPaymentStatusBadge
+                              status={order.paymentStatus}
+                            />
+                          </TableCell>
+                          <TableCell>
+                            <CustomerOrderStatusBadge
+                              status={order.orderStatus}
+                            />
+                          </TableCell>
+                          <TableCell className="text-right">
+                            {order.orderStatus === "cancelled" ? (
+                              <div className="flex flex-col items-end gap-1">
+                                <button
+                                  type="button"
+                                  onClick={() => setSelectedNoticeOrder(order)}
+                                  className="inline-flex items-center gap-1 rounded-lg border border-red-500/40 bg-red-50 px-2 py-1 text-xs font-semibold text-red-700 hover:bg-red-100 transition-colors cursor-pointer"
+                                >
+                                  <AlertCircle className="h-3.5 w-3.5" />
+                                  Cancelled
+                                </button>
+                                <span className="text-[11px] font-medium text-amber-700 max-w-[200px] text-right leading-tight">
+                                  refund will be transferred to their original bank account
+                                </span>
+                              </div>
+                            ) : order.orderStatus === "refunded" ||
+                              order.orderStatus === "returned" ? (
+                              <div className="flex flex-col items-end gap-0.5">
+                                <span className="inline-flex items-center gap-1 rounded-lg border border-purple-500/40 bg-purple-50 px-2.5 py-1 text-xs font-semibold text-purple-700">
+                                  <CheckCircle2 className="h-3.5 w-3.5" />
+                                  Returned & Refunded
+                                </span>
+                                <span className="text-[10px] text-zinc-500">
+                                  Refund transferred to original bank account
+                                </span>
+                              </div>
+                            ) : returnable ? (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                onClick={() => void returnOrder(order._id)}
+                                className="rounded-xl border border-red-500/40 text-red-600 hover:bg-red-50 text-xs font-semibold"
+                              >
+                                Return Order
+                              </Button>
+                            ) : order.orderStatus === "delivered" ? (
+                              <span className="text-xs text-green-700 font-semibold">
+                                Completed
+                              </span>
+                            ) : order.orderStatus === "shipped" ? (
+                              <span className="inline-flex items-center gap-1 text-xs font-semibold text-blue-700">
+                                <Truck className="h-3.5 w-3.5" />
+                                In transit
+                              </span>
+                            ) : (
+                              <span className="text-xs text-[#997300] font-semibold">
+                                Processing
+                              </span>
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Cancellation Notice Dialog */}
+      {selectedNoticeOrder && (
+        <Dialog
+          open={!!selectedNoticeOrder}
+          onOpenChange={(open) => !open && setSelectedNoticeOrder(null)}
+        >
+          <DialogContent className="sm:max-w-md rounded-2xl border border-[#D4AF37] bg-white text-black p-6 shadow-2xl">
+            <DialogHeader className="border-b border-[#D4AF37]/20 pb-3">
+              <DialogTitle className="flex items-center gap-2 text-lg font-bold text-red-600">
+                <AlertCircle className="h-5 w-5" />
+                Order Cancelled
+              </DialogTitle>
+            </DialogHeader>
+
+            <div className="space-y-4 pt-2">
+              <div className="rounded-xl border border-amber-500/30 bg-amber-50/70 p-4 text-sm text-zinc-800">
+                <p className="font-semibold text-amber-900 mb-1">
+                  Refund Notice for Order #{selectedNoticeOrder.code}:
+                </p>
+                <p className="text-zinc-700">
+                  {selectedNoticeOrder.cancellationNote ||
+                    "refund will be transferred to their original bank account"}
+                </p>
+              </div>
+
+              <div className="text-xs text-zinc-500 space-y-1">
+                <p>Total Amount: {formatPrice(selectedNoticeOrder.totalAmount)}</p>
+                <p>Status: Cancelled by Store Admin</p>
+              </div>
+
+              <div className="flex justify-end pt-2">
+                <Button
+                  onClick={() => setSelectedNoticeOrder(null)}
+                  className="rounded-xl bg-[#D4AF37] text-black font-semibold hover:bg-[#e5c158] px-5"
+                >
+                  Understood
+                </Button>
+              </div>
+            </div>
+          </DialogContent>
+        </Dialog>
+      )}
+    </>
   );
 }
 

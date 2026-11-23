@@ -3,6 +3,7 @@ import type {
   AdminOrdersResponse,
   AdminOrderStatus,
   AdminUpdateOrderStatusResponse,
+  AdminUpdateDeliveryDateResponse,
 } from "./types";
 
 export async function extractAdminOrders() {
@@ -17,4 +18,14 @@ export async function updateAdminOrderStatus(
     AdminUpdateOrderStatusResponse,
     { orderStatus: AdminOrderStatus }
   >(`/admin/orders/${orderId}/status`, { orderStatus });
+}
+
+export async function updateAdminDeliveryDate(
+  orderId: string,
+  expectedDeliveryDate: string | null,
+) {
+  return apiPatch<
+    AdminUpdateDeliveryDateResponse,
+    { expectedDeliveryDate: string | null }
+  >(`/admin/orders/${orderId}/delivery-date`, { expectedDeliveryDate });
 }

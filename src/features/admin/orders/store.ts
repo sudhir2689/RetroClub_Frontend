@@ -1,6 +1,10 @@
 import { create } from "zustand";
 import type { AdminOrder, AdminOrderStatus } from "./types";
-import { extractAdminOrders, updateAdminOrderStatus } from "./api";
+import {
+  extractAdminOrders,
+  updateAdminOrderStatus,
+  updateAdminDeliveryDate,
+} from "./api";
 
 type AdminOrdersStore = {
   orders: AdminOrder[];
@@ -10,6 +14,10 @@ type AdminOrdersStore = {
   changeStatus: (
     orderId: string,
     orderStatus: AdminOrderStatus,
+  ) => Promise<void>;
+  changeDeliveryDate: (
+    orderId: string,
+    expectedDeliveryDate: string | null,
   ) => Promise<void>;
 };
 
@@ -52,9 +60,43 @@ export const useAdminOrdersStore = create<AdminOrdersStore>((set) => ({
                 orderStatus: response.orderStatus,
                 deliveredAt: response.deliveredAt || order.deliveredAt || null,
                 returnedAt: response.returnedAt || order.returnedAt || null,
+                cancelledAt: response.cancelledAt || order.cancelledAt || null,
+                refundedAt: response.refundedAt || order.refundedAt || null,
+                cancellationNote:
+                  response.cancellationNote || order.cancellationNote,
               }
             : order,
         ),
+        updatingOrderId: "",
+      }));
+    } catch {
+      set({ updatingOrderId: "" });
+    }
+  },
+  changeDeliveryDate: async (orderId, expectedDeliveryDate) => {
+    try {
+      set({ updatingOrderId: orderId });
+
+      const response = await updateAdminDeliveryDate(
+        orderId,
+        expectedDeliveryDate,
+      );
+
+      if (!response._id) {
+        set({ updatingOrderId: "" });
+        return;
+      }
+
+      set((state) => ({
+        orders: state.orders.map((order) =>
+          order._id === orderId
+            ? {
+                ...order,
+                expectedDeliveryDate: response.expectedDeliveryDate,
+              }
+            : order,
+        ),
+        updatingOrderId: "",
       }));
     } catch {
       set({ updatingOrderId: "" });
