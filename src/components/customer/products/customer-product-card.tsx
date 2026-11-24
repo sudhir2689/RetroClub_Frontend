@@ -95,7 +95,7 @@ function CustomerProductCard({ product }: CustomerProductCardProps) {
             ) : null}
           </div>
 
-          {product.colors.length ? (
+          {product.colors && product.colors.length > 0 ? (
             <div className={colorsWrapClass}>
               {product.colors.slice(0, 4).map((color) => (
                 <span
