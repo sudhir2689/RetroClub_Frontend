@@ -6,7 +6,7 @@ export const BRAND_OPTIONS = [
   "Puma",
 ];
 
-export const SIZE_OPTIONS = ["S", "M", "L", "XL"] as const;
+export const SIZE_OPTIONS = ["S", "M", "L", "XL", "2XL"] as const;
 
 const COLOR_MAP: Record<string, string> = {
   black: "#111111",

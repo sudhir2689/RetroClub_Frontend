@@ -1,6 +1,6 @@
 export type ProductSort = "recent" | "price-low" | "price-high";
 
-export type ProductSize = "S" | "M" | "L" | "XL";
+export type ProductSize = "S" | "M" | "L" | "XL" | "2XL";
 
 export type ProductCategory = {
   _id: string;

@@ -7,7 +7,7 @@ const headerClass = "space-y-1";
 
 const titleClass = "text-xs font-semibold uppercase tracking-wider text-[#997300]";
 
-const gridClass = "grid grid-cols-4 gap-2";
+const gridClass = "grid grid-cols-3 sm:grid-cols-5 gap-2";
 
 const sizeButtonClass = "h-11 rounded-xl font-semibold transition-all";
 
