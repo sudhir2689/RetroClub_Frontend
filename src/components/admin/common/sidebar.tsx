@@ -24,10 +24,10 @@ export const adminNavItems: AdminNavItem[] = [
 ];
 
 const sidebarRoot =
-  "hidden w-[280px] shrink-0 border-r border-[#D4AF37]/30 bg-white lg:flex lg:flex-col";
+  "hidden w-[280px] shrink-0 border-r border-[#D4AF37]/30 bg-white lg:flex lg:flex-col sticky top-0 h-screen self-start overflow-hidden z-20";
 
 const brandRow =
-  "flex h-[72px] items-center border-b border-[#D4AF37]/20 px-6 bg-white";
+  "flex h-16 shrink-0 items-center border-b border-[#D4AF37]/20 px-6 bg-white";
 const navWrap = "space-y-2 p-4";
 const navItemBase =
   "flex h-11 items-center gap-3.5 px-4 text-sm font-medium transition-all duration-200 rounded-xl";

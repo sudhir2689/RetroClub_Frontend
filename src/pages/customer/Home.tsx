@@ -25,23 +25,21 @@ const sectionEyebrowClass =
 const sectionTitleClass =
   "text-3xl font-bold tracking-tight text-black sm:text-4xl lg:text-5xl";
 
-// Amazon-style Banner Carousel classes
+// Banner Carousel classes
 const carouselWrapClass =
-  "relative w-full overflow-hidden rounded-2xl sm:rounded-3xl border border-[#D4AF37] bg-black shadow-xl shadow-black/30";
+  "relative mx-auto w-full max-w-xl md:max-w-2xl overflow-hidden rounded-2xl sm:rounded-3xl border border-[#D4AF37] bg-black shadow-xl shadow-black/30";
 const carouselHeightClass =
-  "relative h-[220px] sm:h-[340px] md:h-[440px] lg:h-[500px] xl:h-[540px] w-full overflow-hidden";
+  "relative h-[320px] sm:h-[400px] md:h-[480px] lg:h-[520px] w-full overflow-hidden flex items-center justify-center";
 const bannerImageClass =
-  "h-full w-full object-cover object-center transition-all duration-700";
+  "relative z-10 h-full w-full object-contain object-center p-3 sm:p-5 transition-transform duration-500 group-hover:scale-105";
 
 const navArrowClass =
-  "absolute top-1/2 -translate-y-1/2 z-20 flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-full border border-[#D4AF37]/60 bg-black/70 text-[#D4AF37] backdrop-blur-md transition-all duration-300 hover:bg-[#D4AF37] hover:text-black hover:scale-110 active:scale-95";
+  "absolute top-1/2 -translate-y-1/2 z-30 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full border border-[#D4AF37]/60 bg-black/80 text-[#D4AF37] backdrop-blur-md transition-all duration-300 hover:bg-[#D4AF37] hover:text-black hover:scale-110 active:scale-95 shadow-md shadow-black/60";
 
-const dotsContainerClass =
-  "absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2 rounded-full border border-[#D4AF37]/30 bg-black/60 px-3 py-1.5 backdrop-blur-md";
 const dotClass =
   "h-2 rounded-full transition-all duration-300 cursor-pointer";
-const dotActive = "w-7 bg-[#D4AF37] shadow-sm shadow-[#D4AF37]";
-const dotInactive = "w-2 bg-white/40 hover:bg-white/70";
+const dotActive = "w-6 bg-[#D4AF37] shadow-xs";
+const dotInactive = "w-2 bg-zinc-300 hover:bg-zinc-400";
 
 // Product Section Classes (placed immediately below banner)
 const productGridClass = "grid gap-6 sm:grid-cols-2 xl:grid-cols-4";
@@ -170,30 +168,38 @@ export function StoreHome() {
                           to={destinationUrl}
                           className="group relative block h-full w-full overflow-hidden cursor-pointer"
                         >
+                          {/* Ambient blurred backdrop to softly fill sides */}
+                          <img
+                            src={banner.imageUrl}
+                            alt=""
+                            aria-hidden="true"
+                            className="absolute inset-0 h-full w-full object-cover blur-2xl opacity-20 scale-125 pointer-events-none"
+                          />
+
+                          {/* Gradient Overlays for depth */}
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-black/20 pointer-events-none z-10" />
+
+                          {/* Full t-shirt image, perfectly contained without cropping */}
                           <img
                             src={banner.imageUrl}
                             alt={banner.title || "Featured banner"}
                             className={bannerImageClass}
                           />
 
-                          {/* Gradient Overlays for Amazon-style depth */}
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent pointer-events-none" />
-                          <div className="absolute inset-0 bg-gradient-to-r from-black/40 via-transparent to-black/40 pointer-events-none" />
-
                           {/* Title / Action Pill Overlay */}
-                          <div className="absolute bottom-6 left-6 right-6 sm:bottom-8 sm:left-10 sm:right-10 z-10 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+                          <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 z-20 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
                             {banner.title ? (
-                              <div className="space-y-1 bg-black/60 backdrop-blur-md p-3 sm:p-4 rounded-xl border border-[#D4AF37]/30 max-w-md">
-                                <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#D4AF37]">
-                                  <Sparkles className="h-3.5 w-3.5" /> Featured
+                              <div className="space-y-0.5 bg-black/75 backdrop-blur-md px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl border border-[#D4AF37]/40 max-w-[280px] sm:max-w-sm">
+                                <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-wider text-[#D4AF37]">
+                                  <Sparkles className="h-3 w-3" /> Featured
                                 </span>
-                                <h3 className="text-lg sm:text-2xl font-semibold text-white line-clamp-1">
+                                <h3 className="text-sm sm:text-base font-bold text-white line-clamp-1">
                                   {banner.title}
                                 </h3>
                               </div>
                             ) : null}
 
-                            <span className="self-start sm:self-auto inline-flex items-center gap-2 rounded-full border border-[#D4AF37] bg-[#D4AF37] px-5 py-2 text-xs sm:text-sm font-semibold text-black transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-black/50">
+                            <span className="self-start sm:self-auto inline-flex items-center gap-2 rounded-xl border border-[#D4AF37] bg-[#D4AF37] px-4 py-2 text-xs sm:text-sm font-bold text-black transition-transform duration-300 group-hover:scale-105 shadow-lg shadow-black/50">
                               {banner.productId ? "Shop Product Now" : "Explore Collection"}
                               <ArrowRight className="h-4 w-4" />
                             </span>
@@ -214,9 +220,9 @@ export function StoreHome() {
                         e.preventDefault();
                         prevSlide();
                       }}
-                      className={`${navArrowClass} left-3 sm:left-5`}
+                      className={`${navArrowClass} left-3 sm:left-4`}
                     >
-                      <ChevronLeft className="h-6 w-6" />
+                      <ChevronLeft className="h-5 w-5 sm:h-6 sm:w-6" />
                     </button>
 
                     <button
@@ -226,28 +232,30 @@ export function StoreHome() {
                         e.preventDefault();
                         nextSlide();
                       }}
-                      className={`${navArrowClass} right-3 sm:right-5`}
+                      className={`${navArrowClass} right-3 sm:right-4`}
                     >
-                      <ChevronRight className="h-6 w-6" />
+                      <ChevronRight className="h-5 w-5 sm:h-6 sm:w-6" />
                     </button>
-
-                    {/* Slide Dots Indicator */}
-                    <div className={dotsContainerClass}>
-                      {banners.map((_, dotIdx) => (
-                        <button
-                          key={dotIdx}
-                          type="button"
-                          aria-label={`Go to slide ${dotIdx + 1}`}
-                          onClick={() => setCurrentSlide(dotIdx)}
-                          className={`${dotClass} ${
-                            dotIdx === currentSlide ? dotActive : dotInactive
-                          }`}
-                        />
-                      ))}
-                    </div>
                   </>
                 ) : null}
               </div>
+
+              {/* Slide Dots Indicator placed below carousel */}
+              {bannerCount > 1 ? (
+                <div className="mt-3.5 flex items-center justify-center gap-2">
+                  {banners.map((_, dotIdx) => (
+                    <button
+                      key={dotIdx}
+                      type="button"
+                      aria-label={`Go to slide ${dotIdx + 1}`}
+                      onClick={() => setCurrentSlide(dotIdx)}
+                      className={`${dotClass} ${
+                        dotIdx === currentSlide ? dotActive : dotInactive
+                      }`}
+                    />
+                  ))}
+                </div>
+              ) : null}
             </section>
           ) : null}
 
