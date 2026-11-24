@@ -70,6 +70,13 @@ function CustomerProductDetailsSummary({
   const salePrice = extractSalePrice(product);
   const hasSale = product.salePercentage > 0;
 
+  // Only show sizes that are in stock if sizeStock is specified
+  const availableSizes = (product.sizes || []).filter((s) => {
+    if (!product.sizeStock || Object.keys(product.sizeStock).length === 0) return true;
+    const stockVal = product.sizeStock[s];
+    return stockVal === undefined || stockVal > 0;
+  });
+
   return (
     <section className={summaryWrapClass}>
       <div className={badgesWrapClass}>
@@ -128,14 +135,17 @@ function CustomerProductDetailsSummary({
         />
       ) : null}
 
-      {/* FIXED: Check product.sizes.length instead of product.colors.length */}
-      {product.sizes && product.sizes.length ? (
+      {availableSizes && availableSizes.length ? (
         <CustomerProductOptionsGroup
-          values={product.sizes}
+          values={availableSizes}
           selectedValue={selectedSize}
           onSelect={setSelectedSize}
           variant="size"
         />
+      ) : product.sizes && product.sizes.length ? (
+        <p className="text-xs text-red-600 font-semibold">
+          All sizes are currently sold out.
+        </p>
       ) : null}
 
       <Separator className="bg-[#D4AF37]/30" />
@@ -144,7 +154,10 @@ function CustomerProductDetailsSummary({
         <Button
           type="button"
           className={primaryButtonClass}
-          disabled={product.stock < 1}
+          disabled={
+            product.stock < 1 ||
+            (product.sizes?.length > 0 && availableSizes.length === 0)
+          }
           onClick={() => void onAddToCart()}
         >
           <ShoppingBag className={iconClass} />

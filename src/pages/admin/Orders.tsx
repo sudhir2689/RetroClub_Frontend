@@ -202,6 +202,9 @@ function AdminOrders() {
                                       </Link>
                                       <p className="text-[11px] text-zinc-500 font-medium">
                                         Qty: {prodItem.quantity}
+                                        {prodItem.size
+                                          ? ` • Size: ${prodItem.size}`
+                                          : ""}
                                         {prodItem.brand
                                           ? ` • ${prodItem.brand}`
                                           : ""}

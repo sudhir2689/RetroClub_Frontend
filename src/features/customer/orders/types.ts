@@ -15,6 +15,8 @@ export type CustomerOrderItemDetail = {
   salePercentage: number;
   imageUrl: string;
   quantity: number;
+  size?: string;
+  color?: string;
 };
 
 export type CustomerOrder = {

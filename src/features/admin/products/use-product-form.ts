@@ -17,6 +17,8 @@ function getEmptyForm(): ProductFormState {
     brand: "",
     colors: [],
     sizes: [],
+    sizeStock: {},
+    isStockAuto: true,
     price: "",
     salePercentage: "0",
     stock: "",
@@ -33,6 +35,12 @@ export function getCoverImage(images: ProductImage[] = []) {
 
 function mapProductToFormValues(product: Product): ProductFormState {
   const cover = getCoverImage(product.images);
+  const sizeStock: Record<string, number | ""> = {};
+  if (product.sizeStock) {
+    Object.entries(product.sizeStock).forEach(([k, v]) => {
+      sizeStock[k] = v;
+    });
+  }
 
   return {
     title: product.title,
@@ -41,6 +49,8 @@ function mapProductToFormValues(product: Product): ProductFormState {
     brand: product.brand,
     colors: product.colors ?? [],
     sizes: product.sizes ?? [],
+    sizeStock,
+    isStockAuto: Object.keys(sizeStock).length > 0,
     price: String(product.price),
     salePercentage: String(product.salePercentage ?? 0),
     stock: String(product.stock),
@@ -65,12 +75,65 @@ export function useProductForm({
   }, [open, product]);
 
   function toggleSize(size: string) {
-    setForm((prev) => ({
-      ...prev,
-      sizes: prev.sizes.includes(size)
+    setForm((prev) => {
+      const isRemoving = prev.sizes.includes(size);
+      const nextSizes = isRemoving
         ? prev.sizes.filter((item) => item !== size)
-        : [...prev.sizes, size],
-    }));
+        : [...prev.sizes, size];
+
+      const nextSizeStock = { ...prev.sizeStock };
+      if (isRemoving) {
+        delete nextSizeStock[size];
+      }
+
+      const totalFromSizes = nextSizes.reduce((sum, s) => {
+        const q = nextSizeStock[s];
+        return sum + (typeof q === "number" ? q : 0);
+      }, 0);
+
+      const hasAnySizeStock = nextSizes.some(
+        (s) => nextSizeStock[s] !== undefined && nextSizeStock[s] !== "",
+      );
+
+      return {
+        ...prev,
+        sizes: nextSizes,
+        sizeStock: nextSizeStock,
+        stock:
+          prev.isStockAuto && hasAnySizeStock
+            ? String(totalFromSizes)
+            : prev.stock,
+      };
+    });
+  }
+
+  function updateSizeStock(size: string, val: string) {
+    setForm((prev) => {
+      const parsed: number | "" =
+        val.trim() === "" ? "" : Math.max(0, parseInt(val, 10) || 0);
+      const nextSizeStock: Record<string, number | ""> = {
+        ...prev.sizeStock,
+        [size]: parsed,
+      };
+
+      const totalFromSizes = prev.sizes.reduce((sum, s) => {
+        const q = nextSizeStock[s];
+        return sum + (typeof q === "number" ? q : 0);
+      }, 0);
+
+      const hasAnySizeStock = prev.sizes.some(
+        (s) => nextSizeStock[s] !== undefined && nextSizeStock[s] !== "",
+      );
+
+      const shouldAutoUpdate = prev.isStockAuto || !prev.stock || prev.stock === "0";
+
+      return {
+        ...prev,
+        sizeStock: nextSizeStock,
+        stock: shouldAutoUpdate && hasAnySizeStock ? String(totalFromSizes) : prev.stock,
+        isStockAuto: shouldAutoUpdate ? true : prev.isStockAuto,
+      };
+    });
   }
 
   function addColor(color: string) {
@@ -105,6 +168,7 @@ export function useProductForm({
     setForm((prev) => ({
       ...prev,
       [key]: value,
+      ...(key === "stock" ? { isStockAuto: false } : {}),
     }));
   }
 
@@ -138,6 +202,14 @@ export function useProductForm({
     try {
       setSaving(true);
 
+      const cleanSizeStock: Record<string, number> = {};
+      form.sizes.forEach((s) => {
+        if (form.sizeStock[s] !== undefined && form.sizeStock[s] !== "") {
+          cleanSizeStock[s] = Number(form.sizeStock[s]) || 0;
+        }
+      });
+      const hasSizeStock = Object.keys(cleanSizeStock).length > 0;
+
       if (product) {
         //edit
 
@@ -150,6 +222,7 @@ export function useProductForm({
             brand: form.brand,
             colors: form.colors,
             sizes: form.sizes,
+            sizeStock: hasSizeStock ? cleanSizeStock : undefined,
             price: Number(form.price),
             salePercentage: Number(form.salePercentage) || 0,
             stock: Number(form.stock),
@@ -168,6 +241,7 @@ export function useProductForm({
             brand: form.brand,
             colors: form.colors,
             sizes: form.sizes,
+            sizeStock: hasSizeStock ? cleanSizeStock : undefined,
             price: Number(form.price),
             salePercentage: Number(form.salePercentage) || 0,
             stock: Number(form.stock),
@@ -189,6 +263,7 @@ export function useProductForm({
     saving,
     isEditMode: !!product,
     toggleSize,
+    updateSizeStock,
     addColor,
     removeColor,
     addFiles,

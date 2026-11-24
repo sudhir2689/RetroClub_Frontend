@@ -27,6 +27,7 @@ export type Product = {
   images: ProductImage[];
   colors: string[];
   sizes: string[];
+  sizeStock?: Record<string, number>;
   price: number;
   salePercentage: number;
   stock: number;
@@ -50,6 +51,7 @@ export type CreateProductBody = {
   brand: string;
   colors: string[];
   sizes: string[];
+  sizeStock?: Record<string, number>;
   price: number;
   salePercentage: number;
   stock: number;
@@ -63,6 +65,7 @@ export type UpdateProductBody = {
   brand: string;
   colors: string[];
   sizes: string[];
+  sizeStock?: Record<string, number>;
   price: number;
   salePercentage: number;
   stock: number;
@@ -78,6 +81,8 @@ export type ProductFormState = {
   brand: string;
   colors: string[];
   sizes: string[];
+  sizeStock: Record<string, number | "">;
+  isStockAuto: boolean;
   price: string;
   salePercentage: string;
   stock: string;

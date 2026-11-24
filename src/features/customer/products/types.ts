@@ -23,6 +23,7 @@ export type CustomerProduct = {
   images: ProductImage[];
   colors: string[];
   sizes: ProductSize[];
+  sizeStock?: Record<string, number>;
   price: number;
   salePercentage: number;
   status: "active" | "inactive";

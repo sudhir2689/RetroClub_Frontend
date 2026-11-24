@@ -71,6 +71,7 @@ export function ProductDialog({
     isEditMode,
     updateField,
     toggleSize,
+    updateSizeStock,
     addColor,
     removeColor,
     addFiles,
@@ -229,7 +230,12 @@ export function ProductDialog({
               onRemove={removeColor}
             />
 
-            <SizeSelector selectedSizes={form.sizes} onToggle={toggleSize} />
+            <SizeSelector
+              selectedSizes={form.sizes}
+              sizeStock={form.sizeStock}
+              onToggle={toggleSize}
+              onSizeStockChange={updateSizeStock}
+            />
           </div>
 
           <ImagePicker

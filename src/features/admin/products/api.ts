@@ -58,6 +58,10 @@ function buildProductFormData(
   body.colors.forEach((color) => formData.append("colors", color));
   body.sizes.forEach((size) => formData.append("sizes", size));
 
+  if (body.sizeStock && Object.keys(body.sizeStock).length > 0) {
+    formData.append("sizeStock", JSON.stringify(body.sizeStock));
+  }
+
   if ("existingImages" in body && body.existingImages) {
     formData.append("existingImages", JSON.stringify(body.existingImages));
   }

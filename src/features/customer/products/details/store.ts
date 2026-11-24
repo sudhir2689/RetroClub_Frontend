@@ -68,12 +68,18 @@ export const useCustomerProductDetailsStore =
         const response = await getCustomerProductDetails(productId);
         const product = response?.product ?? null;
 
+        const availableSizes = (product?.sizes || []).filter((s) => {
+          if (!product?.sizeStock || Object.keys(product.sizeStock).length === 0) return true;
+          const stockVal = product.sizeStock[s];
+          return stockVal === undefined || stockVal > 0;
+        });
+
         set({
           loading: false,
           data: response ?? null,
           selectedImage: product ? getCoverImage(product) : "",
           selectedColor: product?.colors?.[0] || "",
-          selectedSize: product?.sizes?.[0] || "",
+          selectedSize: (availableSizes[0] as ProductSize) || "",
         });
       } catch {
         set({

@@ -257,6 +257,11 @@ function CustomerOrdersDialog() {
                                       </Link>
                                       <div className="flex items-center gap-2 text-[11px] text-zinc-500 font-medium">
                                         <span>Qty: {prodItem.quantity}</span>
+                                        {prodItem.size ? (
+                                          <span className="font-semibold text-black">
+                                            • Size: {prodItem.size}
+                                          </span>
+                                        ) : null}
                                         {prodItem.brand ? (
                                           <span>• {prodItem.brand}</span>
                                         ) : null}
