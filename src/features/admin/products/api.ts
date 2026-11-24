@@ -62,7 +62,7 @@ function buildProductFormData(
     formData.append("sizeStock", JSON.stringify(body.sizeStock));
   }
 
-  if ("existingImages" in body && body.existingImages) {
+  if ("existingImages" in body && Array.isArray(body.existingImages)) {
     formData.append("existingImages", JSON.stringify(body.existingImages));
   }
 
